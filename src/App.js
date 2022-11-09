@@ -1,5 +1,6 @@
 import React from 'react'
 import './css/App.css';
+import 'semantic-ui-css/semantic.min.css'
 import HomePage from "./pages/HomePage"
 import SeatSelectionPage from "./pages/SeatSelectionPage"
 import MovieSelectionPage from "./pages/MovieSelectionPage"

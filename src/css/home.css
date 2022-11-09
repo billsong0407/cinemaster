@@ -1,0 +1,10 @@
+.locationDropDown {
+    width: 50%;
+    border-color: lightskyblue !important;
+    border-width: 2px !important;
+    border-right: none !important;
+}
+
+.locationButton {
+    height: 40px;
+}

@@ -36,6 +36,8 @@
     ]
   },
   "devDependencies": {
-    "react-router-dom": "^6.4.3"
+    "react-router-dom": "^6.4.3",
+    "semantic-ui-css": "^2.5.0",
+    "semantic-ui-react": "^2.1.3"
   }
 }
