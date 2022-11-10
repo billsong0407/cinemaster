@@ -69,7 +69,7 @@ class HomePage extends Component {
                         options={locationOptions}
                         onChange={this.onLocationChange}
                     />
-                    <Button className="locationButton" inverted color='blue' content='Next' icon='right arrow' labelPosition='right' />
+                    <Button className="locationButton" inverted color='teal' content='Next' icon='right arrow' labelPosition='right' />
                 </Segment>
             </Container>
         </Container>
