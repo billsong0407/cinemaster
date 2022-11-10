@@ -1,19 +1,32 @@
-.all {
-    margin-top: 3vh;
+.checkout {
+    padding: 5em 6em 6em 6em;
+    background-color: #323333;
+    min-height: calc(100vh);
 }
 
-.label {
+.summary{
+    background-color: #ede6e6;
+}
+
+
+/* .label {
     text-align: left;
-  }
+  } */
 
 .form {
-    margin: 2em 0 2em 20em;
+    padding: 2em 0 2em 5em;
 }
 
 .description {
-    margin-left: 6em;
-    height: 75%;
+    margin: 2vh 0 0 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.details {
+    width: inherit;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
 }
