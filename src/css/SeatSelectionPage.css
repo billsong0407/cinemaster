@@ -8,10 +8,19 @@
     border-color: teal !important;
 } */
 
-.container {
-    width: 500px;
-    margin: auto;
+.container-4perRow{
+    width: 400px;
+    /* margin: auto; */
+    margin-left: 1%;
     padding-top: 10px;
+}
+
+.container {
+    width: 300px;
+    /* margin: auto; */
+    margin-left: 1%;
+    padding-top: 10px;
+    
   }
   
 .grid td {

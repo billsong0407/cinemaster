@@ -46,21 +46,31 @@ const showtimes = [
     "8:00 p.m.", "8:30 p.m.", "8:40 p.m.", "9:00 p.m.", "9:45 p.m.",
 ]
 
+const seatLeft = [
+    'A1','A2','A3',
+    'B1','B2','B3',
+    'C1','C2','C3',
+    'D1','D2','D3',
+    
+  ]
 const seat = [
-    'A1','A2','A3','A4','A5',
-    'B1','B2','B3','B4','B5',
-    'C1','C2','C3','C4','C5', 
-    'D1','D2','D3','D4','D5',
+    'A4','A5','A6','A7',
+    'B4','B5','B6','B7',
+    'C4','C5','C6','C7',
+    'D4','D5','D6','D7'
+  ]
+const seatRight = [
+    'A8','A9','A10',
+    'B8','B9','B10',
+    'C8','C9','C10',
+    'D8','D9','D10'
+    
   ]
 
-const seatAvailable = [
-    'A1','A2','A3','A4','A5',
-    'B1','B4','B5',
-    'C1','C2','C4', 
-    'D1','D2','D3','D4','D5',
-  ]
+const seatAvailable = []
 
-const seatReserved = ["B2", "B3", "C3", "C5"]
+const seatReserved = []
+
 
 class SeatSelectionPage extends Component {
     constructor(props){
@@ -69,8 +79,10 @@ class SeatSelectionPage extends Component {
             showdates: showdates,
             showtimes: showtimes,
             seat: seat,
+            seatRight: seatRight,
+            seatLeft: seatLeft,
             seatAvailable: seatAvailable,
-            seatReserved: seatReserved
+            seatReserved: seatReserved,
         }
     }
 
@@ -81,7 +93,19 @@ class SeatSelectionPage extends Component {
             seatAvailable: this.state.seatAvailable.concat(seat),
             seatReserved: this.state.seatReserved.filter(res => res !== seat)
           })
-        } else {
+        } else if(this.state.seatReserved.indexOf(seatRight) > -1 ){
+            this.setState({
+                seatAvailable: this.state.seatAvailable.concat(seatRight),
+                seatReserved: this.state.seatReserved.filter(res => res !== seatRight)
+              })
+        }
+        else if(this.state.seatReserved.indexOf(seatLeft) > -1 ){
+            this.setState({
+                seatAvailable: this.state.seatAvailable.concat(seatLeft),
+                seatReserved: this.state.seatReserved.filter(res => res !== seatLeft)
+              })
+        }
+        else {
           this.setState({
             seatReserved: this.state.seatReserved.concat(seat),
             seatAvailable: this.state.seatAvailable.filter(res => res !== seat)
@@ -158,14 +182,32 @@ class SeatSelectionPage extends Component {
                 </Grid.Row>
 
                 <Grid.Row>
-                <Grid.Column width={2} style={{textAlign: 'center'}}>
+                <Grid.Column width={3} style={{textAlign: 'center'}}>
                     <h3>3.  Please select a seat</h3>
                     <h4>Available</h4>
                     <div className="legend-available" />
                     <h4>Reserved</h4>
                     <div className="legend-reserved" />
+                    
                 </Grid.Column>
-                    <Grid.Column width={12} style={{textAlign: 'center'}}>
+
+                <Grid.Column width={4} style={{textAlign: 'center'}}>
+                    <h3>SCREEN</h3>
+                        <div>
+                            <DrawGridLeft 
+                            seatLeft = { this.state.seatLeft }
+                            available = { this.state.seatAvailable }
+                            reserved = { this.state.seatReserved }
+                            onClickData = { this.onClickData.bind(this) }
+                            />
+
+                        
+                            
+                        </div>
+
+                    </Grid.Column>
+
+                    <Grid.Column width={5} style={{textAlign: 'center'}}>
                     <h3>SCREEN</h3>
                         <div>
                             <DrawGrid 
@@ -174,9 +216,29 @@ class SeatSelectionPage extends Component {
                             reserved = { this.state.seatReserved }
                             onClickData = { this.onClickData.bind(this) }
                             />
+
+                        
+                            
                         </div>
 
                     </Grid.Column>
+                    <Grid.Column width={4} style={{textAlign: 'center'}}>
+                    <h3>SCREEN</h3>
+                        <div>
+                            <DrawGridRight 
+                            seatRight = { this.state.seatRight }
+                            available = { this.state.seatAvailable }
+                            reserved = { this.state.seatReserved }
+                            onClickData = { this.onClickData.bind(this) }
+                            />
+
+                        
+                            
+                        </div>
+
+                    </Grid.Column>
+                    
+                    
                 </Grid.Row>
             </Grid>
             </>
@@ -187,12 +249,64 @@ class SeatSelectionPage extends Component {
 class DrawGrid extends React.Component {
     render() {
       return (
-         <div className="container">
+         <div className="container-4perRow">
           
           <table className="grid">
             <tbody>
                 <tr>
                   { this.props.seat.map( row =>
+                    <td 
+                      className={this.props.reserved.indexOf(row) > -1? 'reserved': 'available'}
+                      key={row} onClick = {e => this.onClickSeat(row)}>{row} </td>) }
+                </tr>
+            </tbody>
+          </table>
+          
+          
+         </div>
+      )
+    }
+    
+    onClickSeat(seat) {
+      this.props.onClickData(seat);
+    }
+  }
+
+  class DrawGridRight extends React.Component {
+    render() {
+      return (
+         <div className="container">
+          
+          <table className="grid">
+            <tbody>
+                <tr>
+                  { this.props.seatRight.map( row =>
+                    <td 
+                      className={this.props.reserved.indexOf(row) > -1? 'reserved': 'available'}
+                      key={row} onClick = {e => this.onClickSeat(row)}>{row} </td>) }
+                </tr>
+            </tbody>
+          </table>
+          
+          
+         </div>
+      )
+    }
+    
+    onClickSeat(seat) {
+      this.props.onClickData(seat);
+    }
+  }
+
+  class DrawGridLeft extends React.Component {
+    render() {
+      return (
+         <div className="container">
+          
+          <table className="grid">
+            <tbody>
+                <tr>
+                  { this.props.seatLeft.map( row =>
                     <td 
                       className={this.props.reserved.indexOf(row) > -1? 'reserved': 'available'}
                       key={row} onClick = {e => this.onClickSeat(row)}>{row} </td>) }
