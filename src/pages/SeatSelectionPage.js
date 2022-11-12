@@ -166,6 +166,7 @@ class SeatSelectionPage extends Component {
                     <div className="legend-reserved" />
                 </Grid.Column>
                     <Grid.Column width={12} style={{textAlign: 'center'}}>
+                    <h3>SCREEN</h3>
                         <div>
                             <DrawGrid 
                             seat = { this.state.seat }
