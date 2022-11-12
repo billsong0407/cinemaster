@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import BrandHeader from "../components/header";
-import { Grid, Card, Button } from 'semantic-ui-react'
+import CarouselCard from "../components/DateCard"
+
+import { Grid } from 'semantic-ui-react'
 import Carousel from 'react-multi-carousel';
+
 import 'react-multi-carousel/lib/styles.css';
 import '../css/SeatSelectionPage.css';
 
@@ -9,7 +12,7 @@ const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 3000 },
-    items: 7
+    items: 6
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -25,7 +28,26 @@ const responsive = {
   }
 };
 
+const showdates = [
+    {"day": "Monday", "date": "Apr 10th, 2020"},
+    {"day": "Tuesday", "date": "Apr 11th, 2020"},
+    {"day": "Wednesday", "date": "Apr 12th, 2020"},
+    {"day": "Thursday", "date": "Apr 13th, 2020"},
+    {"day": "Friday", "date": "Apr 14th, 2020"},
+    {"day": "Saturday", "date": "Apr 15th, 2020"},
+    {"day": "Sunday", "date": "Apr 16th, 2020"},
+    {"day": "Monday", "date": "Apr 17th, 2020"},
+    {"day": "Tuesday", "date": "Apr 18th, 2020"},
+];
+
+
 class SeatSelectionPage extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            showdates: showdates,
+        }
+    }
     render() {
         return (
             <>
@@ -35,12 +57,12 @@ class SeatSelectionPage extends Component {
                 <Grid.Column width={3} style={{textAlign: 'center'}}>
                     <h3>1. Please select a date</h3>
                 </Grid.Column>
-                <Grid.Column width={13}>
+                <Grid.Column width={12}>
                     <Carousel
-                        swipeable={false}
+                        swipeable={true}
                         draggable={false}
                         responsive={responsive}
-                        centerMode={true}
+                        centerMode={false}
                         ssr={true} // means to render carousel on server-side.
                         keyBoardControl={true}
                         customTransition="all .5"
@@ -48,80 +70,20 @@ class SeatSelectionPage extends Component {
                         containerClass="carousel-container"
                         // removeArrowOnDeviceType={["mobile"]}
                         deviceType={this.props.deviceType}
-                        // itemClass="carousel-item-padding-30-px"
+                        itemClass="carousel-item-padding-30-px"
                         >
+                            {this.state.showdates.map(showdate =>(
+                                <CarouselCard
+                                    day={showdate.day}
+                                    date={showdate.date}
+                                />
+                            ))}
                         <div>
-                            <Card className='date-card'>
-                                <Card.Content>
-                                    <p>Monday</p>
-                                    <p>September 5</p>
-                                </Card.Content>
-                                <Card.Content extra>
-                                    <div>
-                                    <Button inverted color='green'>
-                                        Select Time
-                                    </Button>
-                                    </div>
-                                </Card.Content>
-                            </Card>
-                        </div>
-                        <div>
-                            <Card className='date-card'>
-                                <Card.Content>
-                                    <p>Monday</p>
-                                    <p>September 5</p>
-                                </Card.Content>
-                                <Card.Content color='blue' extra>
-                                    <div>
-                                    <Button inverted color='green'>
-                                        Select Time
-                                    </Button>
-                                    </div>
-                                </Card.Content>
-                            </Card>
-                        </div>
-                        <div>
-                            <Card className='date-card' color='teal'>
-                                <Card.Content>
-                                    <p>Monday</p>
-                                    <p>September 5</p>
-                                </Card.Content>
-                                <Card.Content extra>
-                                    <div>
-                                    <Button inverted color='green'>
-                                        Select Time
-                                    </Button>
-                                    </div>
-                                </Card.Content>
-                            </Card>
-                        </div>
-                        <div>
-                            <Card className='date-card'>
-                                <Card.Content>
-                                    <p>Monday</p>
-                                    <p>September 5</p>
-                                </Card.Content>
-                                <Card.Content extra>
-                                    <div>
-                                    <Button inverted color='green'>
-                                        Select Time
-                                    </Button>
-                                    </div>
-                                </Card.Content>
-                            </Card>
+                            
                         </div>
                     </Carousel>
                 </Grid.Column>
                 </Grid.Row>
-
-                {/* <Grid.Row>
-                <Grid.Column width={3}>
-                    <h3>Please select a time</h3>
-                </Grid.Column>
-                <Grid.Column width={13}>
-                    <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-                </Grid.Column>
-                </Grid.Row> */}
             </Grid>
             </>
         )
