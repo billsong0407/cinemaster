@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Card, Button } from 'semantic-ui-react'
 
-class CarouselCard extends Component {
+class DateCard extends Component {
 
     // component constructor
     constructor(props){
@@ -23,7 +23,7 @@ class CarouselCard extends Component {
                     <Card.Content extra style={{textAlign: 'center'}}>
                         <div>
                         <Button inverted color='green'>
-                            Select Time
+                            Select Date
                         </Button>
                         </div>
                     </Card.Content>
@@ -33,4 +33,4 @@ class CarouselCard extends Component {
     }
 }
 
-export default CarouselCard;
+export default DateCard;
