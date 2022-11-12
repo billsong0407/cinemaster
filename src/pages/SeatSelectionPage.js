@@ -46,6 +46,21 @@ const showtimes = [
     "8:00 p.m.", "8:30 p.m.", "8:40 p.m.", "9:00 p.m.", "9:45 p.m.",
 ]
 
+const seat = [
+    'A1','A2','A3','A4','A5',
+    'B1','B2','B3','B4','B5',
+    'C1','C2','C3','C4','C5', 
+    'D1','D2','D3','D4','D5',
+  ]
+
+const seatAvailable = [
+    'A1','A2','A3','A4','A5',
+    'B1','B4','B5',
+    'C1','C2','C4', 
+    'D1','D2','D3','D4','D5',
+  ]
+
+const seatReserved = ["B2", "B3", "C3", "C5"]
 
 class SeatSelectionPage extends Component {
     constructor(props){
@@ -53,8 +68,27 @@ class SeatSelectionPage extends Component {
         this.state = {
             showdates: showdates,
             showtimes: showtimes,
+            seat: seat,
+            seatAvailable: seatAvailable,
+            seatReserved: seatReserved
         }
     }
+
+    /** For choosing seat onclick */
+    onClickData(seat) {
+        if(this.state.seatReserved.indexOf(seat) > -1 ) {
+          this.setState({
+            seatAvailable: this.state.seatAvailable.concat(seat),
+            seatReserved: this.state.seatReserved.filter(res => res !== seat)
+          })
+        } else {
+          this.setState({
+            seatReserved: this.state.seatReserved.concat(seat),
+            seatAvailable: this.state.seatAvailable.filter(res => res !== seat)
+          })
+        }
+      }
+
     render() {
         return (
             <>
@@ -131,11 +165,60 @@ class SeatSelectionPage extends Component {
                     </Carousel>
                 </Grid.Column>
                 </Grid.Row>
+
+                <Grid.Row>
+                <Grid.Column width={2} style={{textAlign: 'center'}}>
+                    <h3>3.  Please select a seat</h3>
+                    <h4>Available</h4>
+                    <div className="legend-available" />
+                    <h4>Reserved</h4>
+                    <div className="legend-reserved" />
+                </Grid.Column>
+                    <Grid.Column width={12} style={{textAlign: 'center'}}>
+                    <h3>SCREEN</h3>
+                        <div>
+                            <DrawGrid 
+                            seat = { this.state.seat }
+                            available = { this.state.seatAvailable }
+                            reserved = { this.state.seatReserved }
+                            onClickData = { this.onClickData.bind(this) }
+                            />
+                        </div>
+
+                    </Grid.Column>
+                </Grid.Row>
             </Grid>
             </>
         )
     }
 }
 
+class DrawGrid extends React.Component {
+    render() {
+      return (
+         <div className="container">
+          
+          <table className="grid">
+            <tbody>
+                <tr>
+                  { this.props.seat.map( row =>
+                    <td 
+                      className={this.props.reserved.indexOf(row) > -1? 'reserved': 'available'}
+                      key={row} onClick = {e => this.onClickSeat(row)}>{row} </td>) }
+                </tr>
+            </tbody>
+          </table>
+          
+          
+         </div>
+      )
+    }
+    
+    onClickSeat(seat) {
+      this.props.onClickData(seat);
+    }
+  }
+  
+  
 
 export default SeatSelectionPage;
