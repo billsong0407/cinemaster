@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+.ui.menu {
+    /* border: none !important;
+    border-bottom: 1px #6dffff !important; */
+    box-shadow: 0 1px 2px 0 #6dffff !important;
+}
+
+.brand-name{
+    font-family: 'Righteous', cursive !important;
+}
+
+.back-button {
+    display: block !important;
+    text-align: left !important;
+}
