@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import BrandHeader from "../components/header";
-import CarouselCard from "../components/DateCard"
+import DateCard from "../components/DateCard"
+import TimeCard from "../components/TimeCard"
 
 import { Grid } from 'semantic-ui-react'
 import Carousel from 'react-multi-carousel';
@@ -40,12 +41,18 @@ const showdates = [
     {"day": "Tuesday", "date": "Apr 18th, 2020"},
 ];
 
+const showtimes = [
+    "11:00 a.m.", "11:45 a.m.", "12:40 p.m.", "1:00 p.m.", "2:45 p.m.",
+    "8:00 p.m.", "8:30 p.m.", "8:40 p.m.", "9:00 p.m.", "9:45 p.m.",
+]
+
 
 class SeatSelectionPage extends Component {
     constructor(props){
         super(props);
         this.state = {
             showdates: showdates,
+            showtimes: showtimes,
         }
     }
     render() {
@@ -54,8 +61,8 @@ class SeatSelectionPage extends Component {
             <BrandHeader></BrandHeader>
             <Grid stackable verticalAlign='middle' centered>
                 <Grid.Row>
-                <Grid.Column width={3} style={{textAlign: 'center'}}>
-                    <h3>1. Please select a date</h3>
+                <Grid.Column width={2} style={{textAlign: 'center'}}>
+                    <h3>1.  Please select a date</h3>
                 </Grid.Column>
                 <Grid.Column width={12}>
                     <Carousel
@@ -73,9 +80,40 @@ class SeatSelectionPage extends Component {
                         itemClass="carousel-item-padding-30-px"
                         >
                             {this.state.showdates.map(showdate =>(
-                                <CarouselCard
+                                <DateCard
                                     day={showdate.day}
                                     date={showdate.date}
+                                />
+                            ))}
+                        <div>
+                            
+                        </div>
+                    </Carousel>
+                </Grid.Column>
+                </Grid.Row>
+
+                <Grid.Row>
+                <Grid.Column width={2} style={{textAlign: 'center'}}>
+                    <h3>2.  Please select a time</h3>
+                </Grid.Column>
+                <Grid.Column width={12}>
+                    <Carousel
+                        swipeable={true}
+                        draggable={false}
+                        responsive={responsive}
+                        centerMode={false}
+                        ssr={true} // means to render carousel on server-side.
+                        keyBoardControl={true}
+                        customTransition="all .5"
+                        transitionDuration={500}
+                        containerClass="carousel-container"
+                        // removeArrowOnDeviceType={["mobile"]}
+                        deviceType={this.props.deviceType}
+                        itemClass="carousel-item-padding-30-px"
+                        >
+                            {this.state.showtimes.map(time =>(
+                                <TimeCard
+                                    time={time}
                                 />
                             ))}
                         <div>
