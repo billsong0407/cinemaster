@@ -4,8 +4,8 @@ import DateCard from "../components/DateCard"
 import TimeCard from "../components/TimeCard"
 
 import { TextField } from "@mui/material";
+import { Grid, Divider, Header, Icon } from 'semantic-ui-react'
 
-import { Grid } from 'semantic-ui-react'
 import Carousel from 'react-multi-carousel';
 
 import 'react-multi-carousel/lib/styles.css';
@@ -143,10 +143,18 @@ class SeatSelectionPage extends Component {
         return (
             <>
             <BrandHeader></BrandHeader>
+            <Divider horizontal style={{color: 'red'}}>
+                <Header as='h4'>
+                    <Icon name='video' />
+                    Avengers 3: Infinite Warefare
+                </Header>
+            </Divider>
             <Grid stackable verticalAlign='middle' centered>
+               
                 <Grid.Row>
                 <Grid.Column width={2} style={{textAlign: 'center'}}>
                     <h3>1.  Please select a date</h3>
+                    <Icon name="calendar alternate outline"/>
                 </Grid.Column>
                 <Grid.Column width={12}>
                     <Carousel
@@ -179,6 +187,7 @@ class SeatSelectionPage extends Component {
                 <Grid.Row>
                 <Grid.Column width={2} style={{textAlign: 'center'}}>
                     <h3>2.  Please select a time</h3>
+                    <Icon name="clock outline"/>
                 </Grid.Column>
                 <Grid.Column width={12}>
                     <Carousel
