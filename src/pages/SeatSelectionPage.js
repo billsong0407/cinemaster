@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import BrandHeader from "../components/header";
-import DateCard from "../components/DateCard"
 
 import { Grid, Divider, Header, Icon, Button, Card} from 'semantic-ui-react'
-
 import Carousel from 'react-multi-carousel';
 
 import 'react-multi-carousel/lib/styles.css';
@@ -11,7 +9,6 @@ import '../css/SeatSelectionPage.css';
 
 const responsive = {
   superLargeDesktop: {
-    // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 3000 },
     items: 6
   },
@@ -84,6 +81,8 @@ class SeatSelectionPage extends Component {
             adultCount: 1,
             childrenCount: 0,
             seniorCount: 0,
+            selectedDate: null,
+            selectedDateObject: null,
             selectedTime: null,
             selectedTimeObject: null,
 
@@ -124,6 +123,21 @@ class SeatSelectionPage extends Component {
         }
       }
     
+    onDateChange = (event) => {
+      if (this.state.selectedDateObject !== null){
+        let curr = this.state.selectedDateObject
+        curr.style.backgroundColor = 'white';
+        curr.style.color = 'black';  
+      }
+      event.currentTarget.style.backgroundColor = 'teal';
+      event.currentTarget.style.color = 'white';
+      this.setState({
+        selectedDateObject: event.currentTarget,
+        selectedDate: event.currentTarget.name,
+      })
+      console.log(this.state.selectedDate);
+    }
+
     onTimeChange = (event) => {
       if (this.state.selectedTimeObject !== null){
         let curr = this.state.selectedTimeObject
@@ -209,12 +223,14 @@ class SeatSelectionPage extends Component {
                         deviceType={this.props.deviceType}
                         itemClass="carousel-item-padding-30-px"
                         >
-                            {this.state.showdates.map(showdate =>(
-                                <DateCard
-                                    day={showdate.day}
-                                    date={showdate.date}
-                                />
-                            ))}
+                          {this.state.showdates.map(showdate =>(
+                              <Card name={showdate.date} style={{color: 'black'}} className="cardStyle" color='teal' onClick={this.onDateChange}>
+                                <Card.Content style={{textAlign: 'center'}}>
+                                    <p>{showdate.day}</p>
+                                    <p>{showdate.date}</p>
+                                </Card.Content>
+                            </Card>
+                          ))}
                         <div>
                             
                         </div>
@@ -243,7 +259,7 @@ class SeatSelectionPage extends Component {
                       itemClass="carousel-item-padding-30-px"
                     >
                       {this.state.showtimes.map(time =>(
-                        <Card name={time} style={{maxWidth: '100px !important'}} color='teal' onClick={this.onTimeChange}>
+                        <Card name={time} className="cardStyle" style={{color: 'black'}} color='teal' onClick={this.onTimeChange}>
                             <Card.Content style={{textAlign: 'center'}}>
                                 <p>{time}</p>
                             </Card.Content>
