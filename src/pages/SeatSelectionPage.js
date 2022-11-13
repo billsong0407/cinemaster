@@ -1,11 +1,7 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import BrandHeader from "../components/header";
-import DateCard from "../components/DateCard"
-import TimeCard from "../components/TimeCard"
 
-import { TextField } from "@mui/material";
-import { Grid, Divider, Header, Icon } from 'semantic-ui-react'
-
+import { Grid, Divider, Header, Icon, Button, Card} from 'semantic-ui-react'
 import Carousel from 'react-multi-carousel';
 
 import 'react-multi-carousel/lib/styles.css';
@@ -13,7 +9,6 @@ import '../css/SeatSelectionPage.css';
 
 const responsive = {
   superLargeDesktop: {
-    // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 3000 },
     items: 6
   },
@@ -83,6 +78,14 @@ class SeatSelectionPage extends Component {
         this.state = {
             showdates: showdates,
             showtimes: showtimes,
+            adultCount: 1,
+            childrenCount: 0,
+            seniorCount: 0,
+            selectedDate: null,
+            selectedDateObject: null,
+            selectedTime: null,
+            selectedTimeObject: null,
+
             seat: seat,
             seatRight: seatRight,
             seatLeft: seatLeft,
@@ -90,10 +93,6 @@ class SeatSelectionPage extends Component {
             seatReserved: seatReserved,
             count: 0
         }
-        
-    }
-    componentDidMount() {
-        //this.state = { data: data };
         
     }
 
@@ -124,22 +123,75 @@ class SeatSelectionPage extends Component {
         }
       }
     
-    incrementCount = () =>{
+    onDateChange = (event) => {
+      if (this.state.selectedDateObject !== null){
+        let curr = this.state.selectedDateObject
+        curr.style.backgroundColor = 'white';
+        curr.style.color = 'black';  
+      }
+      event.currentTarget.style.backgroundColor = 'teal';
+      event.currentTarget.style.color = 'white';
+      this.setState({
+        selectedDateObject: event.currentTarget,
+        selectedDate: event.currentTarget.name,
+      })
+      console.log(this.state.selectedDate);
+    }
+
+    onTimeChange = (event) => {
+      if (this.state.selectedTimeObject !== null){
+        let curr = this.state.selectedTimeObject
+        curr.style.backgroundColor = 'white';
+        curr.style.color = 'black';  
+      }
+      event.currentTarget.style.backgroundColor = 'teal';
+      event.currentTarget.style.color = 'white';
+      this.setState({
+        selectedTimeObject: event.currentTarget,
+        selectedTime: event.currentTarget.name,
+      })
+    }
+    
+    incrementCount = (ticketType) =>{
         this.setState(prevState => {
-            return {count: prevState.count + 1}
+          switch(ticketType) {
+            case "children":
+              return {childrenCount: prevState.childrenCount+ 1};
+            case "adult":
+              return {adultCount: prevState.adultCount+1};
+            case 'senior':
+              return {seniorCount: prevState.seniorCount + 1};
+            default:
+              return null;
+          }
         })
     }
 
-    decrementCount = () =>{
-        if (this.state.count > 0){
+    decrementCount = (ticketType) =>{
         this.setState(prevState => {
-            return {count: prevState.count -1}
+          switch(ticketType) {
+            case "children":
+              if (this.state.childrenCount > 0){
+                return {childrenCount: prevState.childrenCount-1};
+              }
+              break;
+            case "adult":
+              if (this.state.adultCount > 1){
+                return {adultCount: prevState.adultCount-1};
+              }
+              break;
+            case 'senior':
+              if (this.state.seniorCount > 0){
+                return {seniorCount: prevState.seniorCount-1};
+              }
+              break;
+            default:
+              return null;
+          }
         })
-    }
     }
 
     render() {
-        const {count} = this.state
         return (
             <>
             <BrandHeader></BrandHeader>
@@ -156,7 +208,7 @@ class SeatSelectionPage extends Component {
                     <h3>1.  Please select a date</h3>
                     <Icon name="calendar alternate outline"/>
                 </Grid.Column>
-                <Grid.Column width={12}>
+                <Grid.Column width={13}>
                     <Carousel
                         swipeable={true}
                         draggable={false}
@@ -171,12 +223,14 @@ class SeatSelectionPage extends Component {
                         deviceType={this.props.deviceType}
                         itemClass="carousel-item-padding-30-px"
                         >
-                            {this.state.showdates.map(showdate =>(
-                                <DateCard
-                                    day={showdate.day}
-                                    date={showdate.date}
-                                />
-                            ))}
+                          {this.state.showdates.map(showdate =>(
+                              <Card name={showdate.date} style={{color: 'black'}} className="cardStyle" color='teal' onClick={this.onDateChange}>
+                                <Card.Content style={{textAlign: 'center'}}>
+                                    <p>{showdate.day}</p>
+                                    <p>{showdate.date}</p>
+                                </Card.Content>
+                            </Card>
+                          ))}
                         <div>
                             
                         </div>
@@ -189,70 +243,70 @@ class SeatSelectionPage extends Component {
                     <h3>2.  Please select a time</h3>
                     <Icon name="clock outline"/>
                 </Grid.Column>
-                <Grid.Column width={12}>
+                <Grid.Column width={13}>
                     <Carousel
-                        swipeable={true}
-                        draggable={false}
-                        responsive={responsive}
-                        centerMode={false}
-                        ssr={true} // means to render carousel on server-side.
-                        keyBoardControl={true}
-                        customTransition="all .5"
-                        transitionDuration={500}
-                        containerClass="carousel-container"
-                        // removeArrowOnDeviceType={["mobile"]}
-                        deviceType={this.props.deviceType}
-                        itemClass="carousel-item-padding-30-px"
-                        >
-                            {this.state.showtimes.map(time =>(
-                                <TimeCard
-                                    time={time}
-                                />
-                            ))}
-                        <div>
-                            
-                        </div>
+                      swipeable={true}
+                      draggable={false}
+                      responsive={responsive}
+                      centerMode={false}
+                      ssr={true} // means to render carousel on server-side.
+                      keyBoardControl={true}
+                      customTransition="all .5"
+                      transitionDuration={500}
+                      containerClass="carousel-container"
+                      // removeArrowOnDeviceType={["mobile"]}
+                      deviceType={this.props.deviceType}
+                      itemClass="carousel-item-padding-30-px"
+                    >
+                      {this.state.showtimes.map(time =>(
+                        <Card name={time} className="cardStyle" style={{color: 'black'}} color='teal' onClick={this.onTimeChange}>
+                            <Card.Content style={{textAlign: 'center'}}>
+                                <p>{time}</p>
+                            </Card.Content>
+                        </Card>
+                      ))}
                     </Carousel>
                 </Grid.Column>
                 </Grid.Row>
 
                 <Grid.Row>
-                <Grid.Column width={3} style={{textAlign: 'center'}}>
-                    <h3>3.  Please select a seat</h3>
-                    <h4>Available</h4>
-                    <div className="legend-available" />
-                    <h4>Reserved</h4>
-                    <div className="legend-reserved" />
-                    <h4>Tickets</h4>
-                    <Grid.Row>
-                    
-                    <div className='tickets'>
-
-                    <Grid.Row>
-                    <button onClick={this.incrementCount}>+</button>
-                    <TextField className="textfield" id="outlined-basic" label={"Adult : "+count} variant="outlined" size="small" style = {{width: 110}} inputProps={{ style: {textAlign: 'center'} }}/>            
-                    <button onClick={this.decrementCount}>-</button>
-                    </Grid.Row>
-
-                    <Grid.Row>
-                    <button onClick={this.incrementCount}>+</button>
-                    <TextField className="textfield" id="outlined-basic" label={"Children : "+count} variant="outlined" size="small" style = {{width: 110}} inputProps={{ style: {textAlign: 'center'} }}/>              
-                    <button onClick={this.decrementCount}>-</button>
-                    </Grid.Row>
-
-                    <Grid.Row> 
-                    <button onClick={this.incrementCount}>+</button>
-                    <TextField className="textfield" id="outlined-basic" label={"Senior : "+count} variant="outlined" size="small" style = {{width: 110}} inputProps={{ style: {textAlign: 'center'} }}/>            
-                    <button onClick={this.decrementCount}>-</button>
-                    </Grid.Row>
-                    </div>
-                    
-                    </Grid.Row>
-                    
-                    
+                <Grid.Column width={2} style={{textAlign: 'center'}}>                    
+                    <h3>3.  Please select the number of tickets</h3>       
                 </Grid.Column>
-
-                <Grid.Column width={4} style={{textAlign: 'center'}}>
+                <Grid.Column width={13} style={{textAlign: 'center'}}>
+                    <Button.Group className='ticketGroup'>
+                        <Button active basic color="teal" className='ticketLabel'>Children</Button>
+                        <Button color="blue" onClick={() => this.decrementCount("children")} icon='minus' />
+                        <Button basic color='black' className='ticketCountLabel'>
+                          {this.state.childrenCount}
+                        </Button>
+                        <Button color="blue" onClick={() => this.incrementCount("children")} icon='plus' />
+                    </Button.Group>                    
+            
+                    <Button.Group className='ticketGroup'>
+                        <Button active basic color="teal" className='ticketLabel'>Adults</Button>
+                        <Button color="blue" onClick={() => this.decrementCount("adult")} icon='minus' />
+                        <Button basic color="black" className='ticketCountLabel'>
+                          {this.state.adultCount}
+                        </Button>
+                        <Button color="blue" onClick={() => this.incrementCount("adult")} icon='plus' />
+                    </Button.Group>                    
+              
+                    <Button.Group className='ticketGroup'>
+                        <Button active basic color="teal" className='ticketLabel'>Seniors</Button>
+                        <Button color="blue" onClick={() => this.decrementCount("senior")} icon='minus' />
+                        <Button basic color="black" className='ticketCountLabel'>
+                          {this.state.seniorCount}
+                        </Button>
+                        <Button color="blue" onClick={() => this.incrementCount("senior")} icon='plus' />
+                    </Button.Group>  
+                </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                <Grid.Column width={2} style={{textAlign: 'center'}}>                    
+                      <h3>3.  Please select the seats</h3>       
+                </Grid.Column>
+                <Grid.Column width={13} style={{textAlign: 'center'}}> 
                     <h3>SCREEN</h3>
                         <div>
                             <DrawGridLeft 
@@ -261,13 +315,8 @@ class SeatSelectionPage extends Component {
                             reserved = { this.state.seatReserved }
                             onClickData = { this.onClickData.bind(this) }
                             />
-
-                        
-                            
                         </div>
-
                     </Grid.Column>
-
                     <Grid.Column width={5} style={{textAlign: 'center'}}>
                     <h3>SCREEN</h3>
                         <div>
@@ -277,14 +326,10 @@ class SeatSelectionPage extends Component {
                             reserved = { this.state.seatReserved }
                             onClickData = { this.onClickData.bind(this) }
                             />
-
-                        
-                            
                         </div>
-
                     </Grid.Column>
                     <Grid.Column width={4} style={{textAlign: 'center'}}>
-                    <h3>SCREEN</h3>
+                        <h3>SCREEN</h3>
                         <div>
                             <DrawGridRight 
                             seatRight = { this.state.seatRight }
@@ -292,15 +337,15 @@ class SeatSelectionPage extends Component {
                             reserved = { this.state.seatReserved }
                             onClickData = { this.onClickData.bind(this) }
                             />
-
-                        
-                            
                         </div>
-
                     </Grid.Column>
+                  </Grid.Row>
+                {/* <Grid.Column width={13} style={{textAlign: 'center'}}> */}
                     
                     
-                </Grid.Row>
+                    
+               
+                
             </Grid>
             </>
         )

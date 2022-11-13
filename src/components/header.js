@@ -5,7 +5,7 @@ import '../css/header.css';
 class BrandHeader extends Component {
   render() {
     return (
-        <Menu widths={3} classname="brand-container" borderless>
+        <Menu widths={3} className="brand-container" borderless>
           <Menu.Item className='back-button'>
             <Button inverted color='blue' icon labelPosition='left'>
               Back

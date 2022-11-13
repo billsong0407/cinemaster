@@ -2,11 +2,28 @@
     margin: 5px;
 }
 
-/* .date-card {
-    max-width: 150px !important;
-    text-align: center !important;
-    border-color: teal !important;
-} */
+.cardStyle {
+  font-weight: bold !important;
+}
+
+.ticketGroup {
+  margin-top: 3px !important;
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
+
+.ticketLabel {
+  background-color: #c0c1c2;
+  background-image: none;
+  box-shadow: 0 0 0 1px transparent inset;
+  color: rgba(0,0,0,.95);
+  cursor: default !important;
+  width: 100px !important;
+}
+
+.ticketCountLabel {
+  cursor: default !important;
+}
 
 .container-4perRow{
     width: 400px;
@@ -80,12 +97,3 @@ li {
     border: 3px solid rgb(151, 151, 151);
   }
 
-  button {
-    font-size: 27px;
-    margin: 1%;
- }
-
- .tickets{
-    padding-left: 10px;
-    margin-bottom: 20%;
- }
