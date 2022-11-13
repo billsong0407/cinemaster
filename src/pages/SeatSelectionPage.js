@@ -1,7 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import BrandHeader from "../components/header";
 import DateCard from "../components/DateCard"
 import TimeCard from "../components/TimeCard"
+
+import { TextField } from "@mui/material";
 
 import { Grid } from 'semantic-ui-react'
 import Carousel from 'react-multi-carousel';
@@ -72,7 +74,10 @@ const seatAvailable = []
 const seatReserved = []
 
 
+
+
 class SeatSelectionPage extends Component {
+    
     constructor(props){
         super(props);
         this.state = {
@@ -83,7 +88,13 @@ class SeatSelectionPage extends Component {
             seatLeft: seatLeft,
             seatAvailable: seatAvailable,
             seatReserved: seatReserved,
+            count: 0
         }
+        
+    }
+    componentDidMount() {
+        //this.state = { data: data };
+        
     }
 
     /** For choosing seat onclick */
@@ -112,8 +123,23 @@ class SeatSelectionPage extends Component {
           })
         }
       }
+    
+    incrementCount = () =>{
+        this.setState(prevState => {
+            return {count: prevState.count + 1}
+        })
+    }
+
+    decrementCount = () =>{
+        if (this.state.count > 0){
+        this.setState(prevState => {
+            return {count: prevState.count -1}
+        })
+    }
+    }
 
     render() {
+        const {count} = this.state
         return (
             <>
             <BrandHeader></BrandHeader>
@@ -188,6 +214,32 @@ class SeatSelectionPage extends Component {
                     <div className="legend-available" />
                     <h4>Reserved</h4>
                     <div className="legend-reserved" />
+                    <h4>Tickets</h4>
+                    <Grid.Row>
+                    
+                    <div className='tickets'>
+
+                    <Grid.Row>
+                    <button onClick={this.incrementCount}>+</button>
+                    <TextField className="textfield" id="outlined-basic" label={"Adult : "+count} variant="outlined" size="small" style = {{width: 110}} inputProps={{ style: {textAlign: 'center'} }}/>            
+                    <button onClick={this.decrementCount}>-</button>
+                    </Grid.Row>
+
+                    <Grid.Row>
+                    <button onClick={this.incrementCount}>+</button>
+                    <TextField className="textfield" id="outlined-basic" label={"Children : "+count} variant="outlined" size="small" style = {{width: 110}} inputProps={{ style: {textAlign: 'center'} }}/>              
+                    <button onClick={this.decrementCount}>-</button>
+                    </Grid.Row>
+
+                    <Grid.Row> 
+                    <button onClick={this.incrementCount}>+</button>
+                    <TextField className="textfield" id="outlined-basic" label={"Senior : "+count} variant="outlined" size="small" style = {{width: 110}} inputProps={{ style: {textAlign: 'center'} }}/>            
+                    <button onClick={this.decrementCount}>-</button>
+                    </Grid.Row>
+                    </div>
+                    
+                    </Grid.Row>
+                    
                     
                 </Grid.Column>
 

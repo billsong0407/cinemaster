@@ -79,3 +79,13 @@ li {
     background: green;
     border: 3px solid rgb(151, 151, 151);
   }
+
+  button {
+    font-size: 27px;
+    margin: 1%;
+ }
+
+ .tickets{
+    padding-left: 10px;
+    margin-bottom: 20%;
+ }
