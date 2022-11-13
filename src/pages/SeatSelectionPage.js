@@ -271,34 +271,34 @@ class SeatSelectionPage extends Component {
 
                 <Grid.Row>
                 <Grid.Column width={2} style={{textAlign: 'center'}}>                    
-                    <h3>3.  Please select the number of seats</h3>       
+                    <h3>3.  Please select the number of tickets</h3>       
                 </Grid.Column>
                 <Grid.Column width={13} style={{textAlign: 'center'}}>
                     <Button.Group className='ticketGroup'>
                         <Button active basic color="teal" className='ticketLabel'>Children</Button>
-                        <Button color="black" onClick={() => this.decrementCount("children")} icon='minus' />
-                        <Button active className='ticketCountLabel'>
+                        <Button color="blue" onClick={() => this.decrementCount("children")} icon='minus' />
+                        <Button basic color='black' className='ticketCountLabel'>
                           {this.state.childrenCount}
                         </Button>
-                        <Button color="black" onClick={() => this.incrementCount("children")} icon='plus' />
+                        <Button color="blue" onClick={() => this.incrementCount("children")} icon='plus' />
                     </Button.Group>                    
             
                     <Button.Group className='ticketGroup'>
                         <Button active basic color="teal" className='ticketLabel'>Adults</Button>
-                        <Button color="black" onClick={() => this.decrementCount("adult")} icon='minus' />
-                        <Button active className='ticketCountLabel'>
+                        <Button color="blue" onClick={() => this.decrementCount("adult")} icon='minus' />
+                        <Button basic color="black" className='ticketCountLabel'>
                           {this.state.adultCount}
                         </Button>
-                        <Button color="black" onClick={() => this.incrementCount("adult")} icon='plus' />
+                        <Button color="blue" onClick={() => this.incrementCount("adult")} icon='plus' />
                     </Button.Group>                    
               
                     <Button.Group className='ticketGroup'>
                         <Button active basic color="teal" className='ticketLabel'>Seniors</Button>
-                        <Button color="black" onClick={() => this.decrementCount("senior")} icon='minus' />
-                        <Button active className='ticketCountLabel'>
+                        <Button color="blue" onClick={() => this.decrementCount("senior")} icon='minus' />
+                        <Button basic color="black" className='ticketCountLabel'>
                           {this.state.seniorCount}
                         </Button>
-                        <Button color="black" onClick={() => this.incrementCount("senior")} icon='plus' />
+                        <Button color="blue" onClick={() => this.incrementCount("senior")} icon='plus' />
                     </Button.Group>  
                 </Grid.Column>
                 </Grid.Row>
