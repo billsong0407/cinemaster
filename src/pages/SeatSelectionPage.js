@@ -182,7 +182,7 @@ class SeatSelectionPage extends Component {
               break;
             case 'senior':
               if (this.state.seniorCount > 0){
-                return {count: prevState.seniorCount-1};
+                return {seniorCount: prevState.seniorCount-1};
               }
               break;
             default:
