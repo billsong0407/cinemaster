@@ -8,10 +8,19 @@
     border-color: teal !important;
 } */
 
-.container {
-    width: 500px;
-    margin: auto;
+.container-4perRow{
+    width: 400px;
+    /* margin: auto; */
+    margin-left: 1%;
     padding-top: 10px;
+}
+
+.container {
+    width: 300px;
+    /* margin: auto; */
+    margin-left: 1%;
+    padding-top: 10px;
+    
   }
   
 .grid td {
@@ -70,3 +79,13 @@ li {
     background: green;
     border: 3px solid rgb(151, 151, 151);
   }
+
+  button {
+    font-size: 27px;
+    margin: 1%;
+ }
+
+ .tickets{
+    padding-left: 10px;
+    margin-bottom: 20%;
+ }
