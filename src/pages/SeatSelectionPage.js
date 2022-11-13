@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import BrandHeader from "../components/header";
 import DateCard from "../components/DateCard"
-import TimeCard from "../components/TimeCard"
 
-import { Grid, Divider, Header, Icon, Button} from 'semantic-ui-react'
+import { Grid, Divider, Header, Icon, Button, Card} from 'semantic-ui-react'
 
 import Carousel from 'react-multi-carousel';
 
@@ -85,6 +84,9 @@ class SeatSelectionPage extends Component {
             adultCount: 1,
             childrenCount: 0,
             seniorCount: 0,
+            selectedTime: null,
+            selectedTimeObject: null,
+
             seat: seat,
             seatRight: seatRight,
             seatLeft: seatLeft,
@@ -121,6 +123,20 @@ class SeatSelectionPage extends Component {
           })
         }
       }
+    
+    onTimeChange = (event) => {
+      if (this.state.selectedTimeObject !== null){
+        let curr = this.state.selectedTimeObject
+        curr.style.backgroundColor = 'white';
+        curr.style.color = 'black';  
+      }
+      event.currentTarget.style.backgroundColor = 'teal';
+      event.currentTarget.style.color = 'white';
+      this.setState({
+        selectedTimeObject: event.currentTarget,
+        selectedTime: event.currentTarget.name,
+      })
+    }
     
     incrementCount = (ticketType) =>{
         this.setState(prevState => {
@@ -226,10 +242,13 @@ class SeatSelectionPage extends Component {
                       deviceType={this.props.deviceType}
                       itemClass="carousel-item-padding-30-px"
                     >
-                        {this.state.showtimes.map(time =>(
-                            <TimeCard time={time}
-                            />
-                        ))}
+                      {this.state.showtimes.map(time =>(
+                        <Card name={time} style={{maxWidth: '100px !important'}} color='teal' onClick={this.onTimeChange}>
+                            <Card.Content style={{textAlign: 'center'}}>
+                                <p>{time}</p>
+                            </Card.Content>
+                        </Card>
+                      ))}
                     </Carousel>
                 </Grid.Column>
                 </Grid.Row>
@@ -239,7 +258,7 @@ class SeatSelectionPage extends Component {
                     <h3>3.  Please select the number of seats</h3>       
                 </Grid.Column>
                 <Grid.Column width={13} style={{textAlign: 'center'}}>
-                    <Button.Group horizontal className='ticketGroup'>
+                    <Button.Group className='ticketGroup'>
                         <Button active basic color="teal" className='ticketLabel'>Children</Button>
                         <Button color="black" onClick={() => this.decrementCount("children")} icon='minus' />
                         <Button active className='ticketCountLabel'>
@@ -248,7 +267,7 @@ class SeatSelectionPage extends Component {
                         <Button color="black" onClick={() => this.incrementCount("children")} icon='plus' />
                     </Button.Group>                    
             
-                    <Button.Group horizontal className='ticketGroup'>
+                    <Button.Group className='ticketGroup'>
                         <Button active basic color="teal" className='ticketLabel'>Adults</Button>
                         <Button color="black" onClick={() => this.decrementCount("adult")} icon='minus' />
                         <Button active className='ticketCountLabel'>
@@ -257,7 +276,7 @@ class SeatSelectionPage extends Component {
                         <Button color="black" onClick={() => this.incrementCount("adult")} icon='plus' />
                     </Button.Group>                    
               
-                    <Button.Group horizontal className='ticketGroup'>
+                    <Button.Group className='ticketGroup'>
                         <Button active basic color="teal" className='ticketLabel'>Seniors</Button>
                         <Button color="black" onClick={() => this.decrementCount("senior")} icon='minus' />
                         <Button active className='ticketCountLabel'>
