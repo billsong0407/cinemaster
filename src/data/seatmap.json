@@ -1,0 +1,15 @@
+{
+    "ThreeDMap": [
+        [{"id": "A1", "state": "unoccupied"}, {"id": "A2", "state": "unoccupied"}, {"id": "A3", "state": "unoccupied"}, {"id": "alley", "state": "alley"}, 
+        {"id": "A4", "state": "unoccupied"}, {"id": "A5", "state": "occupied"}, {"id": "A6", "state": "unoccupied"}, {"id": "alley", "state": "alley"}, 
+        {"id": "A7", "state": "unoccupied"}, {"id": "A8", "state": "occupied"}, {"id": "A9", "state": "occupied"}],
+
+        [{"id": "B1", "state": "unoccupied"}, {"id": "B2", "state": "unoccupied"}, {"id": "B3", "state": "unoccupied"}, {"id": "alley", "state": "alley"}, 
+        {"id": "B4", "state": "unoccupied"}, {"id": "B5", "state": "occupied"}, {"id": "B6", "state": "occupied"}, {"id": "alley", "state": "alley"}, 
+        {"id": "B7", "state": "unoccupied"}, {"id": "B8", "state": "unoccupied"}, {"id": "B9", "state": "unoccupied"}],
+
+        [{"id": "C1", "state": "unoccupied"}, {"id": "C2", "state": "unoccupied"}, {"id": "C3", "state": "occupied"}, {"id": "alley", "state": "alley"}, 
+        {"id": "C4", "state": "unoccupied"}, {"id": "C5", "state": "occupied"}, {"id": "C6", "state": "occupied"}, {"id": "alley", "state": "alley"}, 
+        {"id": "C7", "state": "unoccupied"}, {"id": "C8", "state": "occupied"}, {"id": "C9", "state": "occupied"}]
+    ]
+}

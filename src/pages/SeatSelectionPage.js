@@ -7,6 +7,8 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import '../css/SeatSelectionPage.css';
 
+const { ThreeDMap } = require("../data/seatmap.json");
+
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
@@ -43,11 +45,7 @@ const showtimes = [
     "8:00 p.m.", "8:30 p.m.", "8:40 p.m.", "9:00 p.m.", "9:45 p.m.",
 ]
 
-const seats = [
-  ["A1", "A2", "A3", " ", "A4", "A5", "A6", " ", "A7", "A8","A9"],
-  ["B1", "B2", "B3", " ", "B4", "B5", "B6", " ", "B7", "B8","B9"],
-  ["C1", "C2", "C3", " ", "C4", "C5", "C6", " ", "C7", "C8","C9"],
-];
+
 
 // const seatLeft = [
 //     'A1','A2','A3',
@@ -319,21 +317,29 @@ class SeatSelectionPage extends Component {
                 </Grid.Column>
                 <Grid.Column width={13} style={{overflowX: "scroll", whiteSpace: "no-wrap"}}> 
                   {/* <div className='seat-map'> */}
-                  <Table columns={13} singleLine unstackable fixed color="teal" className='seat-map'>
+                  <Table columns={13} singleLine unstackable className='seat-map'>
                     <Table.Body>
-                      {seats.map((rows, index) => (
+                      {ThreeDMap.map((rows, index) => (
                         <Table.Row textAlign='center' key={index}>
                           {rows.map((seat, seatIdx) => {
-                            if (seat !== " "){
+                            if (seat.state === "occupied"){
                               return(
-                                <Table.Cell className='seats'  key={seatIdx}>
-                                  {seat}
+                                <Table.Cell className='seats occupied-seats'  key={seatIdx}>
+                                  {seat.id}
                                 </Table.Cell>
                               )
-                            }else{
+                            }
+                            else if (seat.state === "unoccupied"){
+                              return(
+                                <Table.Cell className='seats unoccupied-seats'  key={seatIdx}>
+                                  {seat.id}
+                                </Table.Cell>
+                              )
+                            }
+                            else{
                               return(
                                 <Table.Cell className='seats alley' key={seatIdx}>
-                                  {seat}
+                                  {" "}
                                 </Table.Cell>
                               )
                             }
