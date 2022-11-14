@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import BrandHeader from "../components/header";
 
-import { Grid, Divider, Header, Icon, Button, Card, Table} from 'semantic-ui-react'
+import { Grid, Divider, Header, Icon, Button, Card, Table, Label} from 'semantic-ui-react'
 import Carousel from 'react-multi-carousel';
 
 import 'react-multi-carousel/lib/styles.css';
@@ -186,9 +186,6 @@ class SeatSelectionPage extends Component {
                                 </Card.Content>
                             </Card>
                           ))}
-                        <div>
-                            
-                        </div>
                     </Carousel>
                 </Grid.Column>
                 </Grid.Row>
@@ -226,7 +223,7 @@ class SeatSelectionPage extends Component {
 
                 <Grid.Row>
                 <Grid.Column width={2} style={{textAlign: 'center'}}>                    
-                    <h3>3.  Please select the number of tickets</h3>       
+                    <h3>3.  Please select the number of tickets</h3>      
                 </Grid.Column>
                 <Grid.Column width={13} style={{textAlign: 'center'}}>
                     <Button.Group className='ticketGroup'>
@@ -259,43 +256,56 @@ class SeatSelectionPage extends Component {
                 </Grid.Row>
                 <Grid.Row>
                 <Grid.Column width={2} style={{textAlign: 'center'}}>                    
-                  <h3>3.  Please select the seats</h3>       
+                  <h3>3.  Please select the seats</h3>  
+                  <Label.Group>
+                    <Label style={{backgroundColor: "white", border: "2px solid orange"}}>Available</Label> 
+                    <Label style={{backgroundColor: "#F2F3F4", border: "2px solid orange"}} >Occupied</Label> 
+                    <Label style={{backgroundColor: "lightblue", border: "2px solid orange"}}>Selected</Label>
+                  </Label.Group>  
                 </Grid.Column>
-                <Grid.Column width={13} style={{overflowX: "scroll", whiteSpace: "no-wrap"}}> 
-                  <Table columns={13} singleLine unstackable className='seat-map'>
+                <Grid.Column width={13} textAlign='center' style={{overflowX: "scroll", whiteSpace: "no-wrap"}}> 
+                  {/* <Grid.Row>
+                    
+                  </Grid.Row> */}
+                  <Grid.Row className='seat-map'>
+                    <h1>SCREEN</h1>
+                    <Divider className="screen"></Divider>
+                  <Table className="seat-table" columns={13} singleLine unstackable>
                     <Table.Body>
                       {ThreeDMap.map((rows, index) => (
-                        <Table.Row textAlign='center' key={index}>
+                        <Table.Row padded textAlign='center' key={index}>
                           {rows.map((seat, seatIdx) => {
                             if (seat.state === "occupied"){
                               return(
                                 <Table.Cell className='seats occupied-seats' key={seatIdx}>
                                   {seat.id}
                                 </Table.Cell>
-                              )
-                            }
+                              )}
                             else if (seat.state === "unoccupied"){
                               return(
                                 <Table.Cell name="clicked" className='seats unoccupied-seats' key={seat.id} 
                                   onClick={event => this.onSeatChanged(event, seat.id)}>
                                   {seat.id}
                                 </Table.Cell>
-                              )
-                            }
+                              )}
                             else{
                               return(
                                 <Table.Cell className='seats alley' key={seatIdx}>
                                   {" "}
                                 </Table.Cell>
-                              )
-                            }
+                              )}
                             })}
-                        </Table.Row>
-                      ))}              
-                    </Table.Body>
-                  </Table>
-                    </Grid.Column>
-                  </Grid.Row>
+                          </Table.Row>
+                        ))}        
+                         
+                      </Table.Body>
+                    </Table>
+                    </Grid.Row>
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Button inverted color="green">Confirm and Proceed to checkout</Button>
+                </Grid.Row>
             </Grid>
             </>
         )
