@@ -27,15 +27,14 @@
 
 .seat-map {
   /* display: block !important; */
-  /* display fle; */
   overflow-x: scroll !important;
   min-width: 1000px !important;
-  padding-top: 10px;
+  padding-top: 50px;
+  border: none !important;
 }
 .seats {
   border-radius: 30px 30px 0px 0px;
   border-color: orange !important;
-  /* border-radius: ; */
 }
 .unoccupied-seats {
   
@@ -43,6 +42,7 @@
 
 .alley {
   border: none !important;
+  pointer-events: none;
 }
 
 .occupied-seats {

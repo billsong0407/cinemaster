@@ -45,37 +45,6 @@ const showtimes = [
     "8:00 p.m.", "8:30 p.m.", "8:40 p.m.", "9:00 p.m.", "9:45 p.m.",
 ]
 
-
-
-// const seatLeft = [
-//     'A1','A2','A3',
-//     'B1','B2','B3',
-//     'C1','C2','C3',
-//     'D1','D2','D3',
-    
-//   ]
-// const seat = [
-//     'A4','A5','A6','A7',
-//     'B4','B5','B6','B7',
-//     'C4','C5','C6','C7',
-//     'D4','D5','D6','D7'
-//   ]
-// const seatRight = [
-//     'A8','A9','A10',
-//     'B8','B9','B10',
-//     'C8','C9','C10',
-//     'D8','D9','D10'
-    
-//   ]
-
-
-const seatAvailable = []
-
-const seatReserved = []
-
-
-
-
 class SeatSelectionPage extends Component {
     
     constructor(props){
@@ -90,44 +59,10 @@ class SeatSelectionPage extends Component {
             selectedDateObject: null,
             selectedTime: null,
             selectedTimeObject: null,
-
-            // seat: seat,
-            // seatRight: seatRight,
-            // seatLeft: seatLeft,
-            seatAvailable: seatAvailable,
-            seatReserved: seatReserved,
-            count: 0
+            selectedSeats: {},
         }
-        
-    }
+    }    
 
-    /** For choosing seat onclick */
-    // onClickData(seat) {
-    //     if(this.state.seatReserved.indexOf(seat) > -1 ) {
-    //       this.setState({
-    //         seatAvailable: this.state.seatAvailable.concat(seat),
-    //         seatReserved: this.state.seatReserved.filter(res => res !== seat)
-    //       })
-    //     } else if(this.state.seatReserved.indexOf(seatRight) > -1 ){
-    //         this.setState({
-    //             seatAvailable: this.state.seatAvailable.concat(seatRight),
-    //             seatReserved: this.state.seatReserved.filter(res => res !== seatRight)
-    //           })
-    //     }
-    //     else if(this.state.seatReserved.indexOf(seatLeft) > -1 ){
-    //         this.setState({
-    //             seatAvailable: this.state.seatAvailable.concat(seatLeft),
-    //             seatReserved: this.state.seatReserved.filter(res => res !== seatLeft)
-    //           })
-    //     }
-    //     else {
-    //       this.setState({
-    //         seatReserved: this.state.seatReserved.concat(seat),
-    //         seatAvailable: this.state.seatAvailable.filter(res => res !== seat)
-    //       })
-    //     }
-    //   }
-    
     onDateChange = (event) => {
       if (this.state.selectedDateObject !== null){
         let curr = this.state.selectedDateObject
@@ -196,8 +131,19 @@ class SeatSelectionPage extends Component {
       })
     }
 
-    onSeatChanged = () => {
-      console.log("clicked");
+    onSeatChanged = (event, seatId) => {
+      if (seatId in this.state.selectedSeats){
+        let curr = this.state.selectedSeats[seatId];
+        curr.style.backgroundColor = 'white';
+        delete this.state.selectedSeats[seatId];
+      }else{
+        event.currentTarget.style.backgroundColor = 'lightblue';
+        // this.setState({
+        //   selectedSeats[seatId]: event.currentTarget,
+        // })
+        this.state.selectedSeats[seatId] = event.currentTarget;
+      }
+      
     }
 
     render() {
@@ -316,7 +262,6 @@ class SeatSelectionPage extends Component {
                   <h3>3.  Please select the seats</h3>       
                 </Grid.Column>
                 <Grid.Column width={13} style={{overflowX: "scroll", whiteSpace: "no-wrap"}}> 
-                  {/* <div className='seat-map'> */}
                   <Table columns={13} singleLine unstackable className='seat-map'>
                     <Table.Body>
                       {ThreeDMap.map((rows, index) => (
@@ -324,14 +269,15 @@ class SeatSelectionPage extends Component {
                           {rows.map((seat, seatIdx) => {
                             if (seat.state === "occupied"){
                               return(
-                                <Table.Cell className='seats occupied-seats'  key={seatIdx}>
+                                <Table.Cell className='seats occupied-seats' key={seatIdx}>
                                   {seat.id}
                                 </Table.Cell>
                               )
                             }
                             else if (seat.state === "unoccupied"){
                               return(
-                                <Table.Cell className='seats unoccupied-seats'  key={seatIdx}>
+                                <Table.Cell name="clicked" className='seats unoccupied-seats' key={seat.id} 
+                                  onClick={event => this.onSeatChanged(event, seat.id)}>
                                   {seat.id}
                                 </Table.Cell>
                               )
@@ -355,85 +301,4 @@ class SeatSelectionPage extends Component {
         )
     }
 }
-
-class DrawGrid extends React.Component {
-    render() {
-      return (
-         <div className="container-4perRow">
-          
-          <table className="grid">
-            <tbody>
-                <tr>
-                  { this.props.seat.map( row =>
-                    <td 
-                      className={this.props.reserved.indexOf(row) > -1? 'reserved': 'available'}
-                      key={row} onClick = {e => this.onClickSeat(row)}>{row} </td>) }
-                </tr>
-            </tbody>
-          </table>
-          
-          
-         </div>
-      )
-    }
-    
-    onClickSeat(seat) {
-      this.props.onClickData(seat);
-    }
-  }
-
-  class DrawGridRight extends React.Component {
-    render() {
-      return (
-         <div className="container">
-          
-          <table className="grid">
-            <tbody>
-                <tr>
-                  { this.props.seatRight.map( row =>
-                    <td 
-                      className={this.props.reserved.indexOf(row) > -1? 'reserved': 'available'}
-                      key={row} onClick = {e => this.onClickSeat(row)}>{row} </td>) }
-                </tr>
-            </tbody>
-          </table>
-          
-          
-         </div>
-      )
-    }
-    
-    onClickSeat(seat) {
-      this.props.onClickData(seat);
-    }
-  }
-
-  class DrawGridLeft extends React.Component {
-    render() {
-      return (
-         <div className="container">
-          
-          <table className="grid">
-            <tbody>
-                <tr>
-                  { this.props.seatLeft.map( row =>
-                    <td 
-                      className={this.props.reserved.indexOf(row) > -1? 'reserved': 'available'}
-                      key={row} onClick = {e => this.onClickSeat(row)}>{row} </td>) }
-                </tr>
-            </tbody>
-          </table>
-          
-          
-         </div>
-      )
-    }
-    
-    onClickSeat(seat) {
-      this.props.onClickData(seat);
-    }
-  }
-  
-  
-
 export default SeatSelectionPage;
