@@ -7,12 +7,12 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import '../css/SeatSelectionPage.css';
 
-const { ThreeDMap } = require("../data/seatmap.json");
+const { seatAllocations } = require("../data/seatmap.json");
 
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
-    items: 6
+    items: 7
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -59,6 +59,8 @@ class SeatSelectionPage extends Component {
             selectedDateObject: null,
             selectedTime: null,
             selectedTimeObject: null,
+
+            seatMap: seatAllocations["11:00 a.m."],
             selectedSeats: {},
         }
     }    
@@ -89,6 +91,7 @@ class SeatSelectionPage extends Component {
       this.setState({
         selectedTimeObject: event.currentTarget,
         selectedTime: event.currentTarget.name,
+        seatMap: seatAllocations[event.currentTarget.name],
       })
     }
     
@@ -143,7 +146,6 @@ class SeatSelectionPage extends Component {
         // })
         this.state.selectedSeats[seatId] = event.currentTarget;
       }
-      
     }
 
     render() {
@@ -259,20 +261,17 @@ class SeatSelectionPage extends Component {
                   <h3>3.  Please select the seats</h3>  
                   <Label.Group>
                     <Label style={{backgroundColor: "white", border: "2px solid orange"}}>Available</Label> 
-                    <Label style={{backgroundColor: "#F2F3F4", border: "2px solid orange"}} >Occupied</Label> 
+                    <Label style={{backgroundColor: "#BDC3C7", border: "2px solid orange"}} >Occupied</Label> 
                     <Label style={{backgroundColor: "lightblue", border: "2px solid orange"}}>Selected</Label>
                   </Label.Group>  
                 </Grid.Column>
                 <Grid.Column width={13} textAlign='center' style={{overflowX: "scroll", whiteSpace: "no-wrap"}}> 
-                  {/* <Grid.Row>
-                    
-                  </Grid.Row> */}
                   <Grid.Row className='seat-map'>
                     <h1>SCREEN</h1>
                     <Divider className="screen"></Divider>
-                  <Table className="seat-table" columns={13} singleLine unstackable>
+                  <Table className="seat-table" columns={14} singleLine unstackable>
                     <Table.Body>
-                      {ThreeDMap.map((rows, index) => (
+                      {this.state.seatMap.map((rows, index) => (
                         <Table.Row padded textAlign='center' key={index}>
                           {rows.map((seat, seatIdx) => {
                             if (seat.state === "occupied"){
