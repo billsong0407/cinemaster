@@ -52,9 +52,12 @@ class SeatSelectionPage extends Component {
       this.state = {
           showdates: showdates,
           showtimes: showtimes,
+
+          counterEnabled: true,
           adultCount: 1,
           childrenCount: 0,
           seniorCount: 0,
+
           selectedDate: null,
           selectedDateObject: null,
           selectedTime: null,
@@ -81,6 +84,7 @@ class SeatSelectionPage extends Component {
 
     if (event.currentTarget.name !== null && this.state.selectedTime !== null){
       this.setState({
+        counterEnabled: false,
         seatMap: seatAllocations[this.state.selectedTime],
       })
     }
@@ -111,6 +115,7 @@ class SeatSelectionPage extends Component {
     })
     if (this.state.selectedDate !== null && event.currentTarget.name !== null){
       this.setState({
+        counterEnabled: false,
         seatMap: seatAllocations[event.currentTarget.name],
       })
     }
@@ -249,36 +254,36 @@ class SeatSelectionPage extends Component {
                 </Grid.Column>
                 <Grid.Column width={13} style={{textAlign: 'center'}}>
                     <Button.Group className='ticketGroup'>
-                        <Button active basic color="teal" className='ticketLabel'>Children</Button>
-                        <Button color="blue" onClick={() => this.decrementCount("children")} icon='minus' />
-                        <Button basic color='black' className='ticketCountLabel'>
+                        <Button disabled={this.state.counterEnabled} active basic color="teal" className='ticketLabel'>Children</Button>
+                        <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.decrementCount("children")} icon='minus' />
+                        <Button disabled={this.state.counterEnabled} basic color='blue' className='ticketCountLabel'>
                           {this.state.childrenCount}
                         </Button>
-                        <Button color="blue" onClick={() => this.incrementCount("children")} icon='plus' />
+                        <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.incrementCount("children")} icon='plus' />
                     </Button.Group>                    
             
                     <Button.Group className='ticketGroup'>
-                        <Button active basic color="teal" className='ticketLabel'>Adults</Button>
-                        <Button color="blue" onClick={() => this.decrementCount("adult")} icon='minus' />
-                        <Button basic color="black" className='ticketCountLabel'>
+                        <Button disabled={this.state.counterEnabled} active basic color="teal" className='ticketLabel'>Adults</Button>
+                        <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.decrementCount("adult")} icon='minus' />
+                        <Button disabled={this.state.counterEnabled} basic color="blue" className='ticketCountLabel'>
                           {this.state.adultCount}
                         </Button>
-                        <Button color="blue" onClick={() => this.incrementCount("adult")} icon='plus' />
+                        <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.incrementCount("adult")} icon='plus' />
                     </Button.Group>                    
               
                     <Button.Group className='ticketGroup'>
-                        <Button active basic color="teal" className='ticketLabel'>Seniors</Button>
-                        <Button color="blue" onClick={() => this.decrementCount("senior")} icon='minus' />
-                        <Button basic color="black" className='ticketCountLabel'>
+                        <Button disabled={this.state.counterEnabled} active basic color="teal" className='ticketLabel'>Seniors</Button>
+                        <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.decrementCount("senior")} icon='minus' />
+                        <Button disabled={this.state.counterEnabled} basic color="blue" className='ticketCountLabel'>
                           {this.state.seniorCount}
                         </Button>
-                        <Button color="blue" onClick={() => this.incrementCount("senior")} icon='plus' />
+                        <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.incrementCount("senior")} icon='plus' />
                     </Button.Group>  
                 </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
                 <Grid.Column width={2} style={{textAlign: 'center'}}>                    
-                  <h3>3.  Please select the seats</h3>  
+                  <h3>3.  Please select the available seats</h3>  
                   <Label.Group>
                     <Label style={{backgroundColor: "white"}} className="seat-label">Available</Label> 
                     <Label style={{backgroundColor: "#BDC3C7"}} className="seat-label">Occupied</Label> 
