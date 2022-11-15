@@ -1,16 +1,18 @@
 import React, {Component} from 'react';
 import BrandHeader from "../components/header";
 
-import { Grid, Divider, Header, Icon, Button, Card} from 'semantic-ui-react'
+import { Grid, Divider, Header, Icon, Button, Card, Table, Label} from 'semantic-ui-react'
 import Carousel from 'react-multi-carousel';
 
 import 'react-multi-carousel/lib/styles.css';
 import '../css/SeatSelectionPage.css';
 
+const { seatAllocations } = require("../data/seatmap.json");
+
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
-    items: 6
+    items: 7
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -43,152 +45,128 @@ const showtimes = [
     "8:00 p.m.", "8:30 p.m.", "8:40 p.m.", "9:00 p.m.", "9:45 p.m.",
 ]
 
-const seatLeft = [
-    'A1','A2','A3',
-    'B1','B2','B3',
-    'C1','C2','C3',
-    'D1','D2','D3',
-    
-  ]
-const seat = [
-    'A4','A5','A6','A7',
-    'B4','B5','B6','B7',
-    'C4','C5','C6','C7',
-    'D4','D5','D6','D7'
-  ]
-const seatRight = [
-    'A8','A9','A10',
-    'B8','B9','B10',
-    'C8','C9','C10',
-    'D8','D9','D10'
-    
-  ]
-
-const seatAvailable = []
-
-const seatReserved = []
-
-
-
-
 class SeatSelectionPage extends Component {
     
-    constructor(props){
-        super(props);
-        this.state = {
-            showdates: showdates,
-            showtimes: showtimes,
-            adultCount: 1,
-            childrenCount: 0,
-            seniorCount: 0,
-            selectedDate: null,
-            selectedDateObject: null,
-            selectedTime: null,
-            selectedTimeObject: null,
+  constructor(props){
+      super(props);
+      this.state = {
+          showdates: showdates,
+          showtimes: showtimes,
+          adultCount: 1,
+          childrenCount: 0,
+          seniorCount: 0,
+          selectedDate: null,
+          selectedDateObject: null,
+          selectedTime: null,
+          selectedTimeObject: null,
 
-            seat: seat,
-            seatRight: seatRight,
-            seatLeft: seatLeft,
-            seatAvailable: seatAvailable,
-            seatReserved: seatReserved,
-            count: 0
-        }
-        
+          seatMap: seatAllocations["default"],
+          selectedSeats: [],
+          selectedSeatsObjects: {}
+      }
+  }    
+
+  onDateChange = (event) => {
+    if (this.state.selectedDateObject !== null){
+      let curr = this.state.selectedDateObject
+      curr.style.backgroundColor = 'white';
+      curr.style.color = 'black';  
     }
+    event.currentTarget.style.backgroundColor = 'teal';
+    event.currentTarget.style.color = 'white';
+    this.setState({
+      selectedDateObject: event.currentTarget,
+      selectedDate: event.currentTarget.name,
+    })
 
-    /** For choosing seat onclick */
-    onClickData(seat) {
-        if(this.state.seatReserved.indexOf(seat) > -1 ) {
-          this.setState({
-            seatAvailable: this.state.seatAvailable.concat(seat),
-            seatReserved: this.state.seatReserved.filter(res => res !== seat)
-          })
-        } else if(this.state.seatReserved.indexOf(seatRight) > -1 ){
-            this.setState({
-                seatAvailable: this.state.seatAvailable.concat(seatRight),
-                seatReserved: this.state.seatReserved.filter(res => res !== seatRight)
-              })
-        }
-        else if(this.state.seatReserved.indexOf(seatLeft) > -1 ){
-            this.setState({
-                seatAvailable: this.state.seatAvailable.concat(seatLeft),
-                seatReserved: this.state.seatReserved.filter(res => res !== seatLeft)
-              })
-        }
-        else {
-          this.setState({
-            seatReserved: this.state.seatReserved.concat(seat),
-            seatAvailable: this.state.seatAvailable.filter(res => res !== seat)
-          })
-        }
-      }
-    
-    onDateChange = (event) => {
-      if (this.state.selectedDateObject !== null){
-        let curr = this.state.selectedDateObject
-        curr.style.backgroundColor = 'white';
-        curr.style.color = 'black';  
-      }
-      event.currentTarget.style.backgroundColor = 'teal';
-      event.currentTarget.style.color = 'white';
+    if (event.currentTarget.name !== null && this.state.selectedTime !== null){
       this.setState({
-        selectedDateObject: event.currentTarget,
-        selectedDate: event.currentTarget.name,
-      })
-      console.log(this.state.selectedDate);
-    }
-
-    onTimeChange = (event) => {
-      if (this.state.selectedTimeObject !== null){
-        let curr = this.state.selectedTimeObject
-        curr.style.backgroundColor = 'white';
-        curr.style.color = 'black';  
-      }
-      event.currentTarget.style.backgroundColor = 'teal';
-      event.currentTarget.style.color = 'white';
-      this.setState({
-        selectedTimeObject: event.currentTarget,
-        selectedTime: event.currentTarget.name,
+        seatMap: seatAllocations[this.state.selectedTime],
       })
     }
+  }
+
+  onTimeChange = (event) => {
+    if (this.state.selectedTimeObject !== null){
+      let curr = this.state.selectedTimeObject
+      curr.style.backgroundColor = 'white';
+      curr.style.color = 'black';  
+    }
+    event.currentTarget.style.backgroundColor = 'teal';
+    event.currentTarget.style.color = 'white';
+
+    while (this.state.selectedSeats.length > 0){
+      let removeSeatId = this.state.selectedSeats.shift();
+      let curr = this.state.selectedSeatsObjects[removeSeatId];
+      curr.style.backgroundColor = 'white';
+      delete this.state.selectedSeatsObjects[removeSeatId];
+    }
+
+    this.setState({
+      selectedTimeObject: event.currentTarget,
+      selectedTime: event.currentTarget.name,
+      adultCount: 1,
+      childrenCount: 0,
+      seniorCount: 0,
+    })
+    if (this.state.selectedDate !== null && event.currentTarget.name !== null){
+      this.setState({
+        seatMap: seatAllocations[event.currentTarget.name],
+      })
+    }
+  }
     
     incrementCount = (ticketType) =>{
-        this.setState(prevState => {
-          switch(ticketType) {
-            case "children":
-              return {childrenCount: prevState.childrenCount+ 1};
-            case "adult":
-              return {adultCount: prevState.adultCount+1};
-            case 'senior':
-              return {seniorCount: prevState.seniorCount + 1};
-            default:
-              return null;
-          }
-        })
+      this.setState(prevState => {
+        switch(ticketType) {
+          case "children":
+            return {childrenCount: prevState.childrenCount+ 1};
+          case "adult":
+            return {adultCount: prevState.adultCount+1};
+          case 'senior':
+            return {seniorCount: prevState.seniorCount + 1};
+          default:
+            return null;
+        }
+      })
     }
 
     decrementCount = (ticketType) =>{
-        this.setState(prevState => {
-          switch(ticketType) {
-            case "children":
-              if (this.state.childrenCount > 0){
-                return {childrenCount: prevState.childrenCount-1};
-              }
-              break;
-            case "adult":
-              if (this.state.adultCount > 1){
-                return {adultCount: prevState.adultCount-1};
-              }
-              break;
-            case 'senior':
-              if (this.state.seniorCount > 0){
-                return {seniorCount: prevState.seniorCount-1};
-              }
-              break;
-            default:
-              return null;
-          }
-        })
+      this.setState(prevState => {
+        switch(ticketType) {
+          case "children":
+            if (this.state.childrenCount > 0){ return {childrenCount: prevState.childrenCount-1};}
+            break;
+          case "adult":
+            if (this.state.adultCount > 1){ return {adultCount: prevState.adultCount-1};}
+            break;
+          case 'senior':
+            if (this.state.seniorCount > 0){ return {seniorCount: prevState.seniorCount-1};}
+            break;
+          default:
+            return null;
+        }
+      })
+    }
+
+    onSeatChanged = (event, seatId) => {
+      if (seatId in this.state.selectedSeatsObjects){
+        let curr = this.state.selectedSeatsObjects[seatId];
+        curr.style.backgroundColor = 'white';
+        delete this.state.selectedSeatsObjects[seatId];
+        this.state.selectedSeats.splice(this.state.selectedSeats.indexOf(seatId), 1);
+      }else{
+        if (this.state.selectedSeats.length >= (this.state.childrenCount+this.state.adultCount+this.state.seniorCount)){
+          var removeSeatId = this.state.selectedSeats.shift()
+          let curr = this.state.selectedSeatsObjects[removeSeatId];
+          curr.style.backgroundColor = 'white';
+          delete this.state.selectedSeatsObjects[removeSeatId];
+        }
+        event.currentTarget.style.backgroundColor = 'lightblue';
+        this.state.selectedSeats.push([seatId]);
+        this.state.selectedSeatsObjects[seatId] = event.currentTarget;
+      }
+          
     }
 
     render() {
@@ -202,7 +180,6 @@ class SeatSelectionPage extends Component {
                 </Header>
             </Divider>
             <Grid stackable verticalAlign='middle' centered>
-               
                 <Grid.Row>
                 <Grid.Column width={2} style={{textAlign: 'center'}}>
                     <h3>1.  Please select a date</h3>
@@ -231,9 +208,6 @@ class SeatSelectionPage extends Component {
                                 </Card.Content>
                             </Card>
                           ))}
-                        <div>
-                            
-                        </div>
                     </Carousel>
                 </Grid.Column>
                 </Grid.Row>
@@ -271,7 +245,7 @@ class SeatSelectionPage extends Component {
 
                 <Grid.Row>
                 <Grid.Column width={2} style={{textAlign: 'center'}}>                    
-                    <h3>3.  Please select the number of tickets</h3>       
+                    <h3>3.  Please select the number of tickets</h3>      
                 </Grid.Column>
                 <Grid.Column width={13} style={{textAlign: 'center'}}>
                     <Button.Group className='ticketGroup'>
@@ -304,132 +278,46 @@ class SeatSelectionPage extends Component {
                 </Grid.Row>
                 <Grid.Row>
                 <Grid.Column width={2} style={{textAlign: 'center'}}>                    
-                      <h3>3.  Please select the seats</h3>       
+                  <h3>3.  Please select the seats</h3>  
+                  <Label.Group>
+                    <Label style={{backgroundColor: "white"}} className="seat-label">Available</Label> 
+                    <Label style={{backgroundColor: "#BDC3C7"}} className="seat-label">Occupied</Label> 
+                    <Label style={{backgroundColor: "lightblue"}} className="seat-label">Selected</Label>
+                  </Label.Group>  
                 </Grid.Column>
-                <Grid.Column width={13} style={{textAlign: 'center'}}> 
-                    <h3>SCREEN</h3>
-                        <div>
-                            <DrawGridLeft 
-                            seatLeft = { this.state.seatLeft }
-                            available = { this.state.seatAvailable }
-                            reserved = { this.state.seatReserved }
-                            onClickData = { this.onClickData.bind(this) }
-                            />
-                        </div>
-                    </Grid.Column>
-                    <Grid.Column width={5} style={{textAlign: 'center'}}>
-                    <h3>SCREEN</h3>
-                        <div>
-                            <DrawGrid 
-                            seat = { this.state.seat }
-                            available = { this.state.seatAvailable }
-                            reserved = { this.state.seatReserved }
-                            onClickData = { this.onClickData.bind(this) }
-                            />
-                        </div>
-                    </Grid.Column>
-                    <Grid.Column width={4} style={{textAlign: 'center'}}>
-                        <h3>SCREEN</h3>
-                        <div>
-                            <DrawGridRight 
-                            seatRight = { this.state.seatRight }
-                            available = { this.state.seatAvailable }
-                            reserved = { this.state.seatReserved }
-                            onClickData = { this.onClickData.bind(this) }
-                            />
-                        </div>
-                    </Grid.Column>
-                  </Grid.Row>
-                {/* <Grid.Column width={13} style={{textAlign: 'center'}}> */}
-                    
-                    
-                    
-               
-                
+                <Grid.Column width={13} textAlign='center' style={{overflowX: "scroll", whiteSpace: "no-wrap"}}> 
+                  <Grid.Row className='seat-map'>
+                    <h1>SCREEN</h1>
+                    <Divider className="screen"></Divider>
+                  <Table className="seat-table" columns={14} singleLine unstackable>
+                    <Table.Body>
+                      {this.state.seatMap.map((rows, index) => (
+                        <Table.Row padded textAlign='center' key={index}>
+                          {rows.map((seat, seatIdx) => {
+                            if (seat.state === "occupied"){
+                              return(<Table.Cell className='seats occupied-seats' key={seatIdx}>{seat.id}</Table.Cell>)}
+                            else if (seat.state === "unoccupied"){
+                              return(
+                                <Table.Cell name="clicked" className='seats unoccupied-seats' key={seat.id} 
+                                  onClick={event => this.onSeatChanged(event, seat.id)}>{seat.id}
+                                </Table.Cell>)}
+                            else{
+                              return(
+                                <Table.Cell className='seats alley' key={seatIdx}>{" "}</Table.Cell>)}
+                            })}
+                          </Table.Row>
+                        ))}        
+                      </Table.Body>
+                    </Table>
+                    </Grid.Row>
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Button inverted color="green">Confirm and Proceed to checkout</Button>
+                </Grid.Row>
             </Grid>
             </>
         )
     }
 }
-
-class DrawGrid extends React.Component {
-    render() {
-      return (
-         <div className="container-4perRow">
-          
-          <table className="grid">
-            <tbody>
-                <tr>
-                  { this.props.seat.map( row =>
-                    <td 
-                      className={this.props.reserved.indexOf(row) > -1? 'reserved': 'available'}
-                      key={row} onClick = {e => this.onClickSeat(row)}>{row} </td>) }
-                </tr>
-            </tbody>
-          </table>
-          
-          
-         </div>
-      )
-    }
-    
-    onClickSeat(seat) {
-      this.props.onClickData(seat);
-    }
-  }
-
-  class DrawGridRight extends React.Component {
-    render() {
-      return (
-         <div className="container">
-          
-          <table className="grid">
-            <tbody>
-                <tr>
-                  { this.props.seatRight.map( row =>
-                    <td 
-                      className={this.props.reserved.indexOf(row) > -1? 'reserved': 'available'}
-                      key={row} onClick = {e => this.onClickSeat(row)}>{row} </td>) }
-                </tr>
-            </tbody>
-          </table>
-          
-          
-         </div>
-      )
-    }
-    
-    onClickSeat(seat) {
-      this.props.onClickData(seat);
-    }
-  }
-
-  class DrawGridLeft extends React.Component {
-    render() {
-      return (
-         <div className="container">
-          
-          <table className="grid">
-            <tbody>
-                <tr>
-                  { this.props.seatLeft.map( row =>
-                    <td 
-                      className={this.props.reserved.indexOf(row) > -1? 'reserved': 'available'}
-                      key={row} onClick = {e => this.onClickSeat(row)}>{row} </td>) }
-                </tr>
-            </tbody>
-          </table>
-          
-          
-         </div>
-      )
-    }
-    
-    onClickSeat(seat) {
-      this.props.onClickData(seat);
-    }
-  }
-  
-  
-
 export default SeatSelectionPage;
