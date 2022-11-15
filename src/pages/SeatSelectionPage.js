@@ -61,7 +61,7 @@ class SeatSelectionPage extends Component {
             selectedTimeObject: null,
 
             seatMap: seatAllocations["11:00 a.m."],
-            selectedSeats: {},
+            selectedSeats: [],
         }
     }    
 
@@ -88,6 +88,12 @@ class SeatSelectionPage extends Component {
       }
       event.currentTarget.style.backgroundColor = 'teal';
       event.currentTarget.style.color = 'white';
+
+      while (this.state.selectedSeats.length > 0){
+        let seatTuple = this.state.selectedSeats.shift();
+        seatTuple[1].style.backgroundColor = 'white';
+      }
+
       this.setState({
         selectedTimeObject: event.currentTarget,
         selectedTime: event.currentTarget.name,
@@ -114,19 +120,13 @@ class SeatSelectionPage extends Component {
       this.setState(prevState => {
         switch(ticketType) {
           case "children":
-            if (this.state.childrenCount > 0){
-              return {childrenCount: prevState.childrenCount-1};
-            }
+            if (this.state.childrenCount > 0){ return {childrenCount: prevState.childrenCount-1};}
             break;
           case "adult":
-            if (this.state.adultCount > 1){
-              return {adultCount: prevState.adultCount-1};
-            }
+            if (this.state.adultCount > 1){ return {adultCount: prevState.adultCount-1};}
             break;
           case 'senior':
-            if (this.state.seniorCount > 0){
-              return {seniorCount: prevState.seniorCount-1};
-            }
+            if (this.state.seniorCount > 0){ return {seniorCount: prevState.seniorCount-1};}
             break;
           default:
             return null;
@@ -135,17 +135,12 @@ class SeatSelectionPage extends Component {
     }
 
     onSeatChanged = (event, seatId) => {
-      if (seatId in this.state.selectedSeats){
-        let curr = this.state.selectedSeats[seatId];
-        curr.style.backgroundColor = 'white';
-        delete this.state.selectedSeats[seatId];
-      }else{
-        event.currentTarget.style.backgroundColor = 'lightblue';
-        // this.setState({
-        //   selectedSeats[seatId]: event.currentTarget,
-        // })
-        this.state.selectedSeats[seatId] = event.currentTarget;
+      if (this.state.selectedSeats.length >= (this.state.childrenCount+this.state.adultCount+this.state.seniorCount)){
+        let curr = this.state.selectedSeats.shift();
+        curr[1].style.backgroundColor = 'white';
       }
+      event.currentTarget.style.backgroundColor = 'lightblue';
+      this.state.selectedSeats.push([seatId, event.currentTarget]);      
     }
 
     render() {
@@ -260,9 +255,9 @@ class SeatSelectionPage extends Component {
                 <Grid.Column width={2} style={{textAlign: 'center'}}>                    
                   <h3>3.  Please select the seats</h3>  
                   <Label.Group>
-                    <Label style={{backgroundColor: "white", border: "2px solid orange"}}>Available</Label> 
-                    <Label style={{backgroundColor: "#BDC3C7", border: "2px solid orange"}} >Occupied</Label> 
-                    <Label style={{backgroundColor: "lightblue", border: "2px solid orange"}}>Selected</Label>
+                    <Label style={{backgroundColor: "white"}} className="seat-label">Available</Label> 
+                    <Label style={{backgroundColor: "#BDC3C7"}} className="seat-label">Occupied</Label> 
+                    <Label style={{backgroundColor: "lightblue"}} className="seat-label">Selected</Label>
                   </Label.Group>  
                 </Grid.Column>
                 <Grid.Column width={13} textAlign='center' style={{overflowX: "scroll", whiteSpace: "no-wrap"}}> 

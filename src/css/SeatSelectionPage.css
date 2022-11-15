@@ -25,6 +25,11 @@
   cursor: default !important;
 }
 
+.seat-label {
+  border-radius: 15px 15px 0px 0px !important;
+  border: 2px solid orange !important;
+}
+
 .seat-map {
   /* display: block !important; */
   /* overflow-x: scroll !important; */
