@@ -1,5 +1,18 @@
 {
     "seatAllocations": {
+    "default": [
+        [{"id": "A1", "state": "default"}, {"id": "A2", "state": "default"}, {"id": "A3", "state": "default"}, {"id": "alley", "state": "alley"}, 
+        {"id": "A4", "state": "default"}, {"id": "A5", "state": "default"}, {"id": "A6", "state": "default"}, {"id": "A7", "state": "default"}, {"id": "alley", "state": "alley"}, 
+        {"id": "A8", "state": "default"}, {"id": "A9", "state": "default"}, {"id": "A10", "state": "default"}],
+
+        [{"id": "B1", "state": "default"}, {"id": "B2", "state": "default"}, {"id": "B3", "state": "default"}, {"id": "alley", "state": "alley"}, 
+        {"id": "B4", "state": "default"}, {"id": "B5", "state": "default"}, {"id": "B6", "state": "default"}, {"id": "B7", "state": "default"}, {"id": "alley", "state": "alley"}, 
+        {"id": "B8", "state": "default"}, {"id": "B9", "state": "default"}, {"id": "B10", "state": "default"}],
+
+        [{"id": "C1", "state": "default"}, {"id": "C2", "state": "default"}, {"id": "C3", "state": "default"}, {"id": "alley", "state": "alley"}, 
+        {"id": "C4", "state": "default"}, {"id": "C5", "state": "default"}, {"id": "C6", "state": "default"}, {"id": "C7", "state": "default"}, {"id": "alley", "state": "alley"}, 
+        {"id": "C8", "state": "default"}, {"id": "C9", "state": "default"}, {"id": "c10", "state": "default"}]
+    ],
     "11:00 a.m.": [
         [{"id": "A1", "state": "unoccupied"}, {"id": "A2", "state": "unoccupied"}, {"id": "A3", "state": "unoccupied"}, {"id": "alley", "state": "alley"}, 
         {"id": "A4", "state": "unoccupied"}, {"id": "A5", "state": "occupied"}, {"id": "A6", "state": "unoccupied"}, {"id": "A7", "state": "unoccupied"}, {"id": "alley", "state": "alley"}, 

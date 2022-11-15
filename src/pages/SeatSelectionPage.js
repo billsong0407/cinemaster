@@ -47,65 +47,74 @@ const showtimes = [
 
 class SeatSelectionPage extends Component {
     
-    constructor(props){
-        super(props);
-        this.state = {
-            showdates: showdates,
-            showtimes: showtimes,
-            adultCount: 1,
-            childrenCount: 0,
-            seniorCount: 0,
-            selectedDate: null,
-            selectedDateObject: null,
-            selectedTime: null,
-            selectedTimeObject: null,
+  constructor(props){
+      super(props);
+      this.state = {
+          showdates: showdates,
+          showtimes: showtimes,
+          adultCount: 1,
+          childrenCount: 0,
+          seniorCount: 0,
+          selectedDate: null,
+          selectedDateObject: null,
+          selectedTime: null,
+          selectedTimeObject: null,
 
-            seatMap: seatAllocations["11:00 a.m."],
-            selectedSeats: [],
-            selectedSeatsObjects: {}
-        }
-    }    
-
-    onDateChange = (event) => {
-      if (this.state.selectedDateObject !== null){
-        let curr = this.state.selectedDateObject
-        curr.style.backgroundColor = 'white';
-        curr.style.color = 'black';  
+          seatMap: seatAllocations["default"],
+          selectedSeats: [],
+          selectedSeatsObjects: {}
       }
-      event.currentTarget.style.backgroundColor = 'teal';
-      event.currentTarget.style.color = 'white';
+  }    
+
+  onDateChange = (event) => {
+    if (this.state.selectedDateObject !== null){
+      let curr = this.state.selectedDateObject
+      curr.style.backgroundColor = 'white';
+      curr.style.color = 'black';  
+    }
+    event.currentTarget.style.backgroundColor = 'teal';
+    event.currentTarget.style.color = 'white';
+    this.setState({
+      selectedDateObject: event.currentTarget,
+      selectedDate: event.currentTarget.name,
+    })
+
+    if (event.currentTarget.name !== null && this.state.selectedTime !== null){
       this.setState({
-        selectedDateObject: event.currentTarget,
-        selectedDate: event.currentTarget.name,
+        seatMap: seatAllocations[this.state.selectedTime],
       })
-      console.log(this.state.selectedDate);
+    }
+  }
+
+  onTimeChange = (event) => {
+    if (this.state.selectedTimeObject !== null){
+      let curr = this.state.selectedTimeObject
+      curr.style.backgroundColor = 'white';
+      curr.style.color = 'black';  
+    }
+    event.currentTarget.style.backgroundColor = 'teal';
+    event.currentTarget.style.color = 'white';
+
+    while (this.state.selectedSeats.length > 0){
+      let removeSeatId = this.state.selectedSeats.shift();
+      let curr = this.state.selectedSeatsObjects[removeSeatId];
+      curr.style.backgroundColor = 'white';
+      delete this.state.selectedSeatsObjects[removeSeatId];
     }
 
-    onTimeChange = (event) => {
-      if (this.state.selectedTimeObject !== null){
-        let curr = this.state.selectedTimeObject
-        curr.style.backgroundColor = 'white';
-        curr.style.color = 'black';  
-      }
-      event.currentTarget.style.backgroundColor = 'teal';
-      event.currentTarget.style.color = 'white';
-
-      while (this.state.selectedSeats.length > 0){
-        let removeSeatId = this.state.selectedSeats.shift();
-        let curr = this.state.selectedSeatsObjects[removeSeatId];
-        curr.style.backgroundColor = 'white';
-        delete this.state.selectedSeatsObjects[removeSeatId];
-      }
-
+    this.setState({
+      selectedTimeObject: event.currentTarget,
+      selectedTime: event.currentTarget.name,
+      adultCount: 1,
+      childrenCount: 0,
+      seniorCount: 0,
+    })
+    if (this.state.selectedDate !== null && event.currentTarget.name !== null){
       this.setState({
-        selectedTimeObject: event.currentTarget,
-        selectedTime: event.currentTarget.name,
         seatMap: seatAllocations[event.currentTarget.name],
-        adultCount: 1,
-        childrenCount: 0,
-        seniorCount: 0,
       })
     }
+  }
     
     incrementCount = (ticketType) =>{
       this.setState(prevState => {
@@ -171,7 +180,6 @@ class SeatSelectionPage extends Component {
                 </Header>
             </Divider>
             <Grid stackable verticalAlign='middle' centered>
-               
                 <Grid.Row>
                 <Grid.Column width={2} style={{textAlign: 'center'}}>
                     <h3>1.  Please select a date</h3>
@@ -287,28 +295,18 @@ class SeatSelectionPage extends Component {
                         <Table.Row padded textAlign='center' key={index}>
                           {rows.map((seat, seatIdx) => {
                             if (seat.state === "occupied"){
-                              return(
-                                <Table.Cell className='seats occupied-seats' key={seatIdx}>
-                                  {seat.id}
-                                </Table.Cell>
-                              )}
+                              return(<Table.Cell className='seats occupied-seats' key={seatIdx}>{seat.id}</Table.Cell>)}
                             else if (seat.state === "unoccupied"){
                               return(
                                 <Table.Cell name="clicked" className='seats unoccupied-seats' key={seat.id} 
-                                  onClick={event => this.onSeatChanged(event, seat.id)}>
-                                  {seat.id}
-                                </Table.Cell>
-                              )}
+                                  onClick={event => this.onSeatChanged(event, seat.id)}>{seat.id}
+                                </Table.Cell>)}
                             else{
                               return(
-                                <Table.Cell className='seats alley' key={seatIdx}>
-                                  {" "}
-                                </Table.Cell>
-                              )}
+                                <Table.Cell className='seats alley' key={seatIdx}>{" "}</Table.Cell>)}
                             })}
                           </Table.Row>
                         ))}        
-                         
                       </Table.Body>
                     </Table>
                     </Grid.Row>
