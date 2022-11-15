@@ -62,6 +62,7 @@ class SeatSelectionPage extends Component {
 
             seatMap: seatAllocations["11:00 a.m."],
             selectedSeats: [],
+            selectedSeatsObjects: {}
         }
     }    
 
@@ -90,14 +91,19 @@ class SeatSelectionPage extends Component {
       event.currentTarget.style.color = 'white';
 
       while (this.state.selectedSeats.length > 0){
-        let seatTuple = this.state.selectedSeats.shift();
-        seatTuple[1].style.backgroundColor = 'white';
+        let removeSeatId = this.state.selectedSeats.shift();
+        let curr = this.state.selectedSeatsObjects[removeSeatId];
+        curr.style.backgroundColor = 'white';
+        delete this.state.selectedSeatsObjects[removeSeatId];
       }
 
       this.setState({
         selectedTimeObject: event.currentTarget,
         selectedTime: event.currentTarget.name,
         seatMap: seatAllocations[event.currentTarget.name],
+        adultCount: 1,
+        childrenCount: 0,
+        seniorCount: 0,
       })
     }
     
@@ -135,12 +141,23 @@ class SeatSelectionPage extends Component {
     }
 
     onSeatChanged = (event, seatId) => {
-      if (this.state.selectedSeats.length >= (this.state.childrenCount+this.state.adultCount+this.state.seniorCount)){
-        let curr = this.state.selectedSeats.shift();
-        curr[1].style.backgroundColor = 'white';
+      if (seatId in this.state.selectedSeatsObjects){
+        let curr = this.state.selectedSeatsObjects[seatId];
+        curr.style.backgroundColor = 'white';
+        delete this.state.selectedSeatsObjects[seatId];
+        this.state.selectedSeats.splice(this.state.selectedSeats.indexOf(seatId), 1);
+      }else{
+        if (this.state.selectedSeats.length >= (this.state.childrenCount+this.state.adultCount+this.state.seniorCount)){
+          var removeSeatId = this.state.selectedSeats.shift()
+          let curr = this.state.selectedSeatsObjects[removeSeatId];
+          curr.style.backgroundColor = 'white';
+          delete this.state.selectedSeatsObjects[removeSeatId];
+        }
+        event.currentTarget.style.backgroundColor = 'lightblue';
+        this.state.selectedSeats.push([seatId]);
+        this.state.selectedSeatsObjects[seatId] = event.currentTarget;
       }
-      event.currentTarget.style.backgroundColor = 'lightblue';
-      this.state.selectedSeats.push([seatId, event.currentTarget]);      
+          
     }
 
     render() {
