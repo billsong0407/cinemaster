@@ -57,13 +57,19 @@
 
 .seat-map {
   /* display: block !important; */
-  /* overflow-x: scroll !important; */
-  overflow-x: hidden;
-  min-width: 1000px !important;
+  overflow-x: scroll !important;
+  /* overflow-x: hidden; */
+  /* min-width: 700px; */
+}
+
+.screen-container {
+  color: teal;
+  min-width: 700px !important;
 }
 
 .seat-table {
-  padding-top: 50px;
+  min-width: 700px !important;
+  padding-top: 20px;
   border: none !important;
 }
 

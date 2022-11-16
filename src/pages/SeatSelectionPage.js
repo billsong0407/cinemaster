@@ -188,8 +188,7 @@ class SeatSelectionPage extends Component {
             </Divider>
             <Container className='instruction-container'>
                 <Header as='h3'>
-                  1.  Please select a date
-                  <Icon name='calendar alternate outline' />
+                  Step 1 - Please select a date
                 </Header>
               {/* <h3>1.  Please select a date <Icon name="calendar alternate outline"/></h3> */}
             </Container>
@@ -203,7 +202,7 @@ class SeatSelectionPage extends Component {
                 keyBoardControl={true}
                 customTransition="all .5"
                 transitionDuration={100}
-                containerClass="carousel-container"
+                // containerClass="carousel-container"
                 // removeArrowOnDeviceType={["mobile"]}
                 deviceType={this.props.deviceType}
                 // itemClass="carousel-item-padding-100-px"
@@ -220,8 +219,7 @@ class SeatSelectionPage extends Component {
             </Container>
             <Container className='instruction-container'>
                 <Header as='h3'>
-                  2.  Please select a time
-                  <Icon name='clock outline' />
+                  Step 2 - Please select a time
                 </Header>
               {/* <h3>2.  Please select a time <Icon name="clock outline"/></h3> */}
             </Container>
@@ -235,7 +233,7 @@ class SeatSelectionPage extends Component {
                 keyBoardControl={true}
                 customTransition="all .5"
                 transitionDuration={100}
-                containerClass="carousel-container"
+                // containerClass="carousel-container"
                 // removeArrowOnDeviceType={["mobile"]}
                 deviceType={this.props.deviceType}
                 // itemClass="carousel-item-padding-100-px"
@@ -251,7 +249,7 @@ class SeatSelectionPage extends Component {
             </Container>
             <Container className='instruction-container'>
               <Header as='h3'>
-                3.  Please select the number of tickets
+                Step 3 - Please select the number of tickets
               </Header>
               {/* <h3>3.  Please select the number of tickets</h3>  */}
             </Container>
@@ -286,7 +284,7 @@ class SeatSelectionPage extends Component {
             <Container className='instruction-container'>
               
                 <Header as='h3'>
-                  4.  Please select the available seats
+                  Step 4 - Please select the available seats
                 </Header>
               <Label.Group>
                 <Label style={{backgroundColor: "white"}} className="seat-label">Available</Label> 
@@ -295,8 +293,10 @@ class SeatSelectionPage extends Component {
               </Label.Group>  
             </Container>
             <Container className='seat-map'>
+              <div className='screen-container'>
               <h1>SCREEN</h1>
               <Divider className="screen"></Divider>
+              </div>
               <Table className="seat-table" columns={14} singleLine unstackable>
                 <Table.Body>
                   {this.state.seatMap.map((rows, index) => (
@@ -321,6 +321,9 @@ class SeatSelectionPage extends Component {
               </Table>
             </Container>
             <Grid stackable verticalAlign='middle' centered>
+              <Grid.Row>
+                
+              </Grid.Row>
               <Grid.Row>
                 <Button inverted color="green">Confirm and Proceed to checkout</Button>
               </Grid.Row>
