@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import BrandHeader from "../components/header";
 
-import { Grid, Divider, Header, Icon, Button, Card, Table, Label} from 'semantic-ui-react'
+import { Grid, Divider, Header, Icon, Button, Card, Table, Label, Container} from 'semantic-ui-react'
 import Carousel from 'react-multi-carousel';
 
 import 'react-multi-carousel/lib/styles.css';
@@ -178,149 +178,155 @@ class SeatSelectionPage extends Component {
         return (
             <>
             <BrandHeader></BrandHeader>
-            <Divider horizontal style={{color: 'red'}}>
+            <div className='seats-page-container'>
+            <div className='seats-page-container-wrapper'>
+            <Divider horizontal>
                 <Header as='h4'>
                     <Icon name='video' />
                     Avengers 3: Infinite Warefare
                 </Header>
             </Divider>
-            <Grid stackable verticalAlign='middle' centered>
-                <Grid.Row>
-                <Grid.Column width={2} style={{textAlign: 'center'}}>
-                    <h3>1.  Please select a date</h3>
-                    <Icon name="calendar alternate outline"/>
-                </Grid.Column>
-                <Grid.Column width={13}>
-                    <Carousel
-                        swipeable={true}
-                        draggable={false}
-                        responsive={responsive}
-                        centerMode={false}
-                        ssr={true} // means to render carousel on server-side.
-                        keyBoardControl={true}
-                        customTransition="all .5"
-                        transitionDuration={500}
-                        containerClass="carousel-container"
-                        // removeArrowOnDeviceType={["mobile"]}
-                        deviceType={this.props.deviceType}
-                        itemClass="carousel-item-padding-30-px"
-                        >
-                          {this.state.showdates.map(showdate =>(
-                              <Card name={showdate.date} style={{color: 'black'}} className="cardStyle" color='teal' onClick={this.onDateChange}>
-                                <Card.Content style={{textAlign: 'center'}}>
-                                    <p>{showdate.day}</p>
-                                    <p>{showdate.date}</p>
-                                </Card.Content>
-                            </Card>
-                          ))}
-                    </Carousel>
-                </Grid.Column>
-                </Grid.Row>
+            <Container className='instruction-container'>
+                <Header as='h3'>
+                  1.  Please select a date
+                  <Icon name='calendar alternate outline' />
+                </Header>
+              {/* <h3>1.  Please select a date <Icon name="calendar alternate outline"/></h3> */}
+            </Container>
+            <Container className='carousel-wrapper'>
+              <Carousel
+                swipeable={true}
+                draggable={false}
+                responsive={responsive}
+                centerMode={false}
+                ssr={true} // means to render carousel on server-side.
+                keyBoardControl={true}
+                customTransition="all .5"
+                transitionDuration={100}
+                containerClass="carousel-container"
+                // removeArrowOnDeviceType={["mobile"]}
+                deviceType={this.props.deviceType}
+                // itemClass="carousel-item-padding-100-px"
+                >
+                  {this.state.showdates.map(showdate =>(
+                      <Card name={showdate.date} style={{color: 'black'}} className="cardStyle" color='teal' onClick={this.onDateChange}>
+                        <Card.Content>
+                            <p>{showdate.day}</p>
+                            <p>{showdate.date}</p>
+                        </Card.Content>
+                    </Card>
+                  ))}
+            </Carousel>
+            </Container>
+            <Container className='instruction-container'>
+                <Header as='h3'>
+                  2.  Please select a time
+                  <Icon name='clock outline' />
+                </Header>
+              {/* <h3>2.  Please select a time <Icon name="clock outline"/></h3> */}
+            </Container>
+            <Container className='carousel-wrapper'>
+              <Carousel
+                swipeable={true}
+                draggable={false}
+                responsive={responsive}
+                centerMode={false}
+                ssr={true} // means to render carousel on server-side.
+                keyBoardControl={true}
+                customTransition="all .5"
+                transitionDuration={100}
+                containerClass="carousel-container"
+                // removeArrowOnDeviceType={["mobile"]}
+                deviceType={this.props.deviceType}
+                // itemClass="carousel-item-padding-100-px"
+              >
+                {this.state.showtimes.map(time =>(
+                  <Card fluid name={time} className="cardStyle" style={{color: 'black'}} color='teal' onClick={this.onTimeChange}>
+                      <Card.Content style={{textAlign: 'center'}}>
+                          <p>{time}</p>
+                      </Card.Content>
+                  </Card>
+                ))}
+              </Carousel>
+            </Container>
+            <Container className='instruction-container'>
+              <Header as='h3'>
+                3.  Please select the number of tickets
+              </Header>
+              {/* <h3>3.  Please select the number of tickets</h3>  */}
+            </Container>
+            <Container>
+              <Button.Group className='ticketGroup'>
+                <Button disabled={this.state.counterEnabled} active basic color="teal" className='ticketLabel'>Children</Button>
+                <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.decrementCount("children")} icon='minus' />
+                <Button disabled={this.state.counterEnabled} basic color='blue' className='ticketCountLabel'>
+                  {this.state.childrenCount}
+                </Button>
+                <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.incrementCount("children")} icon='plus' />
+              </Button.Group>                    
+      
+              <Button.Group className='ticketGroup'>
+                <Button disabled={this.state.counterEnabled} active basic color="teal" className='ticketLabel'>Adults</Button>
+                <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.decrementCount("adult")} icon='minus' />
+                <Button disabled={this.state.counterEnabled} basic color="blue" className='ticketCountLabel'>
+                  {this.state.adultCount}
+                </Button>
+                <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.incrementCount("adult")} icon='plus' />
+              </Button.Group>  
+              <Button.Group className='ticketGroup'>
+                <Button disabled={this.state.counterEnabled} active basic color="teal" className='ticketLabel'>Seniors</Button>
+                <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.decrementCount("senior")} icon='minus' />
+                <Button disabled={this.state.counterEnabled} basic color="blue" className='ticketCountLabel'>
+                  {this.state.seniorCount}
+                </Button>
+                <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.incrementCount("senior")} icon='plus' />
+              </Button.Group>  
+            </Container>
 
-                <Grid.Row>
-                <Grid.Column width={2} style={{textAlign: 'center'}}>
-                    <h3>2.  Please select a time</h3>
-                    <Icon name="clock outline"/>
-                </Grid.Column>
-                <Grid.Column width={13}>
-                    <Carousel
-                      swipeable={true}
-                      draggable={false}
-                      responsive={responsive}
-                      centerMode={false}
-                      ssr={true} // means to render carousel on server-side.
-                      keyBoardControl={true}
-                      customTransition="all .5"
-                      transitionDuration={500}
-                      containerClass="carousel-container"
-                      // removeArrowOnDeviceType={["mobile"]}
-                      deviceType={this.props.deviceType}
-                      itemClass="carousel-item-padding-30-px"
-                    >
-                      {this.state.showtimes.map(time =>(
-                        <Card name={time} className="cardStyle" style={{color: 'black'}} color='teal' onClick={this.onTimeChange}>
-                            <Card.Content style={{textAlign: 'center'}}>
-                                <p>{time}</p>
-                            </Card.Content>
-                        </Card>
-                      ))}
-                    </Carousel>
-                </Grid.Column>
-                </Grid.Row>
-
-                <Grid.Row>
-                <Grid.Column width={2} style={{textAlign: 'center'}}>                    
-                    <h3>3.  Please select the number of tickets</h3>      
-                </Grid.Column>
-                <Grid.Column width={13} style={{textAlign: 'center'}}>
-                    <Button.Group className='ticketGroup'>
-                        <Button disabled={this.state.counterEnabled} active basic color="teal" className='ticketLabel'>Children</Button>
-                        <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.decrementCount("children")} icon='minus' />
-                        <Button disabled={this.state.counterEnabled} basic color='blue' className='ticketCountLabel'>
-                          {this.state.childrenCount}
-                        </Button>
-                        <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.incrementCount("children")} icon='plus' />
-                    </Button.Group>                    
-            
-                    <Button.Group className='ticketGroup'>
-                        <Button disabled={this.state.counterEnabled} active basic color="teal" className='ticketLabel'>Adults</Button>
-                        <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.decrementCount("adult")} icon='minus' />
-                        <Button disabled={this.state.counterEnabled} basic color="blue" className='ticketCountLabel'>
-                          {this.state.adultCount}
-                        </Button>
-                        <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.incrementCount("adult")} icon='plus' />
-                    </Button.Group>                    
+            <Container className='instruction-container'>
               
-                    <Button.Group className='ticketGroup'>
-                        <Button disabled={this.state.counterEnabled} active basic color="teal" className='ticketLabel'>Seniors</Button>
-                        <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.decrementCount("senior")} icon='minus' />
-                        <Button disabled={this.state.counterEnabled} basic color="blue" className='ticketCountLabel'>
-                          {this.state.seniorCount}
-                        </Button>
-                        <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.incrementCount("senior")} icon='plus' />
-                    </Button.Group>  
-                </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                <Grid.Column width={2} style={{textAlign: 'center'}}>                    
-                  <h3>3.  Please select the available seats</h3>  
-                  <Label.Group>
-                    <Label style={{backgroundColor: "white"}} className="seat-label">Available</Label> 
-                    <Label style={{backgroundColor: "#BDC3C7"}} className="seat-label">Occupied</Label> 
-                    <Label style={{backgroundColor: "lightblue"}} className="seat-label">Selected</Label>
-                  </Label.Group>  
-                </Grid.Column>
-                <Grid.Column width={13} textAlign='center' style={{overflowX: "scroll", whiteSpace: "no-wrap"}}> 
-                  <Grid.Row className='seat-map'>
-                    <h1>SCREEN</h1>
-                    <Divider className="screen"></Divider>
-                  <Table className="seat-table" columns={14} singleLine unstackable>
-                    <Table.Body>
-                      {this.state.seatMap.map((rows, index) => (
-                        <Table.Row padded textAlign='center' key={index}>
-                          {rows.map((seat, seatIdx) => {
-                            if (seat.state === "occupied"){
-                              return(<Table.Cell className='seats occupied-seats' key={seatIdx}>{seat.id}</Table.Cell>)}
-                            else if (seat.state === "unoccupied"){
-                              return(
-                                <Table.Cell name="clicked" className='seats unoccupied-seats' key={seat.id} 
-                                  onClick={event => this.onSeatChanged(event, seat.id)}>{seat.id}
-                                </Table.Cell>)}
-                            else{
-                              return(
-                                <Table.Cell className='seats alley' key={seatIdx}>{" "}</Table.Cell>)}
-                            })}
-                          </Table.Row>
-                        ))}        
-                      </Table.Body>
-                    </Table>
-                    </Grid.Row>
-                  </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Button inverted color="green">Confirm and Proceed to checkout</Button>
-                </Grid.Row>
+                <Header as='h3'>
+                  4.  Please select the available seats
+                </Header>
+              <Label.Group>
+                <Label style={{backgroundColor: "white"}} className="seat-label">Available</Label> 
+                <Label style={{backgroundColor: "#BDC3C7"}} className="seat-label">Occupied</Label> 
+                <Label style={{backgroundColor: "lightblue"}} className="seat-label">Selected</Label>
+              </Label.Group>  
+            </Container>
+            <Container className='seat-map'>
+              <h1>SCREEN</h1>
+              <Divider className="screen"></Divider>
+              <Table className="seat-table" columns={14} singleLine unstackable>
+                <Table.Body>
+                  {this.state.seatMap.map((rows, index) => (
+                    <Table.Row padded textAlign='center' key={index}>
+                      {rows.map((seat, seatIdx) => {
+                        if (seat.state === "occupied"){
+                          return(<Table.Cell className='seats occupied-seats' key={seatIdx}>{seat.id}</Table.Cell>)}
+                        else if (seat.state === "unoccupied"){
+                          return(
+                            <Table.Cell name="clicked" className='seats unoccupied-seats' key={seat.id} 
+                              onClick={event => this.onSeatChanged(event, seat.id)}>{seat.id}
+                            </Table.Cell>)}
+                        else if (seat.state === "default"){
+                          return(<Table.Cell disabled className='seats' key={seatIdx}>{seat.id}</Table.Cell>)}
+                        else{
+                          return(
+                            <Table.Cell className='seats alley' key={seatIdx}>{" "}</Table.Cell>)}
+                      })}
+                    </Table.Row>
+                  ))}        
+                </Table.Body>
+              </Table>
+            </Container>
+            <Grid stackable verticalAlign='middle' centered>
+              <Grid.Row>
+                <Button inverted color="green">Confirm and Proceed to checkout</Button>
+              </Grid.Row>
             </Grid>
+            </div>
+            </div>
             </>
         )
     }

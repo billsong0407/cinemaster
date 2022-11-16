@@ -1,9 +1,34 @@
+.seats-page-container{
+  /* background-color: grey; */
+   padding: 30px;
+}
+
+/* .seats-page-container-wrapper{
+  background-color: white;
+} */
+
+.instruction-container {
+  margin-top: 30px;
+}
+
+.instruction-container h3 {
+  font-size: 20px !important;
+}
+
 .react-multi-carousel-item {
-    margin: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.react-multiple-carousel__arrow {
+  background: lightblue;
 }
 
 .cardStyle {
   font-weight: bold !important;
+  color: 'black' !important;
 }
 
 .ticketGroup {
@@ -79,31 +104,10 @@
   opacity: .7;
   cursor: pointer;
 }
-  
-.reserved {
-    background: red;
-    color: #fff;
-    display: inline-block;
-  }
-  
-.available {
-    background: green;
-    color: #fff;
-  }
 
-.legend-reserved {
-    display: inline-block;
-    width: 40px;
-    height: 30px;
-    background: red;
-    border: 3px solid rgb(151, 151, 151);
+/* @media (min-width: 1200px) {
+  .carousel-wrapper {
+    min-width: 1300px;
   }
-
-  .legend-available {
-    display: inline-block;
-    width: 40px;
-    height: 30px;
-    background: green;
-    border: 3px solid rgb(151, 151, 151);
-  }
+} */
 
