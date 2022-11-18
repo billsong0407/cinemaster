@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react'
 import "../css/MovieSelection.css";
+import BrandHeader from "../components/header";
 import {
   Dropdown,
   Image,
@@ -46,6 +47,8 @@ class MovieSelectionPage extends Component {
     super(props);
     this.default = "Avengers"
     this.state = {
+      cinemaLocation: this.props.location.state.cinemaLocation,
+
       defaultMovie : this.default,
       title: movies[this.default].title,
       description: movies[this.default].description,
@@ -76,8 +79,9 @@ class MovieSelectionPage extends Component {
   render() {
     return (
       <div className="movieSelection">
+        <BrandHeader cinemaLocation={this.state.cinemaLocation}></BrandHeader>
         <Segment raised padded>
-        <Grid columns={1}><Button>Back</Button></Grid>
+        {/* <Grid columns={1}><Button>Back</Button></Grid> */}
           <Grid columns={2}>
             <Grid.Column className="Title">
               <Container

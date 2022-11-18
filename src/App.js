@@ -5,19 +5,19 @@ import HomePage from "./pages/HomePage"
 import SeatSelectionPage from "./pages/SeatSelectionPage"
 import MovieSelectionPage from "./pages/MovieSelectionPage"
 import CheckoutPage from "./pages/CheckoutPage"
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
     <>
       <Router>
         <div className="App">
-          <Routes>
-            <Route exact path="/" element={<HomePage/>}/>
-            <Route exact path="/movies" element={<MovieSelectionPage/>}/>
-            <Route exact path="/seats" element={<SeatSelectionPage/>}/>
-            <Route exact path="/checkout" element={<CheckoutPage/>}/>
-          </Routes>
+          <Switch>
+            <Route path="/" component={HomePage} exact={true}/>
+            <Route path="/movies" component={MovieSelectionPage} exact={true}/>
+            <Route path="/seats" component={SeatSelectionPage} exact={true}/>
+            <Route path="/checkout" component={CheckoutPage} exact={true}/>
+          </Switch>
         </div>
       </Router>
     </>

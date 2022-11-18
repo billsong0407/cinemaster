@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import '../css/home.css';
-import { Dropdown, Button, Segment, Container } from 'semantic-ui-react';
+import { Dropdown, Button, Segment, Container, Icon } from 'semantic-ui-react';
 
 const locationOptions = [
     {
         key: '1',
         text: 'North York, Ontario, Canada',
-        value: 'North York',
+        value: 'North York, Ontario, Canada',
         image: {avatar: true, src: "/images/location.png"},
     },
     {
@@ -39,17 +40,17 @@ class HomePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            location: "",
+            cinemaLocation: "",
         };
-
         // bind upcoming state changes
         this.onLocationChange = this.onLocationChange.bind(this);
     }
 
     onLocationChange(e, {value}){
-        e.persist();
         this.location = value;
-        console.log(this.location);
+        this.setState({
+            cinemaLocation: value,
+        })
     };
 
     render() {
@@ -69,7 +70,15 @@ class HomePage extends Component {
                         options={locationOptions}
                         onChange={this.onLocationChange}
                     />
-                    <Button className="locationButton" inverted color='teal' content='Next' icon='right arrow' labelPosition='right' />
+                    <Button className="locationButton" inverted color='orange'>
+                        <Link 
+                        to={{pathname: "/movies",
+                        state: {cinemaLocation: this.state.cinemaLocation
+                        }}}>
+                            Next {" "}
+                            <Icon name='arrow right' />
+                        </Link>
+                    </Button>
                 </Segment>
             </Container>
         </Container>

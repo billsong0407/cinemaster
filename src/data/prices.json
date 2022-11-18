@@ -1,0 +1,19 @@
+{
+    "PRICES": {
+        "Regular": {
+            "child": 11.00,
+            "senior": 11.00,
+            "adult": 14.00
+        },
+        "3D": {
+            "child": 13.00,
+            "senior": 13.00,
+            "adult": 17.00
+        },
+        "IMAX": {
+            "child": 15.00,
+            "senior": 15.00,
+            "adult": 20.00
+        } 
+    }
+}
