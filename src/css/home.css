@@ -10,18 +10,18 @@
 
 .title{
     padding-top: 10%;
-    color: #6dffff;
+    color: #EB984E;
     font-family: 'Righteous', cursive;
     font-size: 100px;
 }
 
 .locationDropDown {
     width: 70%;
-    border-color: #6dffff !important;
+    border-color: #EB984E !important;
     border-width: 2px !important;
     border-right: none !important;
     background-color: transparent !important;
-    color: #6dffff !important;
+    color: #EB984E !important;
     font-size: large !important;
     font-weight: bold !important;
 }

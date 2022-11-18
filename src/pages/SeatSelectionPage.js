@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import BrandHeader from "../components/header";
 
-import { Grid, Divider, Header, Icon, Button, Card, Table, Label, Container} from 'semantic-ui-react'
+import { Divider, Header, Icon, Button, Card, Table, Label, Container} from 'semantic-ui-react'
 import Carousel from 'react-multi-carousel';
 
 import 'react-multi-carousel/lib/styles.css';
@@ -251,37 +251,37 @@ class SeatSelectionPage extends Component {
               <Header as='h3'>
                 Step 3 - Please select the number of tickets
               </Header>
-              <Label as='a' basic>Child: age{"<="}14</Label>
-              <Label as='a' basic>General: 14{"<"}age{"<"}65</Label>
-              <Label as='a' basic>Senior: age{">="}65</Label>
+              <Label className="age-label" basic>Child: age{"<="}14</Label>
+              <Label className="age-label" basic>General: 14{"<"}age{"<"}65</Label>
+              <Label className="age-label" basic>Senior: age{">="}65</Label>
               {/* <p>Children: age{"<="}14</p> */}
               {/* <h3>3.  Please select the number of tickets</h3>  */}
             </Container>
             <Container>
               <Button.Group className='ticketGroup'>
-                <Button disabled={this.state.counterEnabled} active basic color="teal" className='ticketLabel'>Child $11.00 each</Button>
-                <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.decrementCount("children")} icon='minus' />
-                <Button disabled={this.state.counterEnabled} basic color='blue' className='ticketCountLabel'>
+                <Button disabled={this.state.counterEnabled} active basic color="black" className='ticketLabel'>Child $11.00 each</Button>
+                <Button disabled={this.state.counterEnabled} color="teal" onClick={() => this.decrementCount("children")} icon='minus' />
+                <Button disabled={this.state.counterEnabled} basic color='black' className='ticketCountLabel'>
                   {this.state.childrenCount}
                 </Button>
-                <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.incrementCount("children")} icon='plus' />
+                <Button disabled={this.state.counterEnabled} color="teal" onClick={() => this.incrementCount("children")} icon='plus' />
               </Button.Group>                    
       
               <Button.Group className='ticketGroup'>
-                <Button disabled={this.state.counterEnabled} active basic color="teal" className='ticketLabel'>General $14.00 each</Button>
-                <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.decrementCount("adult")} icon='minus' />
-                <Button disabled={this.state.counterEnabled} basic color="blue" className='ticketCountLabel'>
+                <Button disabled={this.state.counterEnabled} active basic color="black" className='ticketLabel'>General $14.00 each</Button>
+                <Button disabled={this.state.counterEnabled} color="teal" onClick={() => this.decrementCount("adult")} icon='minus' />
+                <Button disabled={this.state.counterEnabled} basic color="black" className='ticketCountLabel'>
                   {this.state.adultCount}
                 </Button>
-                <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.incrementCount("adult")} icon='plus' />
+                <Button disabled={this.state.counterEnabled} color="teal" onClick={() => this.incrementCount("adult")} icon='plus' />
               </Button.Group>  
               <Button.Group className='ticketGroup'>
-                <Button disabled={this.state.counterEnabled} active basic color="teal" className='ticketLabel'>Senior $11.00 each</Button>
-                <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.decrementCount("senior")} icon='minus' />
-                <Button disabled={this.state.counterEnabled} basic color="blue" className='ticketCountLabel'>
+                <Button disabled={this.state.counterEnabled} active basic color="black" className='ticketLabel'>Senior $11.00 each</Button>
+                <Button disabled={this.state.counterEnabled} color="teal" onClick={() => this.decrementCount("senior")} icon='minus' />
+                <Button disabled={this.state.counterEnabled} basic color="black" className='ticketCountLabel'>
                   {this.state.seniorCount}
                 </Button>
-                <Button disabled={this.state.counterEnabled} color="blue" onClick={() => this.incrementCount("senior")} icon='plus' />
+                <Button disabled={this.state.counterEnabled} color="teal" onClick={() => this.incrementCount("senior")} icon='plus' />
               </Button.Group>  
               
             </Container>
