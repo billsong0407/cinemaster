@@ -53,7 +53,7 @@ class SeatSelectionPage extends Component {
       super(props);
       this.state = {
           movieName: "Avengers 3: Infinite Warfare",
-          experienceType: "3D",
+          experienceType: "IMAX",
           showdates: showdates,
           showtimes: showtimes,
           cinemaLocation: "North York",
@@ -70,7 +70,9 @@ class SeatSelectionPage extends Component {
 
           seatMap: seatAllocations["default"],
           selectedSeats: [],
-          selectedSeatsObjects: {}
+          selectedSeatsObjects: {},
+
+          proceedToCheckoutEnabled: false,
       }
   }    
 
@@ -176,6 +178,11 @@ class SeatSelectionPage extends Component {
       this.state.selectedSeats.push([seatId]);
       this.state.selectedSeatsObjects[seatId] = event.currentTarget;
     } 
+    if (this.state.selectedSeats.length >= 1){
+      this.setState({proceedToCheckoutEnabled: true})
+    } else{
+      this.setState({proceedToCheckoutEnabled: false})
+    }
   }
 
   // toCheckoutPage = () => {
@@ -336,7 +343,7 @@ class SeatSelectionPage extends Component {
               </Table>
             </Container>
             <Container className="confirmation-container">
-              <Button inverted color="green">
+              <Button disabled={!this.state.proceedToCheckoutEnabled} inverted color="green">
                 <Link 
                   to={{pathname: "/checkout",
                   state: {movieName: this.state.movieName, 
