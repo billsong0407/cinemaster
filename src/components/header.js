@@ -11,23 +11,6 @@ class BrandHeader extends Component {
   }
   render() {
     return (
-        // <Menu widths={3} className="brand-container" borderless>
-        //   <Menu.Item className='back-button'>
-        //     <Button inverted color='blue' icon labelPosition='left'>
-        //       Back
-        //       <Icon name='left arrow' />
-        //     </Button>
-        //   </Menu.Item>
-        //   <Menu.Item>
-        //     <h3 className="brand-name">Cinemaster</h3>
-        //   </Menu.Item>
-        //   <Menu.Item style={{color: "white"}} className="location-block">{this.state.cinemaLocation}</Menu.Item>
-        // </Menu>
-        // <Segment.Group className="brand-container" horizontal>
-        //   <Segment textAlign='left'>Left</Segment>
-        //   <Segment>Middle</Segment>
-        //   <Segment textAlign='right'>{this.state.cinemaLocation}</Segment>
-        // </Segment.Group>
         <Grid columns={3} className="brand-container" padded verticalAlign='middle'>
           <Grid.Column textAlign='left'>
             <Button inverted color='blue' icon labelPosition='left'>

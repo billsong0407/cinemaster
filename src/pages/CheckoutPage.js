@@ -41,7 +41,7 @@ class CheckoutPage extends Component {
   render() {
     return (
       <>
-      <BrandHeader></BrandHeader>
+      <BrandHeader cinemaLocation={this.state.cinemaLocation}></BrandHeader>
       <div className="checkout">
         <Segment raised padded>
           <Grid columns={2}>
