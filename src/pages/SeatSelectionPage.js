@@ -156,6 +156,7 @@ class SeatSelectionPage extends Component {
       if (this.state.adultCount + this.state.childrenCount + this.state.seniorCount >= availableSeats){
         return {counterErrorEnabled: true};
       }
+
       switch(ticketType) {
         case "children":
           return {childrenCount: prevState.childrenCount+ 1};
@@ -220,7 +221,7 @@ class SeatSelectionPage extends Component {
   render() {
     return (
       <>
-        <BrandHeader></BrandHeader>
+        <BrandHeader cinemaLocation={this.state.cinemaLocation}></BrandHeader>
         <div className='seats-page-container'>
         <div className='seats-page-container-wrapper'>
         <Header as='h4'>
