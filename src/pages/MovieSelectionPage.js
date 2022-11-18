@@ -47,7 +47,7 @@ class MovieSelectionPage extends Component {
     super(props);
     this.default = "Avengers"
     this.state = {
-      cinemaLocation: "North York, Ontario",
+      cinemaLocation: this.props.location.state.cinemaLocation,
 
       defaultMovie : this.default,
       title: movies[this.default].title,
