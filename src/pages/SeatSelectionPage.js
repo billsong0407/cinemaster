@@ -180,13 +180,18 @@ class SeatSelectionPage extends Component {
             <BrandHeader></BrandHeader>
             <div className='seats-page-container'>
             <div className='seats-page-container-wrapper'>
-            <Divider horizontal>
+            {/* <Divider horizontal>
                 <Header as='h4'>
                     <Icon name='video' />
                     Avengers 3: Infinite Warefare
                 </Header>
-            </Divider>
+            </Divider> */}
+            <Header as='h4'>
+                <Icon name='video' />
+                Avengers 3: Infinite Warefare
+            </Header>
             <Container className='instruction-container'>
+                <Divider></Divider>
                 <Header as='h3'>
                   Step 1 - Please select a date
                 </Header>
@@ -218,9 +223,10 @@ class SeatSelectionPage extends Component {
             </Carousel>
             </Container>
             <Container className='instruction-container'>
-                <Header as='h3'>
-                  Step 2 - Please select a time
-                </Header>
+              <Divider></Divider>
+              <Header as='h3'>
+                Step 2 - Please select a time
+              </Header>
               {/* <h3>2.  Please select a time <Icon name="clock outline"/></h3> */}
             </Container>
             <Container className='carousel-wrapper'>
@@ -248,8 +254,9 @@ class SeatSelectionPage extends Component {
               </Carousel>
             </Container>
             <Container className='instruction-container'>
+              <Divider></Divider>
               <Header as='h3'>
-                Step 3 - Please select the number of tickets
+                STEP 3 - Please select the number of tickets
               </Header>
               <Label className="age-label" basic>Child: age{"<="}14</Label>
               <Label className="age-label" basic>General: 14{"<"}age{"<"}65</Label>
@@ -287,9 +294,10 @@ class SeatSelectionPage extends Component {
             </Container>
 
             <Container className='instruction-container'>
-                <Header as='h3'>
-                  Step 4 - Please select the available seats
-                </Header>
+              <Divider></Divider>
+              <Header as='h3'>
+                Step 4 - Please select the available seats
+              </Header>
               <Label.Group>
                 <Label style={{backgroundColor: "white"}} className="seat-label">Available</Label> 
                 <Label style={{backgroundColor: "#BDC3C7"}} className="seat-label">Occupied</Label> 
@@ -327,14 +335,6 @@ class SeatSelectionPage extends Component {
             <Container className="confirmation-container">
               <Button inverted color="green">Confirm and Proceed to checkout</Button>
             </Container>
-            {/* <Grid stackable verticalAlign='middle' centered>
-              <Grid.Row>
-                
-              </Grid.Row>
-              <Grid.Row>
-                
-              </Grid.Row>
-            </Grid> */}
             </div>
             </div>
             </>

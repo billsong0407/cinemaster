@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend&display=swap');
+
 .seats-page-container{
   /* background-color: grey; */
    padding: 30px;
@@ -8,7 +10,8 @@
 }
 
 .instruction-container h3 {
-  font-size: 20px !important;
+  font-family: 'Lexend', sans-serif !important;
+  font-size: 25px !important;
 }
 
 .react-multi-carousel-item {
@@ -19,7 +22,7 @@
 }
 
 .react-multiple-carousel__arrow {
-  background: lightblue;
+  background: #EB984E;
 }
 
 .cardStyle {
@@ -98,7 +101,8 @@
   cursor: pointer;
 }
 
-.confirmation-container {
+.confirmation-container{
+  font-family: 'Lexend', sans-serif;
   margin-top: 20px;
 }
 
