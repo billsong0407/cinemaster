@@ -9,6 +9,7 @@ import 'react-multi-carousel/lib/styles.css';
 import '../css/SeatSelectionPage.css';
 
 const { seatAllocations } = require("../data/seatmap.json");
+const { PRICES } = require("../data/prices.json");
 
 const responsive = {
   superLargeDesktop: {
@@ -189,12 +190,6 @@ class SeatSelectionPage extends Component {
             <BrandHeader></BrandHeader>
             <div className='seats-page-container'>
             <div className='seats-page-container-wrapper'>
-            {/* <Divider horizontal>
-                <Header as='h4'>
-                    <Icon name='video' />
-                    Avengers 3: Infinite Warefare
-                </Header>
-            </Divider> */}
             <Header as='h4'>
                 <Icon name='video' />
                 Avengers 3: Infinite Warefare
@@ -204,7 +199,6 @@ class SeatSelectionPage extends Component {
                 <Header as='h3'>
                   Step 1 - Please select a date
                 </Header>
-              {/* <h3>1.  Please select a date <Icon name="calendar alternate outline"/></h3> */}
             </Container>
             <Container className='carousel-wrapper'>
               <Carousel
@@ -275,7 +269,7 @@ class SeatSelectionPage extends Component {
             </Container>
             <Container>
               <Button.Group className='ticketGroup'>
-                <Button disabled={this.state.counterEnabled} active basic color="black" className='ticketLabel'>Child $11.00 each</Button>
+                <Button disabled={this.state.counterEnabled} active basic color="black" className='ticketLabel'>Child ${PRICES[this.state.experienceType].child} each</Button>
                 <Button disabled={this.state.counterEnabled} color="teal" onClick={() => this.decrementCount("children")} icon='minus' />
                 <Button disabled={this.state.counterEnabled} basic color='black' className='ticketCountLabel'>
                   {this.state.childrenCount}
@@ -284,7 +278,7 @@ class SeatSelectionPage extends Component {
               </Button.Group>                    
       
               <Button.Group className='ticketGroup'>
-                <Button disabled={this.state.counterEnabled} active basic color="black" className='ticketLabel'>General $14.00 each</Button>
+                <Button disabled={this.state.counterEnabled} active basic color="black" className='ticketLabel'>General ${PRICES[this.state.experienceType].adult} each</Button>
                 <Button disabled={this.state.counterEnabled} color="teal" onClick={() => this.decrementCount("adult")} icon='minus' />
                 <Button disabled={this.state.counterEnabled} basic color="black" className='ticketCountLabel'>
                   {this.state.adultCount}
@@ -292,7 +286,7 @@ class SeatSelectionPage extends Component {
                 <Button disabled={this.state.counterEnabled} color="teal" onClick={() => this.incrementCount("adult")} icon='plus' />
               </Button.Group>  
               <Button.Group className='ticketGroup'>
-                <Button disabled={this.state.counterEnabled} active basic color="black" className='ticketLabel'>Senior $11.00 each</Button>
+                <Button disabled={this.state.counterEnabled} active basic color="black" className='ticketLabel'>Senior ${PRICES[this.state.experienceType].senior} each</Button>
                 <Button disabled={this.state.counterEnabled} color="teal" onClick={() => this.decrementCount("senior")} icon='minus' />
                 <Button disabled={this.state.counterEnabled} basic color="black" className='ticketCountLabel'>
                   {this.state.seniorCount}
