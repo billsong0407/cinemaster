@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import BrandHeader from "../components/header";
 
 import { Divider, Header, Icon, Button, Card, Table, Label, Container} from 'semantic-ui-react'
@@ -50,8 +51,11 @@ class SeatSelectionPage extends Component {
   constructor(props){
       super(props);
       this.state = {
+          movieName: "Avengers 3: Infinite Warfare",
+          experienceType: "3D",
           showdates: showdates,
           showtimes: showtimes,
+          cinemaLocation: "North York",
 
           counterEnabled: true,
           adultCount: 1,
@@ -121,58 +125,63 @@ class SeatSelectionPage extends Component {
     }
   }
     
-    incrementCount = (ticketType) =>{
-      this.setState(prevState => {
-        switch(ticketType) {
-          case "children":
-            return {childrenCount: prevState.childrenCount+ 1};
-          case "adult":
-            return {adultCount: prevState.adultCount+1};
-          case 'senior':
-            return {seniorCount: prevState.seniorCount + 1};
-          default:
-            return null;
-        }
-      })
-    }
-
-    decrementCount = (ticketType) =>{
-      this.setState(prevState => {
-        switch(ticketType) {
-          case "children":
-            if (this.state.childrenCount > 0){ return {childrenCount: prevState.childrenCount-1};}
-            break;
-          case "adult":
-            if (this.state.adultCount > 1){ return {adultCount: prevState.adultCount-1};}
-            break;
-          case 'senior':
-            if (this.state.seniorCount > 0){ return {seniorCount: prevState.seniorCount-1};}
-            break;
-          default:
-            return null;
-        }
-      })
-    }
-
-    onSeatChanged = (event, seatId) => {
-      if (seatId in this.state.selectedSeatsObjects){
-        let curr = this.state.selectedSeatsObjects[seatId];
-        curr.style.backgroundColor = 'white';
-        delete this.state.selectedSeatsObjects[seatId];
-        this.state.selectedSeats.splice(this.state.selectedSeats.indexOf(seatId), 1);
-      }else{
-        if (this.state.selectedSeats.length >= (this.state.childrenCount+this.state.adultCount+this.state.seniorCount)){
-          var removeSeatId = this.state.selectedSeats.shift()
-          let curr = this.state.selectedSeatsObjects[removeSeatId];
-          curr.style.backgroundColor = 'white';
-          delete this.state.selectedSeatsObjects[removeSeatId];
-        }
-        event.currentTarget.style.backgroundColor = 'lightblue';
-        this.state.selectedSeats.push([seatId]);
-        this.state.selectedSeatsObjects[seatId] = event.currentTarget;
+  incrementCount = (ticketType) =>{
+    this.setState(prevState => {
+      switch(ticketType) {
+        case "children":
+          return {childrenCount: prevState.childrenCount+ 1};
+        case "adult":
+          return {adultCount: prevState.adultCount+1};
+        case 'senior':
+          return {seniorCount: prevState.seniorCount + 1};
+        default:
+          return null;
       }
-          
-    }
+    })
+  }
+
+  decrementCount = (ticketType) =>{
+    this.setState(prevState => {
+      switch(ticketType) {
+        case "children":
+          if (this.state.childrenCount > 0){ return {childrenCount: prevState.childrenCount-1};}
+          break;
+        case "adult":
+          if (this.state.adultCount > 1){ return {adultCount: prevState.adultCount-1};}
+          break;
+        case 'senior':
+          if (this.state.seniorCount > 0){ return {seniorCount: prevState.seniorCount-1};}
+          break;
+        default:
+          return null;
+      }
+    })
+  }
+
+  onSeatChanged = (event, seatId) => {
+    if (seatId in this.state.selectedSeatsObjects){
+      let curr = this.state.selectedSeatsObjects[seatId];
+      curr.style.backgroundColor = 'white';
+      delete this.state.selectedSeatsObjects[seatId];
+      this.state.selectedSeats.splice(this.state.selectedSeats.indexOf(seatId), 1);
+    }else{
+      if (this.state.selectedSeats.length >= (this.state.childrenCount+this.state.adultCount+this.state.seniorCount)){
+        var removeSeatId = this.state.selectedSeats.shift()
+        let curr = this.state.selectedSeatsObjects[removeSeatId];
+        curr.style.backgroundColor = 'white';
+        delete this.state.selectedSeatsObjects[removeSeatId];
+      }
+      event.currentTarget.style.backgroundColor = 'lightblue';
+      this.state.selectedSeats.push([seatId]);
+      this.state.selectedSeatsObjects[seatId] = event.currentTarget;
+    } 
+  }
+
+  // toCheckoutPage = () => {
+  //   let path = "/checkout";
+  //   let navigate = useNavigate();
+  //   navigate(path);
+  // }
 
     render() {
         return (
@@ -333,7 +342,22 @@ class SeatSelectionPage extends Component {
               </Table>
             </Container>
             <Container className="confirmation-container">
-              <Button inverted color="green">Confirm and Proceed to checkout</Button>
+              <Button inverted color="green">
+                <Link 
+                  to={{pathname: "/checkout",
+                  state: {movieName: this.state.movieName, 
+                          experienceType: this.state.experienceType, 
+                          cinemaLocation: this.state.cinemaLocation,
+                          selectedDate: this.state.selectedDate,
+                          selectedTime: this.state.selectedTime,
+                          selectedSeats: this.state.selectedSeats,
+                          adultCount: this.state.adultCount,
+                          childrenCount: this.state.childrenCount,
+                          seniorCount: this.state.seniorCount,
+                  }}}>
+                  Confirm and Proceed to checkout
+                </Link>
+              </Button>
             </Container>
             </div>
             </div>

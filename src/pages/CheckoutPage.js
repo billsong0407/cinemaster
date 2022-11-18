@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import "../css/checkout.css";
+import BrandHeader from "../components/header";
 import {
   Form,
   Container,
   Button,
   Grid,
   Input,
-  Label,
   Image,
   Select,
   Segment,
@@ -22,16 +22,26 @@ const stateOptions = [
 class CheckoutPage extends Component {
   constructor(props) {
     super(props);
+    // console.log(this.props.location.state);
     this.state = {
+      movieName: this.props.location.state.movieName,
+      cinemaLocation: this.props.location.state.cinemaLocation,
+      selectedDate: this.props.location.state.selectedDate,
+      selectedTime: this.props.location.state.selectedTime,
+      selectedSeats: this.props.location.state.selectedSeats.sort(),
+
       cardNum: "",
       cardHolder: "",
       cvv: "",
       billingAddress: "",
+
     };
   }
 
   render() {
     return (
+      <>
+      <BrandHeader></BrandHeader>
       <div className="checkout">
         <Segment raised padded>
           <Grid columns={2}>
@@ -57,13 +67,13 @@ class CheckoutPage extends Component {
                         <Grid.Column>
                           <Container textAlign="left">
                             <h4>Movie Name</h4>
-                            <p> Avengers: Final Game </p>
+                            <p> {this.state.movieName} </p>
                           </Container>
                         </Grid.Column>
                         <Grid.Column>
                           <Container textAlign="right">
                             <h4>Date and Time</h4>
-                            <p> 11:40pm, Nov 20th </p>
+                            <p> {this.state.selectedDate} - {this.state.selectedTime}</p>
                           </Container>
                         </Grid.Column>
                       </Grid.Row>
@@ -71,13 +81,15 @@ class CheckoutPage extends Component {
                         <Grid.Column>
                           <Container textAlign="left">
                             <h4>Seat Selected</h4>
-                            <p> A23, B46 </p>
+                            {this.state.selectedSeats.map((seatNum, id)=>{
+                              return <span>{seatNum}, </span>
+                            })} 
                           </Container>
                         </Grid.Column>
                         <Grid.Column>
                           <Container textAlign="right">
                             <h4>Location</h4>
-                            <p> Cineplex Ontario </p>
+                            <p> {this.state.cinemaLocation} </p>
                           </Container>
                         </Grid.Column>
                       </Grid.Row>
@@ -172,6 +184,7 @@ class CheckoutPage extends Component {
           </Grid>
         </Segment>
       </div>
+      </>
     );
   }
 }
