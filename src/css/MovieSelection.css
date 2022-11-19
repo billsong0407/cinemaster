@@ -9,3 +9,8 @@
 .movies-selection-page{
     font-family: 'Ubuntu', sans-serif;
 }
+
+.instruction {
+    font-family: 'Lexend', sans-serif !important;
+    font-size: 20px !important;
+}
