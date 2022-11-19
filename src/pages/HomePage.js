@@ -41,6 +41,7 @@ class HomePage extends Component {
         super(props);
         this.state = {
             cinemaLocation: "",
+            proceedToMovies: false,
         };
         // bind upcoming state changes
         this.onLocationChange = this.onLocationChange.bind(this);
@@ -50,6 +51,7 @@ class HomePage extends Component {
         this.location = value;
         this.setState({
             cinemaLocation: value,
+            proceedToMovies: true,
         })
     };
 
@@ -71,10 +73,11 @@ class HomePage extends Component {
                         onChange={this.onLocationChange}
                     />
                     <Link 
+                    style={this.state.proceedToMovies?{pointerEvent: "auto"}:{pointerEvents: "none"}}
                     to={{pathname: "/movies",
                     state: {cinemaLocation: this.state.cinemaLocation
                     }}}>
-                        <Button className="locationButton" inverted color='orange' icon labelPosition='right'>
+                        <Button disabled={!this.state.proceedToMovies} className="locationButton" inverted color='orange' icon labelPosition='right'>
                         Next {" "}
                         <Icon name='arrow right' />
                         </Button>

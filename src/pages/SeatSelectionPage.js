@@ -381,6 +381,7 @@ class SeatSelectionPage extends Component {
           </Message>
           
             <Link 
+              style={this.state.proceedToCheckoutEnabled?{pointerEvent: "auto"}:{pointerEvents: "none"}}
               to={{pathname: "/checkout",
               state: {movieName: this.state.movieName, 
                       experienceType: this.state.experienceType, 
@@ -393,7 +394,9 @@ class SeatSelectionPage extends Component {
                       seniorCount: this.state.seniorCount,
               }}}>
                 <Button disabled={!this.state.proceedToCheckoutEnabled} inverted color="green">
+                  
                 Confirm and Proceed to checkout
+                
                 </Button>
             </Link>
             {/* Confirm and Proceed to checkout */}
