@@ -36,6 +36,7 @@ class CheckoutPage extends Component {
       cvv: "",
       billingAddress: "",
 
+      disableSubmit: true
     };
   }
 
@@ -176,7 +177,7 @@ class CheckoutPage extends Component {
                   </Form.Group>
                 </Form>
                 <Container textAlign="center">
-                  <Button type="submit">Proceed Payment</Button>
+                  <Button disabled={this.state.disableSubmit} type="submit">Proceed Payment</Button>
                 </Container>
               </Container>
             </Grid.Column>
