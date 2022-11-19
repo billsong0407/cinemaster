@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom';
 import "../css/MovieSelection.css";
 import BrandHeader from "../components/header";
 import {
@@ -9,15 +10,14 @@ import {
   Button,
   Grid,
   Segment,
-  GridRow,
 } from "semantic-ui-react";
 
 
 const movieOptions = [
   {
       key: '1',
-      text: 'Avengers',
-      value: 'Avengers',
+      text: 'The Avengers',
+      value: 'The Avengers',
   },
   {
       key: '2',
@@ -32,8 +32,8 @@ const movieOptions = [
 ]
 
 const movies= {
-     "Avengers" : {
-      title: "Avengers: Final Game",
+     "The Avengers" : {
+      title: "The Avengers",
       description: 'Adrift in space with no food or water, Tony Stark sends a message to Pepper Potts as his oxygen supply starts to dwindle. Meanwhile, the remaining Avengers -- Thor, Black Widow, Captain America and Bruce Banner -- must figure out a way to bring back their vanquished allies for an epic showdown with Thanos -- the evil demigod who decimated the planet and the universe.',
       category: 'Future, Superheros',
       directors: 'Anthony Russo, Joe Russo',
@@ -65,7 +65,7 @@ const movies= {
 class MovieSelectionPage extends Component {
   constructor(props) {
     super(props);
-    this.default = "Avengers"
+    this.default = "The Avengers"
     this.state = {
       cinemaLocation: this.props.location.state.cinemaLocation,
 
@@ -102,7 +102,7 @@ class MovieSelectionPage extends Component {
         <BrandHeader cinemaLocation={this.state.cinemaLocation}></BrandHeader>
         <Segment raised padded>
         {/* <Grid columns={1}><Button>Back</Button></Grid> */}
-          <Grid columns={2}>
+          <Grid stackable columns={2}>
             <Grid.Column className="Title">
               <Container
                 textAlign="left"
@@ -119,7 +119,7 @@ class MovieSelectionPage extends Component {
                   }}
                 >
                   <Container className="description">
-                    <Grid columns={1}>
+                    <Grid stackable columns={1}>
                     <Grid.Row>
                         <Grid.Column>
                           <Container textAlign="left">
@@ -185,18 +185,38 @@ class MovieSelectionPage extends Component {
                         placeholder='Select a movie'
                         className='movieDrop'
                         search
-                        clearable
                         openOnFocus
                         selection
                         defaultValue={this.state.defaultMovie}
                         options={movieOptions}
                         onChange={this.movieOptions}
                     />
-                <Grid.Row>
+                <Grid.Row textAlign='center'>
                 <div className="d-grid gap-3">
-                 <Button className="p-2 bg-light border">3D</Button>
-                 <Button className="p-2 bg-light border">IMAX</Button>
-                 <Button className="p-2 bg-light border">Regular</Button>
+                  <Link
+                  to={{pathname: "/seats",
+                  state: {movieName: this.state.title, 
+                          experienceType: "3D",
+                          cinemaLocation: this.state.cinemaLocation,
+                  }}}>
+                    <Button color="green" className="p-2 bg-light border">3D</Button>
+                  </Link>
+                  <Link
+                  to={{pathname: "/seats",
+                  state: {movieName: this.state.title, 
+                          experienceType: "IMAX",
+                          cinemaLocation: this.state.cinemaLocation,
+                  }}}>
+                    <Button color="teal" className="p-2 bg-light border">IMAX</Button>
+                  </Link>
+                  <Link
+                  to={{pathname: "/seats",
+                  state: {movieName: this.state.title, 
+                          experienceType: "Regular",
+                          cinemaLocation: this.state.cinemaLocation,
+                  }}}>
+                    <Button color="violet" className="p-2 bg-light border">Regular</Button>
+                  </Link>
                 </div>
                 </Grid.Row>
                     

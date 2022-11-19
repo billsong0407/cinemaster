@@ -70,15 +70,15 @@ class HomePage extends Component {
                         options={locationOptions}
                         onChange={this.onLocationChange}
                     />
-                    <Button className="locationButton" inverted color='orange'>
-                        <Link 
-                        to={{pathname: "/movies",
-                        state: {cinemaLocation: this.state.cinemaLocation
-                        }}}>
-                            Next {" "}
-                            <Icon name='arrow right' />
-                        </Link>
-                    </Button>
+                    <Link 
+                    to={{pathname: "/movies",
+                    state: {cinemaLocation: this.state.cinemaLocation
+                    }}}>
+                        <Button className="locationButton" inverted color='orange' icon labelPosition='right'>
+                        Next {" "}
+                        <Icon name='arrow right' />
+                        </Button>
+                    </Link>
                 </Segment>
             </Container>
         </Container>

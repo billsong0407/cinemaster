@@ -52,11 +52,11 @@ class SeatSelectionPage extends Component {
   constructor(props){
       super(props);
       this.state = {
-          movieName: "Avengers 3: Infinite Warfare",
-          experienceType: "IMAX",
+          movieName: this.props.location.state.movieName,
+          experienceType: this.props.location.state.experienceType,
           showdates: showdates,
           showtimes: showtimes,
-          cinemaLocation: "North York",
+          cinemaLocation: this.props.location.state.cinemaLocation,
 
           counterEnabled: true,
           counterErrorEnabled: false,
@@ -226,7 +226,11 @@ class SeatSelectionPage extends Component {
         <div className='seats-page-container-wrapper'>
         <Header as='h4'>
             <Icon name='video' />
-            Avengers 3: Infinite Warefare
+            {this.state.movieName}
+        </Header>
+        <Header as='h4'>
+            {/* <Icon name='video' /> */}
+            Experience Type: {this.state.experienceType}
         </Header>
         <Container className='instruction-container'>
             <Divider></Divider>
@@ -376,7 +380,7 @@ class SeatSelectionPage extends Component {
             this.state.adultCount+this.state.childrenCount+this.state.seniorCount-this.state.selectedSeats.length} more 
             seats before proceeding to checkout</Message.Header>
           </Message>
-          <Button disabled={!this.state.proceedToCheckoutEnabled} inverted color="green">
+          
             <Link 
               to={{pathname: "/checkout",
               state: {movieName: this.state.movieName, 
@@ -389,10 +393,12 @@ class SeatSelectionPage extends Component {
                       childrenCount: this.state.childrenCount,
                       seniorCount: this.state.seniorCount,
               }}}>
-              Confirm and Proceed to checkout
+                <Button disabled={!this.state.proceedToCheckoutEnabled} inverted color="green">
+                Confirm and Proceed to checkout
+                </Button>
             </Link>
             {/* Confirm and Proceed to checkout */}
-          </Button>
+          
         </Container>
         </div>
         </div>
