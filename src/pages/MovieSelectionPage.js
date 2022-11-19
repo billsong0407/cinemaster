@@ -9,6 +9,7 @@ import {
   Button,
   Grid,
   Segment,
+  GridRow,
 } from "semantic-ui-react";
 
 
@@ -25,8 +26,8 @@ const movieOptions = [
   },
   {
       key: '3',
-      text: 'pacific rim',
-      value: 'pacific rim',
+      text: 'Pacific Rim',
+      value: 'Pacific Rim',
   },
 ]
 
@@ -39,7 +40,26 @@ const movies= {
       cast: 'Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth, Scarlett Johansson...',
       ratings: '12 +',
       image: "/images/avengers.jpg"
-    }
+    },
+    "Godzilla" : {
+        title: "Godzilla",
+        description: 'Ford Brody (Aaron Taylor-Johnson), a Navy bomb expert, has just reunited with his family in San Francisco when he is forced to go to Japan to help his estranged father, Joe (Bryan Cranston). Soon, both men are swept up in an escalating crisis when Godzilla, King of the Monsters, arises from the sea to combat malevolent adversaries that threaten the survival of humanity. The creatures leave colossal destruction in their wake, as they make their way toward their final battleground: San Francisco.',
+        category: 'Monsters',
+        directors: 'Gareth Edwards',
+        cast: 'Aaron Taylor-Johnson, Ken Watanabe, Elizabeth Olsen, Juliette Binoche, Sally Hawkins...',
+        ratings: '12 +',
+        image: "/images/godzilla.jpg"
+      },
+      "Pacific Rim" : {
+        title: "Pacific Rim",
+        description: "Long ago, legions of monstrous creatures called Kaiju arose from the sea, bringing with them all-consuming war. To fight the Kaiju, mankind developed giant robots called Jaegers, designed to be piloted by two humans locked together in a neural bridge. However, even the Jaegers are not enough to defeat the Kaiju, and humanity is on the verge of defeat. Mankind's last hope now lies with a washed-up ex-pilot (Charlie Hunnam), an untested trainee (Rinko Kikuchi) and an old, obsolete Jaeger.",
+        category: 'Future, Science, Monsters',
+        directors: 'Guillermo del Toro',
+        cast: 'Idris Elba, Charlie Hunnam, Rinko Kikuchi , Charlie Day, Ron Perlman...',
+        ratings: '12 +',
+        image: "/images/pacific.jpg"
+      }
+
   }
 
 class MovieSelectionPage extends Component {
@@ -145,7 +165,7 @@ class MovieSelectionPage extends Component {
                 </div>
               </Container>
             </Grid.Column>
-            <Grid.Column className="paymentInfo">
+            <Grid.Column className="movieImage">
               <Container
                 textAlign="left"
                 style={{
@@ -156,10 +176,11 @@ class MovieSelectionPage extends Component {
                 <Grid.Row>
                 <Container textAlign="center">
             
-                <Image src={this.state.image} size="large" />
+                <Image src={this.state.image} size="medium" />
                   
                 </Container>
                 </Grid.Row>
+                <Container textAlign="left">
                 <Dropdown
                         placeholder='Select a movie'
                         className='movieDrop'
@@ -171,6 +192,15 @@ class MovieSelectionPage extends Component {
                         options={movieOptions}
                         onChange={this.movieOptions}
                     />
+                <Grid.Row>
+                <div className="d-grid gap-3">
+                 <Button className="p-2 bg-light border">3D</Button>
+                 <Button className="p-2 bg-light border">IMAX</Button>
+                 <Button className="p-2 bg-light border">Regular</Button>
+                </div>
+                </Grid.Row>
+                    
+                </Container>
               </Container>
             </Grid.Column>
           </Grid>
