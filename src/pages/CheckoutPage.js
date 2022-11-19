@@ -10,6 +10,7 @@ import {
   Image,
   Select,
   Segment,
+  Divider,
 } from "semantic-ui-react";
 
 const stateOptions = [
@@ -97,11 +98,11 @@ class CheckoutPage extends Component {
                 </div>
               </Container>
             </Grid.Column>
-            <Grid.Column className="paymentInfo">
+            <Grid.Column>
               <Container
                 textAlign="left"
                 style={{
-                  padding: "5vh 20vh 5vh 20vh",
+                  padding: "5vh 15vh 5vh 15vh",
                 }}
               >
                 <h3> Payment Info </h3>
@@ -110,19 +111,19 @@ class CheckoutPage extends Component {
                     label="Card Number"
                     placeholder="Card Number"
                     required={true}
-                    width={8}
+                    width={16}
                   />
                   <Form.Input
                     label="Card Holder"
                     placeholder="Card Holder"
                     required={true}
-                    width={8}
+                    width={16}
                   />
                   <Form.Input
                     label="Email"
                     placeholder="joe123@abc.com"
                     required={true}
-                    width={8}
+                    width={16}
                   />
 
                   <Form.Input
@@ -131,7 +132,7 @@ class CheckoutPage extends Component {
                     required={true}
                     width={3}
                   />
-
+                  <Divider></Divider>
                   <Form.Group
                     style={{
                       display: "block",
@@ -143,7 +144,7 @@ class CheckoutPage extends Component {
                       label="Street"
                       placeholder="Street"
                       required={true}
-                      width={8}
+                      width={16}
                     />
                     <Container
                       style={{
@@ -157,7 +158,7 @@ class CheckoutPage extends Component {
                         label="Postal Code"
                         placeholder="XXX XXX"
                         required={true}
-                        width={4}
+                        width={6}
                       />
                       <Form.Field
                         control={Select}
@@ -170,7 +171,6 @@ class CheckoutPage extends Component {
                         placeholder="State"
                         search
                         searchInput={{ id: "form-select-control-state" }}
-                        width={2}
                       />
                     </Container>
                   </Form.Group>
