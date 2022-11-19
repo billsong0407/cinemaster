@@ -52,11 +52,11 @@ class SeatSelectionPage extends Component {
   constructor(props){
       super(props);
       this.state = {
-          movieName: "Avengers 3: Infinite Warfare",
-          experienceType: "IMAX",
+          movieName: this.props.location.state.movieName,
+          experienceType: this.props.location.state.experienceType,
           showdates: showdates,
           showtimes: showtimes,
-          cinemaLocation: "North York",
+          cinemaLocation: this.props.location.state.cinemaLocation,
 
           counterEnabled: true,
           counterErrorEnabled: false,
@@ -156,6 +156,7 @@ class SeatSelectionPage extends Component {
       if (this.state.adultCount + this.state.childrenCount + this.state.seniorCount >= availableSeats){
         return {counterErrorEnabled: true};
       }
+
       switch(ticketType) {
         case "children":
           return {childrenCount: prevState.childrenCount+ 1};
@@ -220,17 +221,20 @@ class SeatSelectionPage extends Component {
   render() {
     return (
       <>
-        <BrandHeader></BrandHeader>
+        <BrandHeader cinemaLocation={this.state.cinemaLocation}></BrandHeader>
         <div className='seats-page-container'>
         <div className='seats-page-container-wrapper'>
-        <Header as='h4'>
+        <Header as='h2'>
             <Icon name='video' />
-            Avengers 3: Infinite Warefare
+            {this.state.movieName}
+        </Header>
+        <Header as='h2'>
+            Experience Type: {this.state.experienceType}
         </Header>
         <Container className='instruction-container'>
             <Divider></Divider>
             <Header as='h3'>
-              Step 1 - Please select a date
+              STEP 1 - Please select a date
             </Header>
         </Container>
         <Container className='carousel-wrapper'>
@@ -261,7 +265,7 @@ class SeatSelectionPage extends Component {
         <Container className='instruction-container'>
           <Divider></Divider>
           <Header as='h3'>
-            Step 2 - Please select a time
+            STEP 2 - Please select a time
           </Header>
           {/* <h3>2.  Please select a time <Icon name="clock outline"/></h3> */}
         </Container>
@@ -375,8 +379,9 @@ class SeatSelectionPage extends Component {
             this.state.adultCount+this.state.childrenCount+this.state.seniorCount-this.state.selectedSeats.length} more 
             seats before proceeding to checkout</Message.Header>
           </Message>
-          <Button disabled={!this.state.proceedToCheckoutEnabled} inverted color="green">
+          
             <Link 
+              style={this.state.proceedToCheckoutEnabled?{pointerEvent: "auto"}:{pointerEvents: "none"}}
               to={{pathname: "/checkout",
               state: {movieName: this.state.movieName, 
                       experienceType: this.state.experienceType, 
@@ -388,10 +393,14 @@ class SeatSelectionPage extends Component {
                       childrenCount: this.state.childrenCount,
                       seniorCount: this.state.seniorCount,
               }}}>
-              Confirm and Proceed to checkout
+                <Button disabled={!this.state.proceedToCheckoutEnabled} inverted color="green">
+                  
+                Confirm and Proceed to checkout
+                
+                </Button>
             </Link>
             {/* Confirm and Proceed to checkout */}
-          </Button>
+          
         </Container>
         </div>
         </div>

@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import '../css/home.css';
-import { Dropdown, Button, Segment, Container } from 'semantic-ui-react';
+import { Dropdown, Button, Segment, Container, Icon } from 'semantic-ui-react';
 
 const locationOptions = [
     {
         key: '1',
         text: 'North York, Ontario, Canada',
-        value: 'North York',
+        value: 'North York, Ontario, Canada',
         image: {avatar: true, src: "/images/location.png"},
     },
     {
@@ -39,17 +40,19 @@ class HomePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            location: "",
+            cinemaLocation: "",
+            proceedToMovies: false,
         };
-
         // bind upcoming state changes
         this.onLocationChange = this.onLocationChange.bind(this);
     }
 
     onLocationChange(e, {value}){
-        e.persist();
         this.location = value;
-        console.log(this.location);
+        this.setState({
+            cinemaLocation: value,
+            proceedToMovies: true,
+        })
     };
 
     render() {
@@ -69,7 +72,16 @@ class HomePage extends Component {
                         options={locationOptions}
                         onChange={this.onLocationChange}
                     />
-                    <Button className="locationButton" inverted color='orange' content='Next' icon='right arrow' labelPosition='right' />
+                    <Link 
+                    style={this.state.proceedToMovies?{pointerEvent: "auto"}:{pointerEvents: "none"}}
+                    to={{pathname: "/movies",
+                    state: {cinemaLocation: this.state.cinemaLocation
+                    }}}>
+                        <Button disabled={!this.state.proceedToMovies} className="locationButton" inverted color='orange' icon labelPosition='right'>
+                        Next {" "}
+                        <Icon name='arrow right' />
+                        </Button>
+                    </Link>
                 </Segment>
             </Container>
         </Container>

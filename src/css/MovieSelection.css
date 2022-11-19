@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@500&display=swap');
+
+.movies-selection-page h2{
+    font-size: 40px;
+    font-family: 'Public Sans', sans-serif !important;
+}
+
+.movies-selection-page{
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.movies-page-wrapper {
+    /* height: 90vh !important; */
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
+    padding-left: 100px !important;
+    padding-right: 100px !important;
+}
+.poster-column {
+    text-align: right !important;
+}
+
+.instruction {
+    margin-top: 8px !important;
+    font-family: 'Lexend', sans-serif !important;
+    font-size: 20px !important;
+}
+
+.movieImage {
+    display: inline-block !important;
+}
+
+@media (max-width: 1000px) {
+    .movies-page-wrapper {
+        padding-top: 30px !important;
+        padding-bottom: 30px !important;
+        padding-left: 30px !important;
+        padding-right: 30px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .movies-selection-page h2{
+        font-size: 35px;
+    }
+    .movies-page-wrapper {
+        padding-top: 30px !important;
+        padding-bottom: 30px !important;
+        padding-left: 30px !important;
+        padding-right: 30px !important;
+    }
+    .poster-column {
+        text-align: left !important;
+    }
+}

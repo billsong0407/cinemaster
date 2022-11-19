@@ -9,11 +9,13 @@ import {
   Input,
   Image,
   Select,
+  Dropdown,
   Segment,
+  Divider,
 } from "semantic-ui-react";
 
 const stateOptions = [
-  { key: "on", text: "ON", value: "ON" },
+  { key: "on", text: "ON", value: "Ontario" },
   { key: "ab", text: "AB", value: "Alberta" },
   { key: "qc", text: "QC", value: "Quebec" },
   { key: "bc", text: "BC", value: "British Columbia" },
@@ -33,15 +35,79 @@ class CheckoutPage extends Component {
       cardNum: "",
       cardHolder: "",
       cvv: "",
-      billingAddress: "",
+      email: "",
+      street: "",
+      state: "",
+      postalCode: "",
 
+      disableSubmit: true
     };
+  }
+
+  handleCardNum = (e, data) => {
+    this.setState({
+      cardNum: data.value
+    })
+    this.checkIfAllComplete(data.value, this.state.cardHolder, this.state.cvv, this.state.email, this.state.street, this.state.state, this.state.postalCode)
+  }
+
+  handleCardHolder = (e, data) => {
+    this.setState({
+      cardHolder: data.value
+    })
+    this.checkIfAllComplete(this.state.cardNum, data.value, this.state.cvv, this.state.email, this.state.street, this.state.state, this.state.postalCode)
+  }
+
+  handleEmail = (e, data) => {
+    this.setState({
+      email: data.value
+    })
+    this.checkIfAllComplete(this.state.cardNum,this.state.cardHolder, this.state.cvv, data.value, this.state.street, this.state.state, this.state.postalCode)
+  }
+
+  handleCVV = (e, data) => {
+    this.setState({
+      cvv: data.value
+    })
+    this.checkIfAllComplete(this.state.cardNum, this.state.cardHolder, data.value, this.state.email, this.state.street, this.state.state, this.state.postalCode)
+  }
+
+  handleStreet = (e, data) => {
+    this.setState({
+      street: data.value
+    })
+    this.checkIfAllComplete(this.state.cardNum, this.state.cardHolder, this.state.cvv, this.state.email, data.value, this.state.state, this.state.postalCode)
+  }
+
+  handlePost = (e, data) => {
+    this.setState({
+      postalCode: data.value
+    })
+    this.checkIfAllComplete(this.state.cardNum, this.state.cardHolder, this.state.cvv, this.state.email, this.state.street, this.state.state, data.value)
+  }
+
+  handleState = (e, data) => {
+    this.setState({
+      province: data.value
+    })
+    console.log(data.value)
+    this.checkIfAllComplete(this.state.cardNum, this.state.cardHolder, this.state.cvv, this.state.email, this.state.street, data.value, this.state.postalCode)
+  }
+
+
+  checkIfAllComplete(cardHolder, cardNum, cvv, email, street, state, postalCode) {
+    console.log(cardHolder, cardNum, cvv, email, street, state, postalCode)
+    if (cardHolder && cardNum && cvv && email && street && state && postalCode){
+      this.setState({
+        disableSubmit: false
+      })
+    } 
   }
 
   render() {
     return (
       <>
-      <BrandHeader></BrandHeader>
+      <BrandHeader cinemaLocation={this.state.cinemaLocation}></BrandHeader>
       <div className="checkout">
         <Segment raised padded>
           <Grid columns={2}>
@@ -72,8 +138,8 @@ class CheckoutPage extends Component {
                         </Grid.Column>
                         <Grid.Column>
                           <Container textAlign="right">
-                            <h4>Date and Time</h4>
-                            <p> {this.state.selectedDate} - {this.state.selectedTime}</p>
+                            <h4>Datetime</h4>
+                            <p> {this.state.selectedTime} - {this.state.selectedDate.slice(0, -6)}</p>
                           </Container>
                         </Grid.Column>
                       </Grid.Row>
@@ -81,9 +147,7 @@ class CheckoutPage extends Component {
                         <Grid.Column>
                           <Container textAlign="left">
                             <h4>Seat Selected</h4>
-                            {this.state.selectedSeats.map((seatNum, id)=>{
-                              return <span>{seatNum}, </span>
-                            })} 
+                            <span>{this.state.selectedSeats.join(', ')}</span>
                           </Container>
                         </Grid.Column>
                         <Grid.Column>
@@ -98,11 +162,11 @@ class CheckoutPage extends Component {
                 </div>
               </Container>
             </Grid.Column>
-            <Grid.Column className="paymentInfo">
+            <Grid.Column>
               <Container
                 textAlign="left"
                 style={{
-                  padding: "5vh 20vh 5vh 20vh",
+                  padding: "5vh 15vh 5vh 15vh",
                 }}
               >
                 <h3> Payment Info </h3>
@@ -111,19 +175,22 @@ class CheckoutPage extends Component {
                     label="Card Number"
                     placeholder="Card Number"
                     required={true}
-                    width={8}
+                    width={16}
+                    onChange={this.handleCardNum}
                   />
                   <Form.Input
                     label="Card Holder"
                     placeholder="Card Holder"
                     required={true}
-                    width={8}
+                    width={16}
+                    onChange={this.handleCardHolder}
                   />
                   <Form.Input
                     label="Email"
                     placeholder="joe123@abc.com"
                     required={true}
-                    width={8}
+                    width={16}
+                    onChange={this.handleEmail}
                   />
 
                   <Form.Input
@@ -131,8 +198,9 @@ class CheckoutPage extends Component {
                     placeholder="CVV"
                     required={true}
                     width={3}
+                    onChange={this.handleCVV}
                   />
-
+                  <Divider></Divider>
                   <Form.Group
                     style={{
                       display: "block",
@@ -144,7 +212,8 @@ class CheckoutPage extends Component {
                       label="Street"
                       placeholder="Street"
                       required={true}
-                      width={8}
+                      width={16}
+                      onChange={this.handleStreet}
                     />
                     <Container
                       style={{
@@ -158,26 +227,33 @@ class CheckoutPage extends Component {
                         label="Postal Code"
                         placeholder="XXX XXX"
                         required={true}
-                        width={4}
+                        width={6}
+                        onChange={this.handlePost}
                       />
-                      <Form.Field
+
+                      <Form.Select
+                        options={stateOptions}
+                        required={true}
+                        label='State'
+                        placeholder="State"
+                        search
+                        onChange={this.handleState}
+                      />
+
+                      {/* <Form.Field
                         control={Select}
                         options={stateOptions}
                         required={true}
-                        label={{
-                          children: "State",
-                          htmlFor: "form-select-control-state",
-                        }}
+                        label='State'
                         placeholder="State"
                         search
-                        searchInput={{ id: "form-select-control-state" }}
-                        width={2}
-                      />
+
+                      /> */}
                     </Container>
                   </Form.Group>
                 </Form>
                 <Container textAlign="center">
-                  <Button type="submit">Proceed Payment</Button>
+                  <Button disabled={this.state.disableSubmit} type="submit">Proceed Payment</Button>
                 </Container>
               </Container>
             </Grid.Column>

@@ -1,9 +1,8 @@
-.ui.menu {
-    /* border: none !important;
-    border-bottom: 1px #6dffff !important; */
+.brand-container {
     background-color: black !important;
     box-shadow: 0 1px 2px 0 #EB984E !important;
     margin-bottom: 0px;
+    
 }
 
 .brand-name{
@@ -14,4 +13,10 @@
 .back-button {
     display: block !important;
     text-align: left !important;
+}
+
+.location-block {
+    display: block !important;
+    text-align: right !important;
+    padding-right: 100px !important;
 }
