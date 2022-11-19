@@ -38,6 +38,7 @@ class CheckoutPage extends Component {
     };
   }
 
+
   render() {
     return (
       <>
@@ -81,9 +82,10 @@ class CheckoutPage extends Component {
                         <Grid.Column>
                           <Container textAlign="left">
                             <h4>Seat Selected</h4>
-                            {this.state.selectedSeats.map((seatNum, id)=>{
+                            <span>{this.state.selectedSeats.join(', ')}</span>
+                            {/* {this.state.selectedSeats.map((seatNum, id)=>{
                               return <span>{seatNum}, </span>
-                            })} 
+                            })}  */}
                           </Container>
                         </Grid.Column>
                         <Grid.Column>
