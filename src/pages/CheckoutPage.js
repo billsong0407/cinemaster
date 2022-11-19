@@ -73,8 +73,8 @@ class CheckoutPage extends Component {
                         </Grid.Column>
                         <Grid.Column>
                           <Container textAlign="right">
-                            <h4>Date and Time</h4>
-                            <p> {this.state.selectedDate} - {this.state.selectedTime}</p>
+                            <h4>Datetime</h4>
+                            <p> {this.state.selectedTime} - {this.state.selectedDate.slice(0, -6)}</p>
                           </Container>
                         </Grid.Column>
                       </Grid.Row>
@@ -83,9 +83,6 @@ class CheckoutPage extends Component {
                           <Container textAlign="left">
                             <h4>Seat Selected</h4>
                             <span>{this.state.selectedSeats.join(', ')}</span>
-                            {/* {this.state.selectedSeats.map((seatNum, id)=>{
-                              return <span>{seatNum}, </span>
-                            })}  */}
                           </Container>
                         </Grid.Column>
                         <Grid.Column>
