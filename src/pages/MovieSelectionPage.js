@@ -98,7 +98,7 @@ class MovieSelectionPage extends Component {
 
   render() {
     return (
-      <div className="movieSelection">
+      <div className="movies-selection-page">
         <BrandHeader cinemaLocation={this.state.cinemaLocation}></BrandHeader>
         <Segment raised padded>
         {/* <Grid columns={1}><Button>Back</Button></Grid> */}
@@ -139,7 +139,7 @@ class MovieSelectionPage extends Component {
                         <Grid.Row>
                         <Grid.Column>
                           <Container textAlign="left">
-                            <h4>Directors: </h4>
+                            <h3>Directors </h3>
                             <p> {this.state.directors} </p>
                           </Container>
                         </Grid.Column>
@@ -147,7 +147,7 @@ class MovieSelectionPage extends Component {
                       <Grid.Row>
                         <Grid.Column>
                           <Container textAlign="left">
-                            <h4>Cast</h4>
+                            <h3>Cast</h3>
                             <p> {this.state.cast} </p>
                           </Container>
                         </Grid.Column>
@@ -155,7 +155,7 @@ class MovieSelectionPage extends Component {
                       <Grid.Row>
                         <Grid.Column>
                           <Container textAlign="left">
-                            <h4>Rating</h4>
+                            <h3>Rating</h3>
                             <p> {this.state.ratings} </p>
                           </Container>
                         </Grid.Column>
