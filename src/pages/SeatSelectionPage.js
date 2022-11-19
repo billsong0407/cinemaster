@@ -224,18 +224,17 @@ class SeatSelectionPage extends Component {
         <BrandHeader cinemaLocation={this.state.cinemaLocation}></BrandHeader>
         <div className='seats-page-container'>
         <div className='seats-page-container-wrapper'>
-        <Header as='h4'>
+        <Header as='h2'>
             <Icon name='video' />
             {this.state.movieName}
         </Header>
-        <Header as='h4'>
-            {/* <Icon name='video' /> */}
+        <Header as='h2'>
             Experience Type: {this.state.experienceType}
         </Header>
         <Container className='instruction-container'>
             <Divider></Divider>
             <Header as='h3'>
-              Step 1 - Please select a date
+              STEP 1 - Please select a date
             </Header>
         </Container>
         <Container className='carousel-wrapper'>
@@ -266,7 +265,7 @@ class SeatSelectionPage extends Component {
         <Container className='instruction-container'>
           <Divider></Divider>
           <Header as='h3'>
-            Step 2 - Please select a time
+            STEP 2 - Please select a time
           </Header>
           {/* <h3>2.  Please select a time <Icon name="clock outline"/></h3> */}
         </Container>
