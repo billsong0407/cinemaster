@@ -31,6 +31,7 @@ class CheckoutPage extends Component {
       selectedDate: this.props.location.state.selectedDate,
       selectedTime: this.props.location.state.selectedTime,
       selectedSeats: this.props.location.state.selectedSeats.sort(),
+      experienceType: this.props.location.state.experienceType,
 
       cardNum: "",
       cardHolder: "",
@@ -133,7 +134,7 @@ class CheckoutPage extends Component {
                         <Grid.Column>
                           <Container textAlign="left">
                             <h4>Movie Name</h4>
-                            <p> {this.state.movieName} </p>
+                            <p> {this.state.movieName} ( {this.state.experienceType} ) </p>
                           </Container>
                         </Grid.Column>
                         <Grid.Column>
