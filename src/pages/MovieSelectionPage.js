@@ -107,7 +107,7 @@ class MovieSelectionPage extends Component {
               <Container
                 textAlign="left"
                 style={{
-                  padding: "5vh 20vh 5vh 20vh",
+                  padding: "5vh 10vh 5vh 10vh",
                 }}
               >
                 <h2> {this.state.title} </h2>
@@ -181,6 +181,9 @@ class MovieSelectionPage extends Component {
                 </Container>
                 </Grid.Row>
                 <Container textAlign="left">
+                <Container textAlign="left">
+                            <h3>Select a movie:</h3>   
+                </Container>
                 <Dropdown
                         placeholder='Select a movie'
                         className='movieDrop'
@@ -192,6 +195,9 @@ class MovieSelectionPage extends Component {
                         onChange={this.movieOptions}
                     />
                 <Grid.Row textAlign='center'>
+                <Container textAlign="left">
+                            <h3>Select movie type:</h3>   
+                </Container>
                 <div className="d-grid gap-3">
                   <Link
                   to={{pathname: "/seats",
