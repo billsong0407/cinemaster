@@ -19,16 +19,19 @@ const movieOptions = [
       key: '1',
       text: 'The Avengers',
       value: 'The Avengers',
+      icon: 'video',
   },
   {
       key: '2',
       text: 'Godzilla',
       value: 'Godzilla',
+      icon: 'video',
   },
   {
       key: '3',
       text: 'Pacific Rim',
       value: 'Pacific Rim',
+      icon: 'video',
   },
 ]
 
@@ -101,26 +104,14 @@ class MovieSelectionPage extends Component {
     return (
       <div className="movies-selection-page">
         <BrandHeader cinemaLocation={this.state.cinemaLocation}></BrandHeader>
-        <Segment raised padded>
-        {/* <Grid columns={1}><Button>Back</Button></Grid> */}
-          <Grid stackable columns={2}>
-            <Grid.Column className="Title">
-              <Container
-                textAlign="left"
-                style={{
-                  padding: "5vh 10vh 5vh 10vh",
-                }}
-              >
+        <Segment raised className='movies-page-wrapper'>
+          <Grid columns={4} centered stackable>
+            <Grid.Column width={1}></Grid.Column>
+            <Grid.Column width={6} className="Title">
+              <Container textAlign="left">
                 <h2> {this.state.title} </h2>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                >
                   <Container className="description">
-                    <Grid stackable columns={1}>
+                    <Grid stackable>
                     <Grid.Row>
                         <Grid.Column>
                           <Container>
@@ -167,49 +158,39 @@ class MovieSelectionPage extends Component {
                       </Grid.Row>
                     </Grid>
                   </Container>
-                </div>
               </Container>
             </Grid.Column>
-            <Grid.Column className="movieImage">
-              <Container
-                style={{
-                  padding: "5vh 25vh 5vh 20vh",
-                }}
-              >
-                
-                <Grid.Row>
-                <Container textAlign="center">
-            
-                <Image src={this.state.image} size="medium" />
-                  
+            <Grid.Column width={6} className="poster-column">  
+                <Container>
+                  <Image className="movieImage" src={this.state.image} size="medium" />
                 </Container>
-                </Grid.Row>
-                <Container textAlign="left">
-                <Container textAlign="left">
-                            <h3 className="instruction">STEP 1 - Select a movie</h3>   
+                <Container>
+                <Container>
+                    <h3 className="instruction">STEP 1 - Select a movie</h3>   
                 </Container>
                 <Dropdown
-                        placeholder='Select a movie'
-                        className='movieDrop'
-                        search
-                        openOnFocus
-                        selection
-                        defaultValue={this.state.defaultMovie}
-                        options={movieOptions}
-                        onChange={this.movieOptions}
-                    />
-                <Grid.Row textAlign='center'>
-                <Container textAlign="left">
-                            <h3 className="instruction">STEP 2 - Select experience type</h3>   
+                  style={{border: "2px solid orange"}}
+                  placeholder='Select a movie'
+                  className='movieDrop'
+                  search
+                  openOnFocus
+                  selection
+                  defaultValue={this.state.defaultMovie}
+                  options={movieOptions}
+                  onChange={this.movieOptions}
+                />
+                <Grid.Row>
+                <Container>
+                  <h3 className="instruction">STEP 2 - Select experience type</h3>   
                 </Container>
-                <div className="d-grid gap-3">
+                {/* <div className="d-grid gap-3"> */}
                   <Link
                   to={{pathname: "/seats",
                   state: {movieName: this.state.title, 
                           experienceType: "3D",
                           cinemaLocation: this.state.cinemaLocation,
                   }}}>
-                    <Button color="green" className="p-2 bg-light border">3D</Button>
+                    <Button inverted color="purple" className="p-2 bg-light border">3D</Button>
                   </Link>
                   <Link
                   to={{pathname: "/seats",
@@ -217,7 +198,7 @@ class MovieSelectionPage extends Component {
                           experienceType: "IMAX",
                           cinemaLocation: this.state.cinemaLocation,
                   }}}>
-                    <Button color="teal" className="p-2 bg-light border">IMAX</Button>
+                    <Button inverted color="pink" className="p-2 bg-light border">IMAX</Button>
                   </Link>
                   <Link
                   to={{pathname: "/seats",
@@ -225,14 +206,12 @@ class MovieSelectionPage extends Component {
                           experienceType: "Regular",
                           cinemaLocation: this.state.cinemaLocation,
                   }}}>
-                    <Button color="violet" className="p-2 bg-light border">Regular</Button>
+                    <Button inverted color="violet" className="p-2 bg-light border">Regular</Button>
                   </Link>
-                </div>
                 </Grid.Row>
-                    
                 </Container>
-              </Container>
             </Grid.Column>
+            <Grid.Column width={1}></Grid.Column>
           </Grid>
         </Segment>
       </div>
