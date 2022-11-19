@@ -9,12 +9,13 @@ import {
   Input,
   Image,
   Select,
+  Dropdown,
   Segment,
   Divider,
 } from "semantic-ui-react";
 
 const stateOptions = [
-  { key: "on", text: "ON", value: "ON" },
+  { key: "on", text: "ON", value: "Ontario" },
   { key: "ab", text: "AB", value: "Alberta" },
   { key: "qc", text: "QC", value: "Quebec" },
   { key: "bc", text: "BC", value: "British Columbia" },
@@ -47,42 +48,56 @@ class CheckoutPage extends Component {
     this.setState({
       cardNum: data.value
     })
+    this.checkIfAllComplete(data.value, this.state.cardHolder, this.state.cvv, this.state.email, this.state.street, this.state.state, this.state.postalCode)
   }
 
   handleCardHolder = (e, data) => {
     this.setState({
       cardHolder: data.value
     })
+    this.checkIfAllComplete(this.state.cardNum, data.value, this.state.cvv, this.state.email, this.state.street, this.state.state, this.state.postalCode)
   }
 
   handleEmail = (e, data) => {
     this.setState({
       email: data.value
     })
+    this.checkIfAllComplete(this.state.cardNum,this.state.cardHolder, this.state.cvv, data.value, this.state.street, this.state.state, this.state.postalCode)
   }
 
   handleCVV = (e, data) => {
     this.setState({
       cvv: data.value
     })
+    this.checkIfAllComplete(this.state.cardNum, this.state.cardHolder, data.value, this.state.email, this.state.street, this.state.state, this.state.postalCode)
   }
 
   handleStreet = (e, data) => {
     this.setState({
       street: data.value
     })
+    this.checkIfAllComplete(this.state.cardNum, this.state.cardHolder, this.state.cvv, this.state.email, data.value, this.state.state, this.state.postalCode)
   }
 
   handlePost = (e, data) => {
     this.setState({
       postalCode: data.value
     })
-    console.log(this.state.postalCode)
+    this.checkIfAllComplete(this.state.cardNum, this.state.cardHolder, this.state.cvv, this.state.email, this.state.street, this.state.state, data.value)
+  }
+
+  handleState = (e, data) => {
+    this.setState({
+      province: data.value
+    })
+    console.log(data.value)
+    this.checkIfAllComplete(this.state.cardNum, this.state.cardHolder, this.state.cvv, this.state.email, this.state.street, data.value, this.state.postalCode)
   }
 
 
-  checkIfAllComplete() {
-    if (this.state.cardHolder && this.state.cardNum && this.state.cvv && this.state.email && this.state.street && this.state.state && this.state.postalCode){
+  checkIfAllComplete(cardHolder, cardNum, cvv, email, street, state, postalCode) {
+    console.log(cardHolder, cardNum, cvv, email, street, state, postalCode)
+    if (cardHolder && cardNum && cvv && email && street && state && postalCode){
       this.setState({
         disableSubmit: false
       })
@@ -215,18 +230,25 @@ class CheckoutPage extends Component {
                         width={6}
                         onChange={this.handlePost}
                       />
-                      <Form.Field
+
+                      <Form.Select
+                        options={stateOptions}
+                        required={true}
+                        label='State'
+                        placeholder="State"
+                        search
+                        onChange={this.handleState}
+                      />
+
+                      {/* <Form.Field
                         control={Select}
                         options={stateOptions}
                         required={true}
-                        label={{
-                          children: "State",
-                          htmlFor: "form-select-control-state",
-                        }}
+                        label='State'
                         placeholder="State"
                         search
-                        searchInput={{ id: "form-select-control-state" }}
-                      />
+
+                      /> */}
                     </Container>
                   </Form.Group>
                 </Form>
