@@ -34,12 +34,60 @@ class CheckoutPage extends Component {
       cardNum: "",
       cardHolder: "",
       cvv: "",
-      billingAddress: "",
+      email: "",
+      street: "",
+      state: "",
+      postalCode: "",
 
       disableSubmit: true
     };
   }
 
+  handleCardNum = (e, data) => {
+    this.setState({
+      cardNum: data.value
+    })
+  }
+
+  handleCardHolder = (e, data) => {
+    this.setState({
+      cardHolder: data.value
+    })
+  }
+
+  handleEmail = (e, data) => {
+    this.setState({
+      email: data.value
+    })
+  }
+
+  handleCVV = (e, data) => {
+    this.setState({
+      cvv: data.value
+    })
+  }
+
+  handleStreet = (e, data) => {
+    this.setState({
+      street: data.value
+    })
+  }
+
+  handlePost = (e, data) => {
+    this.setState({
+      postalCode: data.value
+    })
+    console.log(this.state.postalCode)
+  }
+
+
+  checkIfAllComplete() {
+    if (this.state.cardHolder && this.state.cardNum && this.state.cvv && this.state.email && this.state.street && this.state.state && this.state.postalCode){
+      this.setState({
+        disableSubmit: false
+      })
+    } 
+  }
 
   render() {
     return (
@@ -113,18 +161,21 @@ class CheckoutPage extends Component {
                     placeholder="Card Number"
                     required={true}
                     width={16}
+                    onChange={this.handleCardNum}
                   />
                   <Form.Input
                     label="Card Holder"
                     placeholder="Card Holder"
                     required={true}
                     width={16}
+                    onChange={this.handleCardHolder}
                   />
                   <Form.Input
                     label="Email"
                     placeholder="joe123@abc.com"
                     required={true}
                     width={16}
+                    onChange={this.handleEmail}
                   />
 
                   <Form.Input
@@ -132,6 +183,7 @@ class CheckoutPage extends Component {
                     placeholder="CVV"
                     required={true}
                     width={3}
+                    onChange={this.handleCVV}
                   />
                   <Divider></Divider>
                   <Form.Group
@@ -146,6 +198,7 @@ class CheckoutPage extends Component {
                       placeholder="Street"
                       required={true}
                       width={16}
+                      onChange={this.handleStreet}
                     />
                     <Container
                       style={{
@@ -160,6 +213,7 @@ class CheckoutPage extends Component {
                         placeholder="XXX XXX"
                         required={true}
                         width={6}
+                        onChange={this.handlePost}
                       />
                       <Form.Field
                         control={Select}
