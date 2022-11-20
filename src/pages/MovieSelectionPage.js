@@ -43,7 +43,7 @@ const movies= {
       directors: 'Anthony Russo, Joe Russo',
       cast: 'Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth, Scarlett Johansson...',
       ratings: 'PG-13 (Intense Sci-Fi Action / Violence | A Mild Drug Reference)',
-      image: "/images/avengers.jpg"
+      image: "./images/avengers.jpg"
     },
     "Godzilla" : {
         title: "Godzilla",
@@ -52,7 +52,7 @@ const movies= {
         directors: 'Gareth Edwards',
         cast: 'Aaron Taylor-Johnson, Ken Watanabe, Elizabeth Olsen, Juliette Binoche, Sally Hawkins...',
         ratings: 'PG-13 (Intense Sequence of Destruction | Creature Violence | Mayhem)',
-        image: "/images/godzilla.jpg"
+        image: "./images/godzilla.jpg"
       },
       "Pacific Rim" : {
         title: "Pacific Rim",
@@ -61,7 +61,7 @@ const movies= {
         directors: 'Guillermo del Toro',
         cast: 'Idris Elba, Charlie Hunnam, Rinko Kikuchi , Charlie Day, Ron Perlman...',
         ratings: 'PG-13 (Intense Sci-Fi Action / Violence | Brief Language)',
-        image: "/images/pacific.jpg"
+        image: "./images/pacific.jpg"
       }
 
   }
