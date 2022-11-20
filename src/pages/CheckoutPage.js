@@ -21,6 +21,12 @@ const stateOptions = [
   { key: "bc", text: "BC", value: "British Columbia" },
 ];
 
+const mapImagePath = {
+  "The Avengers": "./images/avengers.jpg",
+  "Godzilla": "./images/godzilla.jpg",
+  "Pacific Rim": "./images/pacific.jpg"
+}
+
 class CheckoutPage extends Component {
   constructor(props) {
     super(props);
@@ -32,6 +38,7 @@ class CheckoutPage extends Component {
       selectedTime: this.props.location.state.selectedTime,
       selectedSeats: this.props.location.state.selectedSeats.sort(),
       experienceType: this.props.location.state.experienceType,
+      imagePath: mapImagePath[this.props.location.state.movieName],
 
       cardNum: "",
       cardHolder: "",
@@ -112,7 +119,7 @@ class CheckoutPage extends Component {
                     alignItems: "center",
                   }}
                 >
-                  <Image src="/images/avengers.jpg" size="medium" />
+                  <Image src={this.state.imagePath} size="medium" />
                   <Container className="description">
                     <Grid columns={2}>
                       <Grid.Row>
