@@ -9,9 +9,11 @@ import {
   Input,
   Image,
   Select,
+  Icon,
   Dropdown,
   Segment,
   Divider,
+  GridColumn,
 } from "semantic-ui-react";
 
 const stateOptions = [
@@ -39,6 +41,9 @@ class CheckoutPage extends Component {
       selectedSeats: this.props.location.state.selectedSeats.sort(),
       experienceType: this.props.location.state.experienceType,
       imagePath: mapImagePath[this.props.location.state.movieName],
+      adultCount: this.props.location.state.adultCount,
+      childrenCount: this.props.location.state.childrenCount,
+      seniorCount: this.props.location.state.seniorCount,
 
       cardNum: "",
       cardHolder: "",
@@ -111,48 +116,94 @@ class CheckoutPage extends Component {
                   padding: "5vh 20vh 5vh 20vh",
                 }}
               >
-                <h3> Ticket Summary </h3>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                >
-                  <Image src={this.state.imagePath} size="medium" />
-                  <Container className="description">
-                    <Grid columns={2}>
+                 <h3> Ticket Summary </h3>
+
+                 
+                  
+                  <Grid columns={2}>
+                    <Grid.Row>
+                    <Grid.Column>
+                      <Image src={this.state.imagePath} size="small" />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <div style={{
+                        height: "100%",
+                        display:"flex",
+                        flexDirection: "column",
+                        justifyContent: "space-between"
+                      }}>
                       <Grid.Row>
-                        <Grid.Column>
-                          <Container textAlign="left">
-                            <h4>Movie Name</h4>
-                            <p> {this.state.movieName} ( {this.state.experienceType} ) </p>
-                          </Container>
-                        </Grid.Column>
-                        <Grid.Column>
-                          <Container textAlign="right">
-                            <h4>Datetime</h4>
-                            <p> {this.state.selectedTime} - {this.state.selectedDate.slice(0, -6)}</p>
-                          </Container>
-                        </Grid.Column>
+                        <Container textAlign="right">
+                          <h4>Movie Name</h4>
+                          <p> {this.state.movieName} </p>
+                        </Container>
                       </Grid.Row>
                       <Grid.Row>
-                        <Grid.Column>
-                          <Container textAlign="left">
+                      <Container textAlign="right">
+                          <h4>Datetime</h4>
+                          <p> {this.state.selectedTime} - {this.state.selectedDate.slice(0, -6)}</p>
+                        </Container>
+                      </Grid.Row>
+                      <Grid.Row>
+                      <Container textAlign="right">
+                          <h4>Location</h4>
+                          <p> {this.state.cinemaLocation}</p>
+                        </Container>
+                      </Grid.Row>
+                      </div>
+                    </Grid.Column> 
+                    </Grid.Row>
+                    <Grid.Row>
+                      <Grid.Column textAlign="left">
                             <h4>Seat Selected</h4>
                             <span>{this.state.selectedSeats.join(', ')}</span>
-                          </Container>
-                        </Grid.Column>
-                        <Grid.Column>
-                          <Container textAlign="right">
-                            <h4>Location</h4>
-                            <p> {this.state.cinemaLocation} </p>
-                          </Container>
-                        </Grid.Column>
-                      </Grid.Row>
-                    </Grid>
-                  </Container>
-                </div>
+                      </Grid.Column>
+                      <Grid.Column textAlign="right">
+                              <h4>Experience Type</h4>
+                              <p> {this.state.experienceType} </p>
+                      </Grid.Column>
+                    </Grid.Row>
+                  </Grid>
+
+                  <Divider />
+                  <h4> Your Order </h4>
+                  <Grid divided="vertically" columns={2}>
+                    <Grid.Row>
+                      <Grid.Column>
+                        <div className="items">
+                          <Icon name='male'></Icon>
+                          <span> Adult Tickets x {this.state.adultCount} </span>
+                        </div>
+                        <div className="items">
+                          <Icon name='child'></Icon>
+                          <span> Children Tickets x {this.state.childrenCount} </span>
+                        </div>
+                        <div className="items">
+                          <Icon name='wheelchair'></Icon>
+                          <span> Senior Tickets x {this.state.seniorCount} </span>
+                        </div>
+                      </Grid.Column>
+                      <Grid.Column textAlign="right">
+                        <div>
+                          <span> $ {this.state.adultCount * 10} </span>
+                        </div>
+                        <div>
+                          <span> $ {this.state.childrenCount * 6.5} </span>
+                        </div>
+                        <div>
+                          <span> $ {this.state.seniorCount * 8.5} </span>
+                        </div>       
+                      </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                      <Grid.Column>
+                        <span> Subtotal </span>
+                      </Grid.Column>
+                      <Grid.Column textAlign="right">
+                        <span> $ {this.state.adultCount * 10 + this.state.childrenCount * 6.5 + this.state.seniorCount * 8.5} </span>
+                      </Grid.Column>
+                    </Grid.Row>
+                  </Grid>
               </Container>
             </Grid.Column>
             <Grid.Column>
