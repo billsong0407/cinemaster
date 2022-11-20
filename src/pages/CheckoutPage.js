@@ -38,9 +38,8 @@ class CheckoutPage extends Component {
       cvv: "",
       email: "",
       street: "",
-      state: "",
+      province: "",
       postalCode: "",
-
       disableSubmit: true
     };
   }
@@ -49,60 +48,46 @@ class CheckoutPage extends Component {
     this.setState({
       cardNum: data.value
     })
-    this.checkIfAllComplete(data.value, this.state.cardHolder, this.state.cvv, this.state.email, this.state.street, this.state.state, this.state.postalCode)
   }
 
   handleCardHolder = (e, data) => {
     this.setState({
       cardHolder: data.value
     })
-    this.checkIfAllComplete(this.state.cardNum, data.value, this.state.cvv, this.state.email, this.state.street, this.state.state, this.state.postalCode)
   }
 
   handleEmail = (e, data) => {
     this.setState({
       email: data.value
     })
-    this.checkIfAllComplete(this.state.cardNum,this.state.cardHolder, this.state.cvv, data.value, this.state.street, this.state.state, this.state.postalCode)
   }
 
   handleCVV = (e, data) => {
     this.setState({
       cvv: data.value
     })
-    this.checkIfAllComplete(this.state.cardNum, this.state.cardHolder, data.value, this.state.email, this.state.street, this.state.state, this.state.postalCode)
   }
 
   handleStreet = (e, data) => {
     this.setState({
       street: data.value
     })
-    this.checkIfAllComplete(this.state.cardNum, this.state.cardHolder, this.state.cvv, this.state.email, data.value, this.state.state, this.state.postalCode)
   }
 
   handlePost = (e, data) => {
     this.setState({
       postalCode: data.value
     })
-    this.checkIfAllComplete(this.state.cardNum, this.state.cardHolder, this.state.cvv, this.state.email, this.state.street, this.state.state, data.value)
   }
 
   handleState = (e, data) => {
     this.setState({
       province: data.value
     })
-    console.log(data.value)
-    this.checkIfAllComplete(this.state.cardNum, this.state.cardHolder, this.state.cvv, this.state.email, this.state.street, data.value, this.state.postalCode)
   }
 
-
-  checkIfAllComplete(cardHolder, cardNum, cvv, email, street, state, postalCode) {
-    console.log(cardHolder, cardNum, cvv, email, street, state, postalCode)
-    if (cardHolder && cardNum && cvv && email && street && state && postalCode){
-      this.setState({
-        disableSubmit: false
-      })
-    } 
+  processPayment = () => {
+    console.log("pressed");
   }
 
   render() {
@@ -254,7 +239,15 @@ class CheckoutPage extends Component {
                   </Form.Group>
                 </Form>
                 <Container textAlign="center">
-                  <Button disabled={this.state.disableSubmit} type="submit">Proceed Payment</Button>
+                  <Button inverted color="green" disabled={
+                    this.state.cardHolder === "" ||
+                    this.state.cardNum === "" || 
+                    this.state.cvv === "" || 
+                    this.state.email === "" || 
+                    this.state.street === "" || 
+                    this.state.province ==="" || 
+                    this.state.postalCode === ""
+                  } type="submit" onClick={this.processPayment}>Proceed Payment</Button>
                 </Container>
               </Container>
             </Grid.Column>
