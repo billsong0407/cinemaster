@@ -210,11 +210,11 @@ class CheckoutPage extends Component {
                       <Grid.Column>
                         <div className="items">
                           <Icon name='male'></Icon>
-                          <span> Adult Tickets x {this.state.adultCount} </span>
+                          <span> General Tickets x {this.state.adultCount} </span>
                         </div>
                         <div className="items">
                           <Icon name='child'></Icon>
-                          <span> Children Tickets x {this.state.childrenCount} </span>
+                          <span> Child Tickets x {this.state.childrenCount} </span>
                         </div>
                         <div className="items">
                           <Icon name='wheelchair'></Icon>
