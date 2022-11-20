@@ -8,31 +8,31 @@ const locationOptions = [
         key: '1',
         text: 'North York, Ontario, Canada',
         value: 'North York, Ontario, Canada',
-        image: {avatar: true, src: "/images/location.png"},
+        image: {avatar: true, src: "./images/location.png"},
     },
     {
         key: '2',
         text: 'Toronto, Ontario, Canada',
         value: 'Toronto, Ontario, Canada',
-        image: {avatar: true, src: "/images/location.png"},
+        image: {avatar: true, src: "./images/location.png"},
     },
     {
         key: '3',
         text: 'Markham, Ontario, Canada',
         value: 'Markham, Ontario, Canada',
-        image: {avatar: true, src: "/images/location.png"},
+        image: {avatar: true, src: "./images/location.png"},
     },
     {
         key: '4',
         text: 'Hamilton, Ontario, Canada',
         value: 'Hamilton, Ontario, Canada',
-        image: {avatar: true, src: "/images/location.png"},
+        image: {avatar: true, src: "./images/location.png"},
     },
     {
         key: '5',
         text: 'Vancouver, British Columbia, Canada',
         value: 'Vancouver, British Columbia, Canada',
-        image: {avatar: true, src: "/images/location.png"},
+        image: {avatar: true, src: "./images/location.png"},
     },
 ]
 
