@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import '../css/home.css';
+import background from "../images/cinema.jpg";
 import { Dropdown, Button, Segment, Container, Icon } from 'semantic-ui-react';
 
 const locationOptions = [
@@ -58,7 +59,7 @@ class HomePage extends Component {
     render() {
         return (
         <>
-        <Container fluid className="homeContainer">
+        <Container fluid className="homeContainer" style={{backgroundImage: `url(${background})`}}>
             <h1 className='title'>Cinemaster</h1>
             <Container className='pick-container'>
                 <Segment raised style={{background: `none`}}>
