@@ -232,16 +232,6 @@ class CheckoutPage extends Component {
                         search
                         onChange={this.handleState}
                       />
-
-                      {/* <Form.Field
-                        control={Select}
-                        options={stateOptions}
-                        required={true}
-                        label='State'
-                        placeholder="State"
-                        search
-
-                      /> */}
                     </Container>
                   </Form.Group>
                 </Form>
