@@ -13,7 +13,8 @@ import {
   Dropdown,
   Segment,
   Divider,
-  GridColumn,
+  Confirm,
+  Modal
 } from "semantic-ui-react";
 
 const stateOptions = [
@@ -33,17 +34,38 @@ class CheckoutPage extends Component {
   constructor(props) {
     super(props);
     // console.log(this.props.location.state);
+    // this.state = {
+    //   movieName: this.props.location.state.movieName,
+    //   cinemaLocation: this.props.location.state.cinemaLocation,
+    //   selectedDate: this.props.location.state.selectedDate,
+    //   selectedTime: this.props.location.state.selectedTime,
+    //   selectedSeats: this.props.location.state.selectedSeats.sort(),
+    //   experienceType: this.props.location.state.experienceType,
+    //   imagePath: mapImagePath[this.props.location.state.movieName],
+    //   adultCount: this.props.location.state.adultCount,
+    //   childrenCount: this.props.location.state.childrenCount,
+    //   seniorCount: this.props.location.state.seniorCount,
+
+    //   cardNum: "",
+    //   cardHolder: "",
+    //   cvv: "",
+    //   email: "",
+    //   street: "",
+    //   province: "",
+    //   postalCode: "",
+    //   complete: false
+    // };
     this.state = {
-      movieName: this.props.location.state.movieName,
-      cinemaLocation: this.props.location.state.cinemaLocation,
-      selectedDate: this.props.location.state.selectedDate,
-      selectedTime: this.props.location.state.selectedTime,
-      selectedSeats: this.props.location.state.selectedSeats.sort(),
-      experienceType: this.props.location.state.experienceType,
-      imagePath: mapImagePath[this.props.location.state.movieName],
-      adultCount: this.props.location.state.adultCount,
-      childrenCount: this.props.location.state.childrenCount,
-      seniorCount: this.props.location.state.seniorCount,
+      movieName: 'Pacific',
+      cinemaLocation: 'Toronto',
+      selectedDate: 'Toronto',
+      selectedTime: 'Toronto',
+      selectedSeats: ['Toronto'],
+      experienceType: 'Toronto',
+      imagePath: './images/pacific.jpg',
+      adultCount: 'Toronto',
+      childrenCount: 'Toronto',
+      seniorCount: 'Toronto',
 
       cardNum: "",
       cardHolder: "",
@@ -52,7 +74,7 @@ class CheckoutPage extends Component {
       street: "",
       province: "",
       postalCode: "",
-      disableSubmit: true
+      complete: false
     };
   }
 
@@ -99,12 +121,33 @@ class CheckoutPage extends Component {
   }
 
   processPayment = () => {
-    console.log("pressed");
+    this.setState({
+      complete: true
+    })
   }
 
   render() {
     return (
       <>
+      <Modal
+          className="confirmation"
+          open={this.state.complete}
+          content='Transaction complete, thanks for ordering!'
+          // onCancel={this.handleCancel}
+          // onConfirm={this.handleConfirm}
+        >
+          <Modal.Description
+            style={{
+              padding: "3vh 3vh 3vh 3vh"
+            }}>
+            <h3 style={{
+              color: "rgb(23, 61, 33)"
+            }}> Transaction Complete </h3>
+            <span style={{
+              color: "rgb(11, 82, 29)"
+            }}> Thanks for ordering at cinemaster! Please make sure to arrive 15 mintues early to check in. </span>
+          </Modal.Description>
+        </Modal>
       <BrandHeader cinemaLocation={this.state.cinemaLocation}></BrandHeader>
       <div className="checkout">
         <Segment raised padded>
@@ -117,9 +160,6 @@ class CheckoutPage extends Component {
                 }}
               >
                  <h3> Ticket Summary </h3>
-
-                 
-                  
                   <Grid columns={2}>
                     <Grid.Row>
                     <Grid.Column>
