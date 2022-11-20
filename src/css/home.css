@@ -4,6 +4,7 @@
     background-size: cover;
     /* background-image: url(/images/cinema.jpg); */
     min-height: calc(100vh);
+    margin-left: 0px !important;
 }
 
 .title{
@@ -28,4 +29,28 @@
     margin-left: 3px !important;
     font-size: large !important;
     height: 50px;
+}
+
+@media (max-width: 767px) {
+    .title{
+        padding-top: 30%;
+        font-size: 60px;
+    }
+    .ui.container {
+        width: auto!important;
+        margin-left: 0em!important;
+        margin-right: 0em!important;
+    }
+}
+
+@media (max-width: 550px) {
+    .title{
+        padding-top: 60%;
+        font-size: 40px;
+    }
+    .ui.container {
+        width: auto!important;
+        margin-left: 0em!important;
+        margin-right: 0em!important;
+    }
 }
