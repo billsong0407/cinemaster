@@ -185,13 +185,13 @@ class CheckoutPage extends Component {
                       </Grid.Column>
                       <Grid.Column textAlign="right">
                         <div>
-                          <span> $ {this.state.adultCount * 10} </span>
+                          <span> $ {this.state.adultCount * 14} </span>
                         </div>
                         <div>
-                          <span> $ {this.state.childrenCount * 6.5} </span>
+                          <span> $ {this.state.childrenCount * 11} </span>
                         </div>
                         <div>
-                          <span> $ {this.state.seniorCount * 8.5} </span>
+                          <span> $ {this.state.seniorCount * 11} </span>
                         </div>       
                       </Grid.Column>
                     </Grid.Row>
@@ -200,7 +200,7 @@ class CheckoutPage extends Component {
                         <span> Subtotal </span>
                       </Grid.Column>
                       <Grid.Column textAlign="right">
-                        <span> $ {this.state.adultCount * 10 + this.state.childrenCount * 6.5 + this.state.seniorCount * 8.5} </span>
+                        <span> $ {this.state.adultCount * 14 + this.state.childrenCount * 11 + this.state.seniorCount * 11} </span>
                       </Grid.Column>
                     </Grid.Row>
                   </Grid>
