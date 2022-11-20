@@ -197,7 +197,7 @@ class CheckoutPage extends Component {
                     </Grid.Row>
                     <Grid.Row>
                       <Grid.Column>
-                        <span> Subtotal </span>
+                        <span> Total </span>
                       </Grid.Column>
                       <Grid.Column textAlign="right">
                         <span> $ {this.state.adultCount * 14 + this.state.childrenCount * 11 + this.state.seniorCount * 11} </span>
