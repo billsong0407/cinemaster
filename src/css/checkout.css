@@ -1,8 +1,25 @@
 .checkout {
-    padding: 0em 6em 6em 6em;
+    padding: 0em 6em 6em 6em !important;
     background-color: #323333;
-    min-height: calc(100vh);
+    min-height: calc(100vh) !important;
 }
+
+@media (max-width: 1030px) {
+    .checkout {
+        padding: 0em 3em 3em 3em !important;
+        background-color: #323333;
+        min-height: calc(100vh) !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .checkout {
+        padding: 0em 1em 1em 1em !important;
+        background-color: #323333;
+        min-height: calc(100vh) !important;
+    }
+}
+
 
 .summary{
     background-color: #ede6e6;

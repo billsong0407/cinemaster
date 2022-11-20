@@ -34,38 +34,17 @@ class CheckoutPage extends Component {
   constructor(props) {
     super(props);
     // console.log(this.props.location.state);
-    // this.state = {
-    //   movieName: this.props.location.state.movieName,
-    //   cinemaLocation: this.props.location.state.cinemaLocation,
-    //   selectedDate: this.props.location.state.selectedDate,
-    //   selectedTime: this.props.location.state.selectedTime,
-    //   selectedSeats: this.props.location.state.selectedSeats.sort(),
-    //   experienceType: this.props.location.state.experienceType,
-    //   imagePath: mapImagePath[this.props.location.state.movieName],
-    //   adultCount: this.props.location.state.adultCount,
-    //   childrenCount: this.props.location.state.childrenCount,
-    //   seniorCount: this.props.location.state.seniorCount,
-
-    //   cardNum: "",
-    //   cardHolder: "",
-    //   cvv: "",
-    //   email: "",
-    //   street: "",
-    //   province: "",
-    //   postalCode: "",
-    //   complete: false
-    // };
     this.state = {
-      movieName: 'Pacific',
-      cinemaLocation: 'Toronto',
-      selectedDate: 'Toronto',
-      selectedTime: 'Toronto',
-      selectedSeats: ['Toronto'],
-      experienceType: 'Toronto',
-      imagePath: './images/pacific.jpg',
-      adultCount: 'Toronto',
-      childrenCount: 'Toronto',
-      seniorCount: 'Toronto',
+      movieName: this.props.location.state.movieName,
+      cinemaLocation: this.props.location.state.cinemaLocation,
+      selectedDate: this.props.location.state.selectedDate,
+      selectedTime: this.props.location.state.selectedTime,
+      selectedSeats: this.props.location.state.selectedSeats.sort(),
+      experienceType: this.props.location.state.experienceType,
+      imagePath: mapImagePath[this.props.location.state.movieName],
+      adultCount: this.props.location.state.adultCount,
+      childrenCount: this.props.location.state.childrenCount,
+      seniorCount: this.props.location.state.seniorCount,
 
       cardNum: "",
       cardHolder: "",
@@ -76,6 +55,27 @@ class CheckoutPage extends Component {
       postalCode: "",
       complete: false
     };
+    // this.state = {
+    //   movieName: 'Pacific',
+    //   cinemaLocation: 'Toronto',
+    //   selectedDate: 'Toronto',
+    //   selectedTime: 'Toronto',
+    //   selectedSeats: ['Toronto'],
+    //   experienceType: 'Toronto',
+    //   imagePath: './images/pacific.jpg',
+    //   adultCount: 'Toronto',
+    //   childrenCount: 'Toronto',
+    //   seniorCount: 'Toronto',
+
+    //   cardNum: "",
+    //   cardHolder: "",
+    //   cvv: "",
+    //   email: "",
+    //   street: "",
+    //   province: "",
+    //   postalCode: "",
+    //   complete: false
+    // };
   }
 
   handleCardNum = (e, data) => {
@@ -133,8 +133,6 @@ class CheckoutPage extends Component {
           className="confirmation"
           open={this.state.complete}
           content='Transaction complete, thanks for ordering!'
-          // onCancel={this.handleCancel}
-          // onConfirm={this.handleConfirm}
         >
           <Modal.Description
             style={{
