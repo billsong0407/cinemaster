@@ -149,13 +149,11 @@ class CheckoutPage extends Component {
       <BrandHeader cinemaLocation={this.state.cinemaLocation}></BrandHeader>
       <div className="checkout">
         <Segment raised padded>
-          <Grid columns={2}>
+          <Grid columns={2} stackable>
             <Grid.Column className="summary">
               <Container
                 textAlign="left"
-                style={{
-                  padding: "5vh 20vh 5vh 20vh",
-                }}
+                className="summary-container"
               >
                  <h3> Ticket Summary </h3>
                   <Grid columns={2}>
@@ -247,9 +245,10 @@ class CheckoutPage extends Component {
             <Grid.Column>
               <Container
                 textAlign="left"
-                style={{
-                  padding: "5vh 15vh 5vh 15vh",
-                }}
+                className="form-container"
+                // style={{
+                //   padding: "5vh 15vh 5vh 15vh",
+                // }}
               >
                 <h3> Payment Info </h3>
                 <Form className="form">
@@ -288,40 +287,42 @@ class CheckoutPage extends Component {
                       display: "block",
                     }}
                   >
-                    <label>Billing Address</label>
-                    <Form.Field
-                      control={Input}
-                      label="Street"
-                      placeholder="Street"
-                      required={true}
-                      width={16}
-                      onChange={this.handleStreet}
-                    />
-                    <Container
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "left",
-                        width: "100%",
-                      }}
-                    >
-                      <Form.Input
-                        label="Postal Code"
-                        placeholder="XXX XXX"
-                        required={true}
-                        width={6}
-                        onChange={this.handlePost}
-                      />
-
-                      <Form.Select
-                        options={stateOptions}
-                        required={true}
-                        label='State'
-                        placeholder="State"
-                        search
-                        onChange={this.handleState}
-                      />
-                    </Container>
+                    <label style={{fontWeight: 'bold'}}>Billing Address</label>
+                    <Grid stackable>
+                      <Grid.Row>
+                        <Grid.Column>
+                          <Form.Field
+                            control={Input}
+                            label="Street Address"
+                            placeholder="Street Address"
+                            required={true}
+                            width={16}
+                            onChange={this.handleStreet}
+                          />
+                        </Grid.Column>
+                      </Grid.Row>
+                      <Grid.Row columns={2}>
+                        <Grid.Column>
+                          <Form.Input
+                            label="Postal Code"
+                            placeholder="XXX XXX"
+                            required={true}
+                            // width={6}
+                            onChange={this.handlePost}
+                          />
+                        </Grid.Column>
+                        <Grid.Column>
+                           <Form.Select
+                            options={stateOptions}
+                            required={true}
+                            label='State'
+                            placeholder="State"
+                            search
+                            onChange={this.handleState}
+                          />
+                        </Grid.Column>
+                      </Grid.Row>
+                    </Grid>
                   </Form.Group>
                 </Form>
                 <Container textAlign="center">
